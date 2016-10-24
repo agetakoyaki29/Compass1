@@ -1,9 +1,6 @@
 package main;
 
 import gui.CanvasPageController;
-
-import java.util.Optional;
-
 import screenTransition.Launcher;
 import screenTransition.PageController;
 
@@ -23,8 +20,8 @@ public class MainApp extends Launcher{
 	 * インスタンスを取得するよ。
 	 * @return GUILauncherのインスタンス。
 	 */
-	public static Optional<Launcher> getInstance(){
-		return Optional.ofNullable(instance);
+	public static Launcher getInstance(){
+		return instance;
 	}
 
 	private final String initTitle = "たいとる";
@@ -42,11 +39,6 @@ public class MainApp extends Launcher{
 	@Override
 	public Class<? extends PageController> getFirstPage() {
 		return START_PAGE;
-	}
-
-	public static void MovePage(Class<? extends PageController> clazz) {
-		if(! getInstance().isPresent()) return;
-		getInstance().get().movePage(clazz);
 	}
 
 }

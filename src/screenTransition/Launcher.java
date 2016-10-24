@@ -13,6 +13,7 @@ public abstract class Launcher extends Application {
 
 	private Stage stage = null;
 	private String title = "たいとる";
+	private PageController pageCtrl;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -35,7 +36,7 @@ public abstract class Launcher extends Application {
 	 * @param clazz 移動先のクラス
 	 * @return 移動先の初期化されたコントローラのインスタンス
 	 */
-	public PageController movePage(Class<? extends PageController> clazz) {
+	public void movePage(Class<? extends PageController> clazz) {
 		// load
 		FXMLLoader loader = getFXMLLoader(clazz).get();
 		PageController ctrl = loader.getController();
@@ -47,7 +48,7 @@ public abstract class Launcher extends Application {
 		// init controller
 		ctrl.init();
 
-		return ctrl;
+		pageCtrl = ctrl;
 	}
 
 	public final void setTitle(String title) {
@@ -65,6 +66,8 @@ public abstract class Launcher extends Application {
 		//return Optional.ofNullable(stage);
 		return stage;
 	}
+
+	public final PageController getPageController() { return pageCtrl; }
 
 	// ---- abstract ----
 
