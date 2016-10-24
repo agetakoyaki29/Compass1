@@ -1,6 +1,6 @@
 package main;
 
-import gui.Test2Controller;
+import gui.CanvasPageController;
 
 import java.util.Optional;
 
@@ -27,17 +27,17 @@ public class MainApp extends Launcher{
 		return Optional.ofNullable(instance);
 	}
 
-	private final String title = "たいとる";
+	private final String initTitle = "たいとる";
 
 	@Override
-	public String getTitle() {
-		return title;
+	public String getInitTitle() {
+		return initTitle;
 	}
 
 	/**
 	 * 初期Page
 	 */
-	private final Class<? extends PageController> START_PAGE = Test2Controller.class;
+	private final Class<? extends PageController> START_PAGE = CanvasPageController.class;
 
 	@Override
 	public Class<? extends PageController> getFirstPage() {

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.canvas.*?>
+
+<BorderPane minHeight="800.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CanvasPageController">
+   <center>
+      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <content>
+            <Circle fill="WHITE" radius="300.0" stroke="BLACK" strokeType="INSIDE" />
+         </content>
+      </ScrollPane>
+   </center>
+   <top>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <Pane fx:id="act" prefHeight="25.0" />
+         </children>
+      </VBox>
+   </top>
+   <bottom>
+      <Pane fx:id="status" prefHeight="25.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <right>
+      <Pane fx:id="properties" minWidth="200.0" BorderPane.alignment="CENTER" />
+   </right>
+   <left>
+      <Pane fx:id="tool" minWidth="100.0" BorderPane.alignment="CENTER" />
+   </left>
+</BorderPane>

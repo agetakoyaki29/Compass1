@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 public abstract class Launcher extends Application {
 
 	private Stage stage = null;
+	private String title = "たいとる";
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -22,7 +23,7 @@ public abstract class Launcher extends Application {
 		stage = primaryStage;
 
 		// init stage
-		stage.setTitle(getTitle());
+		setTitle(getInitTitle());
 
 		// 初期画面move
 		movePage(getFirstPage());
@@ -44,13 +45,25 @@ public abstract class Launcher extends Application {
 		ctrl.init();
 
 		// set gui
-		getStage().get().setScene(scene);
+		getStage().setScene(scene);
 
 		return ctrl;
 	}
 
-	protected final Optional<Stage> getStage() {
-		return Optional.ofNullable(stage);
+	public final void setTitle(String title) {
+		if(stage == null) return;
+
+		this.title = title;
+		stage.setTitle(title);
+	}
+
+	public final String getTitle() {
+		return title;
+	}
+
+	public final Stage getStage() {
+		//return Optional.ofNullable(stage);
+		return stage;
 	}
 
 	// ---- abstract ----
@@ -60,9 +73,9 @@ public abstract class Launcher extends Application {
 	 */
 	protected abstract void setInstance(Launcher me);
 
-	public abstract String getTitle();
-
 	public abstract Class<? extends PageController> getFirstPage();
+
+	public abstract String getInitTitle();
 
 	// ---- private ----
 
