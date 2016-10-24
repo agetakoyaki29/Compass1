@@ -8,9 +8,9 @@
 
 <BorderPane minHeight="800.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CanvasPageController">
    <center>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <ScrollPane fx:id="cover" BorderPane.alignment="CENTER">
          <content>
-            <Circle fill="WHITE" radius="300.0" stroke="BLACK" strokeType="INSIDE" />
+            <Canvas fx:id="canvas" height="200.0" width="200.0" />
          </content>
       </ScrollPane>
    </center>
@@ -47,6 +47,11 @@
       <Pane fx:id="properties" minWidth="200.0" BorderPane.alignment="CENTER" />
    </right>
    <left>
-      <Pane fx:id="tool" minWidth="100.0" BorderPane.alignment="CENTER" />
+      <Pane fx:id="tool" minWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="button1" mnemonicParsing="false" text="Button1" />
+            <Button fx:id="button2" layoutY="44.0" mnemonicParsing="false" text="Button2" />
+            <Button fx:id="button3" layoutY="95.0" mnemonicParsing="false" text="Button3" />
+         </children></Pane>
    </left>
 </BorderPane>

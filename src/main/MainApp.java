@@ -44,4 +44,9 @@ public class MainApp extends Launcher{
 		return START_PAGE;
 	}
 
+	public static void MovePage(Class<? extends PageController> clazz) {
+		if(! getInstance().isPresent()) return;
+		getInstance().get().movePage(clazz);
+	}
+
 }

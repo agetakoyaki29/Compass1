@@ -25,10 +25,10 @@ public abstract class Launcher extends Application {
 		// init stage
 		setTitle(getInitTitle());
 
+		stage.show();
+
 		// 初期画面move
 		movePage(getFirstPage());
-
-		stage.show();
 	}
 
 	/**
@@ -38,14 +38,14 @@ public abstract class Launcher extends Application {
 	public PageController movePage(Class<? extends PageController> clazz) {
 		// load
 		FXMLLoader loader = getFXMLLoader(clazz).get();
-		PageController ctrl = getPageController(loader).get();
+		PageController ctrl = loader.getController();
 		Scene scene = new Scene( loader.getRoot() );
+
+		// set gui
+		stage.setScene(scene);
 
 		// init controller
 		ctrl.init();
-
-		// set gui
-		getStage().setScene(scene);
 
 		return ctrl;
 	}
@@ -90,7 +90,7 @@ public abstract class Launcher extends Application {
 	 * @param clazz Controllerの実装クラス
 	 * @return 読み込み失敗時null
 	 */
-	private Optional<FXMLLoader> getFXMLLoader(Class<? extends Controller> clazz) {
+	public static Optional<FXMLLoader> getFXMLLoader(Class<? extends Controller> clazz) {
 		String fxml = getFXMLFileName(clazz);
 
 		FXMLLoader loader = new FXMLLoader( clazz.getResource(fxml) );
@@ -109,15 +109,10 @@ public abstract class Launcher extends Application {
 	 * 命名則を前提としている。
 	 * @param clazz Controllerの実装クラス
 	 */
-	private String getFXMLFileName(Class<? extends Controller> clazz) {
+	private static String getFXMLFileName(Class<? extends Controller> clazz) {
 		String str = clazz.getSimpleName();
 		int last = str.lastIndexOf("Controller");
 		return str.substring(0, last).concat(".fxml");
-	}
-
-	private Optional<PageController> getPageController(FXMLLoader loader) {
-		PageController ctrl = loader.getController();
-		return Optional.ofNullable(ctrl);
 	}
 
 }
