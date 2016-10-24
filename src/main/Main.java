@@ -1,6 +1,5 @@
 package main;
 
-import gui.MainApp;
 import javafx.application.Application;
 
 
