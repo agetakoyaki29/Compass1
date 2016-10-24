@@ -1,6 +1,6 @@
 package main;
 
-import gui.CanvasPageController;
+import gui.canvasPage.CanvasPageController;
 import screenTransition.Launcher;
 import screenTransition.PageController;
 

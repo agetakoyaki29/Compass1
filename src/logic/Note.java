@@ -42,7 +42,7 @@ public class Note {
 
 	private void fillWhole() {
 		Canvas canvas = gc.getCanvas();
-		gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 	}
 
 }
