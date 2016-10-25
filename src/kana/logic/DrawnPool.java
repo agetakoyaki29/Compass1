@@ -1,4 +1,4 @@
-package logic;
+package kana.logic;
 
 public class DrawnPool {
 

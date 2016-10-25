@@ -1,4 +1,4 @@
-package screenTransition;
+package kana.screenTransition;
 
 import java.io.IOException;
 import java.util.Optional;

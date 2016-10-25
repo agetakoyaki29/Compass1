@@ -1,4 +1,4 @@
-package screenTransition;
+package kana.screenTransition;
 
 /**
  * JFXのコントローラが実装すべきインターフェース。

@@ -1,14 +1,14 @@
-package logic;
+package kana.logic;
 
 import java.util.ArrayList;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import logic.drawn.Cercle;
-import logic.drawn.Drawn;
-import logic.drawn.Line;
-import logic.drawn.Point;
+import kana.logic.drawn.Cercle;
+import kana.logic.drawn.Drawn;
+import kana.logic.drawn.Line;
+import kana.logic.drawn.Point;
 
 
 public class Note {

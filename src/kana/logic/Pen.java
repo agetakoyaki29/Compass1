@@ -1,4 +1,4 @@
-package logic;
+package kana.logic;
 
 import javafx.scene.image.PixelWriter;
 

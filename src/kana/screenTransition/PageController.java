@@ -1,4 +1,4 @@
-package screenTransition;
+package kana.screenTransition;
 
 /**
  * 一つのPageに対応するController.

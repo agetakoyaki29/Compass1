@@ -1,4 +1,4 @@
-package logic.drawn;
+package kana.logic.drawn;
 
 import javafx.scene.canvas.GraphicsContext;
 

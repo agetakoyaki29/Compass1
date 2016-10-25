@@ -1,8 +1,8 @@
-package main;
+package kana.main;
 
-import gui.canvasPage.CanvasPageController;
-import screenTransition.Launcher;
-import screenTransition.PageController;
+import kana.gui.canvasPage.CanvasPageController;
+import kana.screenTransition.Launcher;
+import kana.screenTransition.PageController;
 
 public class MainApp extends Launcher{
 

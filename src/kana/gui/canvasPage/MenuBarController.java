@@ -1,8 +1,8 @@
-package gui.canvasPage;
+package kana.gui.canvasPage;
 
 import javafx.fxml.FXMLLoader;
-import screenTransition.Controller;
-import screenTransition.Launcher;
+import kana.screenTransition.Controller;
+import kana.screenTransition.Launcher;
 
 public class MenuBarController implements Controller {
 

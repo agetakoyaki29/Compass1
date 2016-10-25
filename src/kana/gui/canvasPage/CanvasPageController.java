@@ -1,4 +1,4 @@
-package gui.canvasPage;
+package kana.gui.canvasPage;
 
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -7,10 +7,10 @@ import javafx.scene.control.Button;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
-import logic.ActionSenter;
-import logic.Note;
-import main.MainApp;
-import screenTransition.PageController;
+import kana.logic.ActionSenter;
+import kana.logic.Note;
+import kana.main.MainApp;
+import kana.screenTransition.PageController;
 
 
 public class CanvasPageController implements PageController {

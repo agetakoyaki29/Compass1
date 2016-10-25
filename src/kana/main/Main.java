@@ -1,4 +1,4 @@
-package main;
+package kana.main;
 
 import javafx.application.Application;
 
