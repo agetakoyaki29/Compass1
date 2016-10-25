@@ -5,19 +5,19 @@ import java.util.ArrayList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import kana.logic.drawn.Cercle;
-import kana.logic.drawn.Drawn;
-import kana.logic.drawn.Line;
-import kana.logic.drawn.Point;
+import kana.logic.drawns.Cercle;
+import kana.logic.drawns.Drawn;
+import kana.logic.drawns.Line;
+import kana.logic.drawns.Point;
 
 
-public class Note {
+public class Paper {
 
 	private GraphicsContext gc;
 
-	private ArrayList<Drawn> drawns = new ArrayList<Drawn>();
+	private DrawnPool pool = new DrawnPool();
 
-	public Note(GraphicsContext gc) {
+	public Paper(GraphicsContext gc) {
 		this.gc = gc;
 
 		gc.setFill(Color.WHITE);
@@ -25,15 +25,15 @@ public class Note {
 		gc.setLineWidth(1);
 		fillWhole();
 
-		// for test
-		drawns.add(new Line(new Point(10, 12), new Point(44, 51)));
-		drawns.add(new Cercle(((Line)drawns.get(0)).pt2, 33));
+		// TODO for test
+		pool.add(new Line(new Point(10, 12), new Point(44, 51)));
+		pool.add(new Cercle(new ArrayList<Point>(pool.getPoints()).get(1), 33));
 	}
 
 	public void repaint() {
 		fillWhole();
 
-		for (Drawn drawn : drawns) {
+		for (Drawn drawn : pool.getDrawn()) {
 			drawn.draw(gc);
 		}
 	}

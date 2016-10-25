@@ -1,4 +1,7 @@
-package kana.logic.drawn;
+package kana.logic.drawns;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javafx.scene.canvas.GraphicsContext;
 
@@ -15,6 +18,14 @@ public class Line extends Drawn {
 	@Override
 	public void draw(GraphicsContext gc) {
 		gc.strokeLine(pt1.getX(), pt1.getY(), pt2.getX(), pt2.getY());
+	}
+
+	@Override
+	public Collection<Drawn> getChildren() {
+		ArrayList<Drawn> ret = new ArrayList<>();
+		ret.add(pt1);
+		ret.add(pt2);
+		return ret;
 	}
 
 }

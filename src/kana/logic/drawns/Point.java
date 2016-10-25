@@ -1,4 +1,7 @@
-package kana.logic.drawn;
+package kana.logic.drawns;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javafx.scene.canvas.GraphicsContext;
 
@@ -16,6 +19,11 @@ public class Point extends Drawn {
 
 	@Override
 	public void draw(GraphicsContext gc) {
+	}
+
+	@Override
+	public Collection<Drawn> getChildren() {
+		return new ArrayList<>();
 	}
 
 }

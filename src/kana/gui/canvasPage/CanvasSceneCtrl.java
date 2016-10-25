@@ -5,17 +5,17 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.effect.BlendMode;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import kana.logic.ActionSenter;
-import kana.logic.Note;
+import kana.logic.ActionManager;
+import kana.logic.CanvasListener;
+import kana.logic.Paper;
 import kana.main.MainApp;
 import kana.sceneTransition.SceneCtrl;
 
 
 public class CanvasSceneCtrl extends SceneCtrl {
 
-	@FXML private BorderPane borderPane;
 	@FXML private Canvas canvas;
 	@FXML private Canvas hotCanvas;
 
@@ -23,24 +23,37 @@ public class CanvasSceneCtrl extends SceneCtrl {
 	@FXML private Button button2;
 	@FXML private Button button3;
 
-	private MenuBarCtrl menuBarController;
+	private MenuBarCtrl menuBarCtrl;
 
-	private Note note;
-	private ActionSenter act;	// TODO
+	private CanvasListener listener;
+
+	private Paper paper;
+	private ActionManager manager;	// TODO
 
 	@Override
 	public void init() {
+		// init gui
 		MainApp.getInstance().getStage().setMaximized(true);
 
-		// init gui
-		menuBarController = new MenuBarCtrl(this);
-		borderPane.setTop(menuBarController.getRoot());
+		VBox root = (VBox) getRoot();
+		menuBarCtrl = new MenuBarCtrl(this);
+		root.getChildren().add(0, menuBarCtrl.getRoot());
+
+		canvas.setWidth(800);
+		canvas.setHeight(800);
+		hotCanvas.setWidth(canvas.getWidth());
+		hotCanvas.setHeight(canvas.getHeight());
+
+		listener = new CanvasListener(hotCanvas);
 
 		// init logic
-		note = new Note(canvas.getGraphicsContext2D());
-		note.repaint();
+		paper = new Paper(canvas.getGraphicsContext2D());
+		paper.repaint();
 
-		hotCanvas.setBlendMode(BlendMode.COLOR_BURN);	// TODO 見やすく
+		manager = new ActionManager();
+
+		// TODO for test
+		hotCanvas.setBlendMode(BlendMode.COLOR_BURN);
 		GraphicsContext gc = hotCanvas.getGraphicsContext2D();
 
 		gc.strokeLine(100, 30, 20, 120);
@@ -51,5 +64,9 @@ public class CanvasSceneCtrl extends SceneCtrl {
 		//button1.setOnAction(event -> MainApp.MovePage(CanvasPageController.class));
 		//button2.setOnAction(event -> System.out.println( ((Region)canvas.getParent()).getBorder() ));
 	}
+
+	public MenuBarCtrl getMenuBarCtrl() { return menuBarCtrl; }
+	public Paper getPaper() { return paper; }
+	public ActionManager getActionManager() { return manager; }
 
 }
