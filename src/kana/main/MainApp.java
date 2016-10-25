@@ -1,14 +1,20 @@
 package kana.main;
 
-import kana.gui.canvasPage.CanvasPageController;
-import kana.screenTransition.Launcher;
-import kana.screenTransition.PageController;
+import javafx.stage.Stage;
+import kana.gui.canvasPage.CanvasSceneCtrl;
+import kana.sceneTransition.Launcher;
 
-public class MainApp extends Launcher{
+public final class MainApp extends Launcher{
 
-	/**
-	 * 自分自身
-	 */
+	@Override
+	public void start(Stage primaryStage) {
+		super.start(primaryStage);
+
+		getStage().setTitle("たいとる");
+
+		moveScene(new CanvasSceneCtrl());
+	}
+
 	private static Launcher instance = null;
 
 	@Override
@@ -24,21 +30,7 @@ public class MainApp extends Launcher{
 		return instance;
 	}
 
-	private final String initTitle = "たいとる";
 
-	@Override
-	public String getInitTitle() {
-		return initTitle;
-	}
 
-	/**
-	 * 初期Page
-	 */
-	private final Class<? extends PageController> START_PAGE = CanvasPageController.class;
-
-	@Override
-	public Class<? extends PageController> getFirstPage() {
-		return START_PAGE;
-	}
 
 }

@@ -8,60 +8,22 @@
 <?import java.lang.*?>
 <?import javafx.scene.canvas.*?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kana.gui.canvasPage.MenuBarController">
-   <children>
-      <MenuBar>
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <BorderPane fx:id="borderPane" minHeight="800.0" minWidth="800.0" stylesheets="@CanvasPage.css">
-         <center>
-            <ScrollPane fx:id="cover" style="-fx-border-style: none;" styleClass="region" BorderPane.alignment="CENTER">
-               <content>
-                  <Group>
-                     <children>
-                        <Canvas fx:id="canvas" height="900.0" width="900.0" />
-                        <Canvas fx:id="hotCanvas" height="200.0" layoutX="33.0" layoutY="33.0" width="200.0" />
-                     </children>
-                  </Group>
-               </content>
-            </ScrollPane>
-         </center>
-         <bottom>
-            <Pane fx:id="status" prefHeight="25.0" style="-fx-border-style: solid none none none;" styleClass="region" BorderPane.alignment="CENTER" />
-         </bottom>
-         <right>
-            <Pane fx:id="properties" minWidth="200.0" style="-fx-border-style: none none none solid;" styleClass="region" BorderPane.alignment="CENTER" />
-         </right>
-         <left>
-            <Pane fx:id="tool" minWidth="100.0" style="-fx-border-style: none solid none none;" styleClass="region" BorderPane.alignment="CENTER">
-               <children>
-                  <Button fx:id="button1" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" text="Button1" />
-                  <Button fx:id="button2" layoutX="4.0" layoutY="52.0" mnemonicParsing="false" text="Button2" />
-                  <Button fx:id="button3" layoutX="4.0" layoutY="83.0" mnemonicParsing="false" text="Button3" />
-                  <Button fx:id="buttonLine" layoutX="4.0" layoutY="134.0" mnemonicParsing="false" text="／" />
-                  <Button fx:id="buttonCercle" layoutX="4.0" layoutY="172.0" mnemonicParsing="false" text="〇" />
-               </children>
-            </Pane>
-         </left>
-         <top>
-            <Pane fx:id="act" prefHeight="25.0" style="-fx-border-style: none none solid none;" styleClass="region" BorderPane.alignment="CENTER" />
-         </top>
-      </BorderPane>
-   </children>
-</VBox>
+<MenuBar xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <menus>
+    <Menu mnemonicParsing="false" text="File">
+      <items>
+        <MenuItem fx:id="close" mnemonicParsing="false" text="Close" />
+      </items>
+    </Menu>
+    <Menu mnemonicParsing="false" text="Edit">
+      <items>
+        <MenuItem mnemonicParsing="false" onAction="#delete" text="Delete" />
+      </items>
+    </Menu>
+    <Menu mnemonicParsing="false" text="Help">
+      <items>
+        <MenuItem mnemonicParsing="false" text="About" />
+      </items>
+    </Menu>
+  </menus>
+</MenuBar>

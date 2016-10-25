@@ -10,10 +10,10 @@ import javafx.scene.paint.Color;
 import kana.logic.ActionSenter;
 import kana.logic.Note;
 import kana.main.MainApp;
-import kana.screenTransition.PageController;
+import kana.sceneTransition.SceneCtrl;
 
 
-public class CanvasPageController implements PageController {
+public class CanvasSceneCtrl extends SceneCtrl {
 
 	@FXML private BorderPane borderPane;
 	@FXML private Canvas canvas;
@@ -23,7 +23,7 @@ public class CanvasPageController implements PageController {
 	@FXML private Button button2;
 	@FXML private Button button3;
 
-	private MenuBarController menuBarController;
+	private MenuBarCtrl menuBarController;
 
 	private Note note;
 	private ActionSenter act;	// TODO
@@ -33,7 +33,8 @@ public class CanvasPageController implements PageController {
 		MainApp.getInstance().getStage().setMaximized(true);
 
 		// init gui
-		//menuBarController = new MenuBarController(this);
+		menuBarController = new MenuBarCtrl(this);
+		borderPane.setTop(menuBarController.getRoot());
 
 		// init logic
 		note = new Note(canvas.getGraphicsContext2D());
@@ -41,7 +42,7 @@ public class CanvasPageController implements PageController {
 
 		hotCanvas.setBlendMode(BlendMode.COLOR_BURN);	// TODO 見やすく
 		GraphicsContext gc = hotCanvas.getGraphicsContext2D();
-		System.out.println(gc.getPixelWriter().getPixelFormat().getType());
+
 		gc.strokeLine(100, 30, 20, 120);
 		gc.setFill(new Color(0, 1, 0, 0.1));
 		gc.clearRect(0, 0, 200, 200);
