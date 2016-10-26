@@ -1,27 +1,48 @@
 package kana.logic;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import kana.logic.drawns.Drawn;
-import kana.logic.drawns.Point;
+import kana.drawn.Drawn;
+import kana.drawn.Layer;
+import kana.drawn.Point;
 
 public class DrawnPool {
 
-	private ArrayList<Drawn> list = new ArrayList<Drawn>();
-	private ArrayList<Point> points = new ArrayList<Point>();
+	private ArrayList<Drawn> list = new ArrayList<>();	// TODO 存在価値が謎
+	private HashSet<Point> points = new HashSet<>();
+
+	private final int layerSize = 10;
+	private ArrayList<Layer> layers = new ArrayList<>();
+	private Layer layer;
+
+	public DrawnPool() {
+		for(int i=0; i<layerSize; i++) {
+			Layer layer = new Layer();
+			layer.addParent();
+			layers.add(layer);
+		}
+		this.layer = layers.get(0);
+	}
 
 	public void add(Drawn drawn) {
+		layer.add(drawn);
 		list.add(drawn);
 		points.addAll( drawn.getPoints() );
 	}
 
-	public Collection<Drawn> getDrawn() {
+	public List<Drawn> getList() {
 		return list;
 	}
 
-	public Collection<Point> getPoints() {
+	public Set<Point> getPoints() {
 		return points;
+	}
+
+	public List<Layer> getLayers() {
+		return layers;
 	}
 
 }

@@ -1,48 +1,55 @@
 package kana.logic;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import kana.logic.drawns.Cercle;
-import kana.logic.drawns.Drawn;
-import kana.logic.drawns.Line;
-import kana.logic.drawns.Point;
+import kana.drawn.Cercle;
+import kana.drawn.Drawn;
+import kana.drawn.FreePoint;
+import kana.drawn.Layer;
+import kana.drawn.Line;
+import kana.drawn.Point;
 
 
-public class Paper {
-
-	private GraphicsContext gc;
+public class Paper extends AbstractPaper{
 
 	private DrawnPool pool = new DrawnPool();
 
 	public Paper(GraphicsContext gc) {
-		this.gc = gc;
+		super(gc);
 
-		gc.setFill(Color.WHITE);
+		gc.setFill(null);
 		gc.setStroke(Color.BLACK);
-		gc.setLineWidth(1);
-		fillWhole();
+		clearWhole();
 
 		// TODO for test
-		pool.add(new Line(new Point(10, 12), new Point(44, 51)));
-		pool.add(new Cercle(new ArrayList<Point>(pool.getPoints()).get(1), 33));
+		this.add(new Line(new FreePoint(10, 12), new FreePoint(44, 51)));
+		this.add(new Cercle(new ArrayList<Point>(pool.getPoints()).get(1), new FreePoint(100, 100)));
+		this.add(new Cercle(new FreePoint(200, 100), new FreePoint(100, 200)));
 	}
 
+	@Override
 	public void repaint() {
-		fillWhole();
+		clearWhole();
 
-		for (Drawn drawn : pool.getDrawn()) {
-			drawn.draw(gc);
+//		for (Drawn drawn : pool.getList()) {
+//			drawn.draw(gc);
+//		}
+		for (Layer layer : pool.getLayers()) {
+			layer.paint(gc);
 		}
 	}
 
-	// ---- private ----
+	public void add(Drawn drawn) {
+		pool.add(drawn);
+		drawn.draw(gc);
+	}
 
-	private void fillWhole() {
-		Canvas canvas = gc.getCanvas();
-		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+	public void delete(Collection<Drawn> del) {
+		// TODO
+		repaint();
 	}
 
 }
