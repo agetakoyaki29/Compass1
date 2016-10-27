@@ -1,16 +1,21 @@
 package kana.drawn;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javafx.scene.canvas.GraphicsContext;
+import kana.drawn.geometry.Box;
+
 
 public class Group extends Drawn {
 
-	ArrayList<Drawn> children = new ArrayList<>();
+	List<Drawn> children = new LinkedList<>();
 
 	@Override
 	public void draw(GraphicsContext gc) {
+		for (Drawn drawn : children) {
+			drawn.draw(gc);
+		}
 	}
 
 	@Override
@@ -22,6 +27,11 @@ public class Group extends Drawn {
 		drawn.addParent();
 		drawn.setInGroup(this);
 		children.add(drawn);
+	}
+
+	@Override
+	public Box getBoundBox() {
+		return Box.zero;
 	}
 
 }

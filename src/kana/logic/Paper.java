@@ -38,7 +38,7 @@ public class Paper extends AbstractPaper{
 //			drawn.draw(gc);
 //		}
 		for (Layer layer : pool.getLayers()) {
-			layer.paint(gc);
+			layer.draw(gc);
 		}
 	}
 

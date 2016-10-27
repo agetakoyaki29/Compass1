@@ -5,24 +5,21 @@ import java.util.List;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
+import kana.drawn.geometry.Vector;
 
 public class FreePoint extends Point {
-	protected double x = -1;
-	protected double y = -1;
+	private Vector vector;
 
 	public FreePoint(double x, double y) {
-		this.x = x;
-		this.y = y;
+		this.vector = new Vector(x, y);
 	}
 
-	public FreePoint(Point pt) {
-		this.x = pt.getX();
-		this.y = pt.getY();
+	public FreePoint(Vector vector) {
+		this.vector = vector;
 	}
 
 	public FreePoint(MouseEvent event) {
-		this.x = event.getX();
-		this.y = event.getY();
+		this.vector = new Vector(event.getX(), event.getY());
 	}
 
 	@Override
@@ -35,10 +32,18 @@ public class FreePoint extends Point {
 	}
 
 	@Override
-	public double getX() { return x; }
-	@Override
-	public double getY() { return y; }
-	public void setX(double x) { this.x = x; }
-	public void setY(double y) { this.y = y; }
+	public Vector getV() {
+		return vector;
+	}
+	public void setV(Vector vector) {
+		if(vector == null) throw new NullPointerException();
+		this.vector = vector;
+	}
+	public void setX(double x) {
+		vector = vector.xAligned(x);
+	}
+	public void setY(double y) {
+		vector = vector.xAligned(y);
+	}
 
 }

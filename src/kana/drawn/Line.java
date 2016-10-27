@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.canvas.GraphicsContext;
+import kana.drawn.geometry.Box;
+import kana.drawn.geometry.Pen;
+
 
 public class Line extends Drawn {
 
@@ -19,7 +22,12 @@ public class Line extends Drawn {
 
 	@Override
 	public void draw(GraphicsContext gc) {
-		gc.strokeLine(pt1.getX(), pt1.getY(), pt2.getX(), pt2.getY());
+		Pen.strokeLine(gc, pt1, pt2);
+	}
+
+	@Override
+	public Box getBoundBox() {
+		return null;
 	}
 
 	@Override

@@ -11,8 +11,8 @@ import kana.drawn.Point;
 
 public class DrawnPool {
 
-	private ArrayList<Drawn> list = new ArrayList<>();	// TODO 存在価値が謎
-	private HashSet<Point> points = new HashSet<>();
+	//private List<Drawn> list = new ArrayList<>();	// TODO 存在価値が謎
+	private Set<Point> points = new HashSet<>();
 
 	private final int layerSize = 10;
 	private ArrayList<Layer> layers = new ArrayList<>();
@@ -29,12 +29,7 @@ public class DrawnPool {
 
 	public void add(Drawn drawn) {
 		layer.add(drawn);
-		list.add(drawn);
 		points.addAll( drawn.getPoints() );
-	}
-
-	public List<Drawn> getList() {
-		return list;
 	}
 
 	public Set<Point> getPoints() {

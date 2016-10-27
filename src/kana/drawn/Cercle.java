@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.shape.ArcType;
+import kana.drawn.geometry.Box;
+import kana.drawn.geometry.Geo;
+import kana.drawn.geometry.Pen;
+import kana.drawn.geometry.Vector;
 
 public class Cercle extends Drawn {
 
@@ -18,13 +21,27 @@ public class Cercle extends Drawn {
 		this.pt2 = pt2;
 	}
 
+	public Vector getCenter() {
+		return Geo.midPoint(pt1.getV(), pt2.getV());
+	}
+
+	public double getRange() {
+		return Geo.distance(pt1.getV(), pt2.getV()) / 2;
+	}
+
 	@Override
 	public void draw(GraphicsContext gc) {
-		Point c = Point.midPoint(pt1, pt2);
-		double x = c.getX();
-		double y = c.getY();
-		double r = Point.distance(c, pt1);
-		gc.strokeArc(x-r, y-r, 2*r, 2*r, 0, 360, ArcType.OPEN);
+		Vector c = getCenter();
+		double r = getRange();
+		Pen.strokeCercle(gc, c, r);
+	}
+
+	@Override
+	public Box getBoundBox() {
+		Vector c = getCenter();
+		double r = getRange();
+		Vector rr = new Vector(r, r);
+		return new Box(c.sub(rr), c.add(rr));
 	}
 
 	@Override

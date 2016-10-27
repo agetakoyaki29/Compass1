@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import kana.drawn.Drawn;
 import kana.drawn.Line;
 import kana.drawn.Point;
+import kana.drawn.geometry.Pen;
 
 
 public class HotLine extends HotDrawn {
@@ -15,7 +16,7 @@ public class HotLine extends HotDrawn {
 	public void draw(GraphicsContext gc) {
 		if(pt2 == null || pt1 == null) return;
 
-		gc.strokeLine(pt1.getX(), pt1.getY(), pt2.getX(), pt2.getY());
+		Pen.strokeLine(gc, pt1, pt2);
 	}
 
 	public Drawn makeCold() {

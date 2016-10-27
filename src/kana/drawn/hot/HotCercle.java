@@ -1,10 +1,12 @@
 package kana.drawn.hot;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.shape.ArcType;
 import kana.drawn.Cercle;
 import kana.drawn.Drawn;
 import kana.drawn.Point;
+import kana.drawn.geometry.Geo;
+import kana.drawn.geometry.Pen;
+import kana.drawn.geometry.Vector;
 
 public class HotCercle extends HotDrawn {
 
@@ -13,11 +15,9 @@ public class HotCercle extends HotDrawn {
 
 	@Override
 	public void draw(GraphicsContext gc) {
-		Point c = Point.midPoint(pt1, pt2);
-		double x = c.getX();
-		double y = c.getY();
-		double r = Point.distance(c, pt1);
-		gc.strokeArc(x-r, y-r, 2*r, 2*r, 0, 360, ArcType.OPEN);
+		Vector c = Geo.midPoint(pt1.getV(), pt2.getV());
+		double r = Geo.distance(c, pt1.getV());
+		Pen.strokeCercle(gc, c, r);
 	}
 
 	@Override

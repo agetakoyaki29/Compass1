@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import javafx.scene.canvas.GraphicsContext;
+import kana.drawn.geometry.Box;
 
 public abstract class Drawn {
 
@@ -16,17 +17,6 @@ public abstract class Drawn {
 	}
 	public void reduceParent() {
 		parentCount--;
-	}
-
-	/**
-	 * 子孫にわたる
-	 */
-	public void paint(GraphicsContext gc) {
-		draw(gc);
-
-		for (Drawn drawn : getChildren()) {
-			drawn.paint(gc);
-		}
 	}
 
 	/**
@@ -45,6 +35,7 @@ public abstract class Drawn {
 	}
 
 	public final void delete() {
+		// TODO parent の存在価値
 		for (Drawn drawn : getChildren()) {
 			drawn.reduceParent();
 			if(drawn.parentCount <= 0) {
@@ -60,8 +51,11 @@ public abstract class Drawn {
 
 	public abstract void draw(GraphicsContext gc);
 
-	public abstract List<Drawn> getChildren();
+	/**
+	 * 当代かぎり
+	 */
+	public abstract Box getBoundBox();
 
-	// TODO public abstract Box getBoutingBox();
+	public abstract List<Drawn> getChildren();
 
 }
