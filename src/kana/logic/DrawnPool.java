@@ -21,7 +21,6 @@ public class DrawnPool {
 	public DrawnPool() {
 		for(int i=0; i<layerSize; i++) {
 			Layer layer = new Layer();
-			layer.addParent();
 			layers.add(layer);
 		}
 		this.layer = layers.get(0);

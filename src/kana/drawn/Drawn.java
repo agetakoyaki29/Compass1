@@ -10,7 +10,6 @@ import kana.drawn.geometry.Box;
 public abstract class Drawn {
 
 	private int parentCount = 0;
-	private Group inGroup = null;
 
 	public void addParent() {
 		parentCount++;
@@ -27,7 +26,7 @@ public abstract class Drawn {
 
 		if(this instanceof Point) ret.add((Point) this);
 
-		for (Drawn drawn : getChildren()) {
+		for (Drawn drawn : getComponents()) {
 			ret.addAll( drawn.getPoints() );
 		}
 
@@ -36,16 +35,13 @@ public abstract class Drawn {
 
 	public final void delete() {
 		// TODO parent の存在価値
-		for (Drawn drawn : getChildren()) {
+		for (Drawn drawn : getComponents()) {
 			drawn.reduceParent();
 			if(drawn.parentCount <= 0) {
 				drawn.delete();
 			}
 		}
 	}
-
-	public Group getInGroup() { return inGroup; }
-	public void setInGroup(Group group) { inGroup = group; }
 
 	// ---- abstract ----
 
@@ -56,6 +52,6 @@ public abstract class Drawn {
 	 */
 	public abstract Box getBoundBox();
 
-	public abstract List<Drawn> getChildren();
+	public abstract List<Drawn> getComponents();
 
 }

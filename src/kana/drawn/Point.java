@@ -24,7 +24,7 @@ public abstract class Point extends Drawn {
 	}
 
 	@Override
-	public List<Drawn> getChildren() {
+	public List<Drawn> getComponents() {
 		ArrayList<Drawn> ret = new ArrayList<>();
 		return ret;
 	}

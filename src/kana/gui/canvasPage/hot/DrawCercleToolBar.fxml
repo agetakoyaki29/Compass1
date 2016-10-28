@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.canvas.*?>
+
+<ToolBar styleClass="hot-tool-bar" stylesheets="@../CanvasPage.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <items>
+      <CheckBox mnemonicParsing="false" text="三点指定" />
+      <Label text="角度:" />
+      <TextField prefColumnCount="4" />
+  </items>
+</ToolBar>

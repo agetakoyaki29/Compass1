@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import kana.scene.control.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.shape.*?>
@@ -8,41 +10,97 @@
 <?import java.lang.*?>
 <?import javafx.scene.canvas.*?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <BorderPane fx:id="borderPane" stylesheets="@CanvasPage.css">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <BorderPane fx:id="mainPane" stylesheets="@CanvasPage.css" BorderPane.alignment="CENTER">
+         <bottom>
+            <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="28.0" style="-fx-background-color: none; -fx-border-style: solid none none none;" styleClass="region" BorderPane.alignment="CENTER">
+               <items>
+                  <Text fx:id="nowText" strokeType="OUTSIDE" strokeWidth="0.0" text="hello, world!" />
+                  <Separator layoutX="68.0" layoutY="10.0" orientation="VERTICAL" />
+                  <Button mnemonicParsing="false" text="Button" />
+               </items>
+               <padding>
+                  <Insets bottom="2.0" left="6.0" right="6.0" top="1.0" />
+               </padding>
+            </ToolBar>
+         </bottom>
+         <left>
+            <Pane fx:id="tool" minWidth="100.0" style="-fx-border-style: none solid none none;" styleClass="region" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="button1" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" text="Button1" />
+                  <Button fx:id="button2" layoutX="4.0" layoutY="52.0" mnemonicParsing="false" text="Button2">
+                     <tooltip>
+                        <Tooltip text="Empty Tooltip" />
+                     </tooltip></Button>
+                  <Button fx:id="button3" layoutX="4.0" layoutY="83.0" mnemonicParsing="false" text="Button3" />
+                  <RadioToggleButton fx:id="drawLine" layoutX="4.0" layoutY="134.0" selected="true" text="／">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="toggleGroup" />
+                     </toggleGroup>
+                  </RadioToggleButton>
+                  <RadioToggleButton fx:id="drawCercle" layoutX="4.0" layoutY="172.0" text="〇" toggleGroup="$toggleGroup" />
+               </children>
+            </Pane>
+         </left>
          <center>
-            <ScrollPane fx:id="cover" style="-fx-border-style: none;" styleClass="region" BorderPane.alignment="CENTER">
+            <ScrollPane prefHeight="32.0" prefWidth="32.0" BorderPane.alignment="CENTER">
                <content>
                   <Group>
                      <children>
-                        <Canvas fx:id="canvas" height="200.0" width="200.0" />
-                        <Canvas fx:id="hotCanvas" height="200.0" width="200.0" />
+                        <Canvas fx:id="canvas" height="600.0" width="600.0" />
+                        <Canvas fx:id="hotCanvas" height="600.0" width="600.0" />
                      </children>
                   </Group>
                </content>
             </ScrollPane>
          </center>
-         <bottom>
-            <Pane fx:id="status" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" style="-fx-border-style: solid none none none;" styleClass="region" BorderPane.alignment="CENTER" />
-         </bottom>
          <right>
-            <Pane fx:id="properties" minWidth="150.0" style="-fx-border-style: none none none solid;" styleClass="region" BorderPane.alignment="CENTER" />
+            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <items>
+                  <ScrollPane prefHeight="200.0">
+                     <content>
+                        <TreeTableView>
+                           <columns>
+                              <TreeTableColumn prefWidth="75.0" text="C1" />
+                              <TreeTableColumn prefWidth="75.0" text="C2" />
+                              <TreeTableColumn prefWidth="75.0" text="C3" />
+                           </columns>
+                        </TreeTableView>
+                     </content>
+                  </ScrollPane>
+                  <Pane style="-fx-background-color: gray;" />
+               </items>
+            </SplitPane>
          </right>
-         <left>
-            <Pane fx:id="tool" minWidth="100.0" style="-fx-border-style: none solid none none;" styleClass="region" BorderPane.alignment="CENTER">
-               <children>
-                  <Button fx:id="button1" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" text="Button1" />
-                  <Button fx:id="button2" layoutX="4.0" layoutY="52.0" mnemonicParsing="false" text="Button2" />
-                  <Button fx:id="button3" layoutX="4.0" layoutY="83.0" mnemonicParsing="false" text="Button3" />
-                  <Button fx:id="buttonLine" layoutX="4.0" layoutY="134.0" mnemonicParsing="false" text="／" />
-                  <Button fx:id="buttonCercle" layoutX="4.0" layoutY="172.0" mnemonicParsing="false" text="〇" />
-               </children>
-            </Pane>
-         </left>
          <top>
-            <Pane fx:id="act" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" style="-fx-border-style: none none solid none;" styleClass="region" BorderPane.alignment="CENTER" />
+            <ToolBar prefHeight="40.0" prefWidth="200.0" styleClass="hot-tool-bar" BorderPane.alignment="CENTER">
+              <items>
+                <Button mnemonicParsing="false" text="Button" />
+              </items>
+            </ToolBar>
          </top>
       </BorderPane>
-   </children>
-</VBox>
+   </center>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>

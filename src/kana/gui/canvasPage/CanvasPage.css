@@ -3,6 +3,19 @@
 	-fx-border-color: #6E6E6E;
 }
 
-.scroll_Pane {
-	-fx-background-color: white;
+.hot-tool-bar {
+	-fx-background-color: none;
+	-fx-border-color: #6E6E6E;
+	-fx-border-style: none none solid none;
+
+	-fx-padding: 5 20 5 20;
 }
+
+/*
+.tooltip {
+	-fx-text-fill: black;
+	-fx-background-color: white;
+	-fx-border-color: black;
+	-fx-border-radias: 5;
+}
+*/

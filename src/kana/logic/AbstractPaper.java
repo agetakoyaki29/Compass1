@@ -17,6 +17,11 @@ public abstract class AbstractPaper {
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 	}
 
+	protected void fillWhole() {
+		Canvas canvas = gc.getCanvas();
+		gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+	}
+
 	public abstract void repaint();
 
 }

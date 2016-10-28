@@ -15,11 +15,18 @@ public class Geo {
 		return v1.add(v2).devide(2);
 	}
 
+	public static double sqeDistance(Vector v1, Vector v2) {
+		return v1.sub(v2).sqrMagunitude();
+	}
+
 	public static double distance(Vector v1, Vector v2) {
 		return v1.sub(v2).magnitude();
 	}
 
-	public static Box aaa(Collection<Vector> vs) {
+	public static Box makeBoundingBox(Vector... vs) {
+		return makeBoundingBox(vs);
+	}
+	public static Box makeBoundingBox(Collection<Vector> vs) {
 		if(vs.size() <= 0) throw new MyRuntimeException("ge 1, plz");
 
 		double minX = Double.POSITIVE_INFINITY;

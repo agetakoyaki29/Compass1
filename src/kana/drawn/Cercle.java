@@ -45,7 +45,7 @@ public class Cercle extends Drawn {
 	}
 
 	@Override
-	public List<Drawn> getChildren() {
+	public List<Drawn> getComponents() {
 		ArrayList<Drawn> ret = new ArrayList<>();
 		ret.add(pt1);
 		ret.add(pt2);

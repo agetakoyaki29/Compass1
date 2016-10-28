@@ -4,34 +4,27 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javafx.scene.canvas.GraphicsContext;
-import kana.drawn.geometry.Box;
 
 
-public class Group extends Drawn {
+public class Group extends DNode {
 
-	List<Drawn> children = new LinkedList<>();
+	List<Drawn> drawns = new LinkedList<>();
 
 	@Override
 	public void draw(GraphicsContext gc) {
-		for (Drawn drawn : children) {
+		for (Drawn drawn : drawns) {
 			drawn.draw(gc);
 		}
 	}
 
 	@Override
-	public List<Drawn> getChildren() {
-		return children;
+	public List<Drawn> getDrawns() {
+		return drawns;
 	}
 
 	public void add(Drawn drawn) {
 		drawn.addParent();
-		drawn.setInGroup(this);
-		children.add(drawn);
-	}
-
-	@Override
-	public Box getBoundBox() {
-		return Box.zero;
+		drawns.add(drawn);
 	}
 
 }

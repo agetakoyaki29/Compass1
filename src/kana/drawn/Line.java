@@ -5,6 +5,7 @@ import java.util.List;
 
 import javafx.scene.canvas.GraphicsContext;
 import kana.drawn.geometry.Box;
+import kana.drawn.geometry.Geo;
 import kana.drawn.geometry.Pen;
 
 
@@ -27,11 +28,11 @@ public class Line extends Drawn {
 
 	@Override
 	public Box getBoundBox() {
-		return null;
+		return Geo.makeBoundingBox(pt1.getV(), pt2.getV());
 	}
 
 	@Override
-	public List<Drawn> getChildren() {
+	public List<Drawn> getComponents() {
 		ArrayList<Drawn> ret = new ArrayList<>();
 		ret.add(pt1);
 		ret.add(pt2);

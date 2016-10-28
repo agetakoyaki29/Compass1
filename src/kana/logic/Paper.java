@@ -52,4 +52,8 @@ public class Paper extends AbstractPaper{
 		repaint();
 	}
 
+	public DrawnPool getPool() {
+		return pool;
+	}
+
 }

@@ -27,7 +27,7 @@ public class FreePoint extends Point {
 	}
 
 	@Override
-	public List<Drawn> getChildren() {
+	public List<Drawn> getComponents() {
 		return new ArrayList<>();
 	}
 

@@ -6,24 +6,27 @@ import java.util.List;
 import kana.drawn.geometry.Geo;
 import kana.drawn.geometry.Vector;
 
-public class CenterPoint extends Point {
-	public final Cercle cercle;
 
-	public CenterPoint(Cercle cercle) {
-		this.cercle = cercle;
-		cercle.addParent();
+public class MidPoint extends Point {
+	public final Point pt1;
+	public final Point pt2;
+
+	public MidPoint(Point pt1, Point pt2) {
+		this.pt1 = pt1;
+		this.pt2 = pt2;
 	}
 
 	@Override
 	public List<Drawn> getComponents() {
 		ArrayList<Drawn> ret = new ArrayList<>();
-		ret.add(cercle);
+		ret.add(pt1);
+		ret.add(pt2);
 		return ret;
 	}
 
 	@Override
 	public Vector getV() {
-		return Geo.midPoint(cercle.pt1.getV(), cercle.pt2.getV());
+		return Geo.midPoint(pt1.getV(), pt2.getV());
 	}
 
 }
