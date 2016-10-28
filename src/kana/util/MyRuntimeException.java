@@ -1,4 +1,4 @@
-package kana.main;
+package kana.util;
 
 public class MyRuntimeException extends RuntimeException {
 

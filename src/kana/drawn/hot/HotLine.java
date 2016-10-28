@@ -7,7 +7,7 @@ import kana.drawn.Point;
 import kana.drawn.geometry.Pen;
 
 
-public class HotLine extends HotDrawn {
+public class HotLine extends OldHotDrawn {
 
 	public Point pt1 = null;
 	public Point pt2 = null;

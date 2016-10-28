@@ -16,7 +16,7 @@
          <bottom>
             <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="28.0" style="-fx-background-color: none; -fx-border-style: solid none none none;" styleClass="region" BorderPane.alignment="CENTER">
                <items>
-                  <Text fx:id="nowText" strokeType="OUTSIDE" strokeWidth="0.0" text="hello, world!" />
+                  <Text fx:id="statusText" strokeType="OUTSIDE" strokeWidth="0.0" text="hello, world!" />
                   <Separator layoutX="68.0" layoutY="10.0" orientation="VERTICAL" />
                   <Button mnemonicParsing="false" text="Button" />
                </items>

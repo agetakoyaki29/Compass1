@@ -1,6 +1,6 @@
 package kana.drawn.geometry;
 
-import kana.main.MyRuntimeException;
+import kana.util.MyRuntimeException;
 
 
 /**

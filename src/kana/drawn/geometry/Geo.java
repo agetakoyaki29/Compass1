@@ -2,7 +2,7 @@ package kana.drawn.geometry;
 
 import java.util.Collection;
 
-import kana.main.MyRuntimeException;
+import kana.util.MyRuntimeException;
 
 
 public class Geo {

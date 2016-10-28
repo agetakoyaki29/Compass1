@@ -8,7 +8,9 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
-import kana.gui.canvasPage.hot.HotToolBarCtrl;
+import javafx.stage.Stage;
+import kana.drawn.hot.Test;
+import kana.gui.canvasPage.actToolBar.ActToolBarCtrl;
 import kana.logic.ActionManager;
 import kana.logic.HotPaper;
 import kana.logic.Paper;
@@ -32,7 +34,7 @@ public class CanvasSceneCtrl extends SceneCtrl {
 	@FXML private RadioToggleButton drawLine;
 	@FXML private RadioToggleButton drawCercle;
 
-	@FXML private Text nowText;
+	@FXML private Text statusText;
 
 	private MenuBarCtrl menuBarCtrl;
 
@@ -45,7 +47,11 @@ public class CanvasSceneCtrl extends SceneCtrl {
 	@Override
 	public void init() {
 		// init gui
-		MainApp.getInstance().getStage().setMaximized(true);
+		Stage stage = MainApp.getInstance().getStage();
+		stage.setWidth(800);
+		stage.setHeight(600);
+		stage.centerOnScreen();
+		stage.setMaximized(true);
 
 		BorderPane root = (BorderPane) getRoot();
 		menuBarCtrl = new MenuBarCtrl(this);
@@ -79,7 +85,7 @@ public class CanvasSceneCtrl extends SceneCtrl {
 		// TODO for test
 		button1.setTooltip(new Tooltip("for test"));
 //		button1.setOnAction(event -> MainApp.MovePage(CanvasPageController.class));
-		button2.setOnAction(event -> {});
+		button2.setOnAction(event -> { manager.setHotDrawn(Test.class); });
 		button3.setOnAction(event -> drawCercle.setSelected(true));
 	}
 
@@ -91,16 +97,16 @@ public class CanvasSceneCtrl extends SceneCtrl {
 
 	// ----
 
-	public void setNowText(String text) {
-		nowText.setText(text);
+	public void setStatusText(String text) {
+		statusText.setText(text);
 	}
 
 	public void showSimplePopup(String text) {
 		new SimplePopup(text).show(canvas);
 	}
 
-	public void setHotToolBar(HotToolBarCtrl hotToolBarCtrl) {
-		mainPane.setTop( hotToolBarCtrl.getRoot() );
+	public void setActToolBar(ActToolBarCtrl actToolBarCtrl) {
+		mainPane.setTop( actToolBarCtrl.getRoot() );
 	}
 
 }

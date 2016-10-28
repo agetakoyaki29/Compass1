@@ -5,7 +5,7 @@ import java.net.URL;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import kana.main.MyRuntimeException;
+import kana.util.MyRuntimeException;
 
 
 public abstract class Ctrl {

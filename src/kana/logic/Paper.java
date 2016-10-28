@@ -47,6 +47,12 @@ public class Paper extends AbstractPaper{
 		drawn.draw(gc);
 	}
 
+	public void addAll(Collection<? extends Drawn> drawns) {
+		for (Drawn drawn : drawns) {
+			add(drawn);
+		}
+	}
+
 	public void delete(Collection<Drawn> del) {
 		// TODO
 		repaint();

@@ -1,41 +1,35 @@
 package kana.gui.canvasPage;
 
-import java.util.function.Consumer;
-
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 
 
 public class CanvasMouseHandler {
-	public Consumer<MouseEvent> onLeftClicked = DONO;
-	public Consumer<MouseEvent> onRightClicked = DONO;
-	public Consumer<MouseEvent> onMoved       = DONO;
+	public EventHandler<MouseEvent> onLeftClicked = DONO;
+	public EventHandler<MouseEvent> onRightClicked = DONO;
+	public EventHandler<MouseEvent> onMoved       = DONO;
 
 	public CanvasMouseHandler(Node target) {
-		target.setOnMouseClicked(event -> onClicked(event));
-		target.setOnMouseMoved(event -> onMoved(event));
+		target.setOnMouseClicked(this::onClicked);
+		target.setOnMouseMoved(this::onMoved);
 	}
 
 	private void onClicked(MouseEvent event) {
 		switch (event.getButton()) {
 		case PRIMARY:
-			onLeftClicked.accept(event);
+			onLeftClicked.handle(event);
 			break;
-
-		case MIDDLE:
-			break;
-
 		case SECONDARY:
-			onRightClicked.accept(event);
+			onRightClicked.handle(event);
 			break;
-
 		default:
 			break;
 		}
 	}
 
 	private void onMoved(MouseEvent event) {
-		onMoved.accept(event);
+		onMoved.handle(event);
 	}
 
 	public void clearOnLeftClicked() {
@@ -48,6 +42,6 @@ public class CanvasMouseHandler {
 		onMoved = DONO;
 	}
 
-	private static final Consumer<MouseEvent> DONO = e->{};
+	private static final EventHandler<MouseEvent> DONO = e->{};
 
 }

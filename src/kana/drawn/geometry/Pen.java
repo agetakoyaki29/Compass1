@@ -3,7 +3,7 @@ package kana.drawn.geometry;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.ArcType;
 import kana.drawn.Point;
-import kana.main.MyRuntimeException;
+import kana.util.MyRuntimeException;
 
 
 public class Pen {

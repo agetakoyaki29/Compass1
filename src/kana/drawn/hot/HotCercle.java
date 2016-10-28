@@ -8,13 +8,14 @@ import kana.drawn.geometry.Geo;
 import kana.drawn.geometry.Pen;
 import kana.drawn.geometry.Vector;
 
-public class HotCercle extends HotDrawn {
+public class HotCercle extends OldHotDrawn {
 
 	public Point pt1 = null;
 	public Point pt2 = null;
 
 	@Override
 	public void draw(GraphicsContext gc) {
+		// validate
 		Vector c = Geo.midPoint(pt1.getV(), pt2.getV());
 		double r = Geo.distance(c, pt1.getV());
 		Pen.strokeCercle(gc, c, r);
