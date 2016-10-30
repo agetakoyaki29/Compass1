@@ -3,8 +3,11 @@ package kana.compass.logic;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
@@ -153,21 +156,22 @@ public class ActionManager {
 			return ActionManager.this;
 		}
 
-		public void push(String name, Object arg) {
-			String funcName = "push" + name.substring(0, 1).toUpperCase() + name.substring(1);
-			System.out.println(funcName);
-			Method method;
-			try {
-				method = this.getClass().getMethod(funcName, arg.getClass());
-			} catch (NoSuchMethodException e) {
-				return;
-			} catch (SecurityException e) {
-				throw new MyRuntimeException(e);
-			}
-			try {
-				method.invoke(this, arg);
-			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-				throw new MyRuntimeException(e);
+		public void push(String name, Object param) {
+			String methodName = "push" + name.substring(0, 1).toUpperCase() + name.substring(1);
+
+			List<Method> methods = Stream.of( this.getClass().getMethods() )
+				.filter(m -> m.getParameterCount() == 1)
+				.filter(m -> m.getName().equals(methodName))
+				.collect(Collectors.toList())
+				;
+
+			for (Method method : methods) {
+				try {
+					method.invoke(this, param);
+				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+					continue;
+				}
+				break;
 			}
 		}
 

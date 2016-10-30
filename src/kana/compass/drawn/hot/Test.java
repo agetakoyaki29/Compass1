@@ -31,7 +31,6 @@ public class Test extends HotDrawn {
 		if(angle != null) {
 
 		}
-		System.out.println("aa");
 		gc.strokeLine(pt1.getPt().getX(), pt1.getPt().getY(), pt2.getPt().getX(), pt2.getPt().getY());
 	}
 
