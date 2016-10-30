@@ -3,13 +3,12 @@ package kana.compass.drawn;
 import java.util.ArrayList;
 import java.util.List;
 
-import kana.compass.geometry.Geo;
-import kana.compass.geometry.Vector;
+import javafx.geometry.Point2D;
 
-public class CenterPoint extends Point {
+public class CenterDot extends Dot {
 	public final Cercle cercle;
 
-	public CenterPoint(Cercle cercle) {
+	public CenterDot(Cercle cercle) {
 		this.cercle = cercle;
 		cercle.addParent();
 	}
@@ -22,8 +21,10 @@ public class CenterPoint extends Point {
 	}
 
 	@Override
-	public Vector getV() {
-		return Geo.midPoint(cercle.pt1.getV(), cercle.pt2.getV());
+	public Point2D getPt() {
+		Point2D pt1 = cercle.dot1.getPt();
+		Point2D pt2 = cercle.dot2.getPt();
+		return pt1.midpoint(pt2);
 	}
 
 }

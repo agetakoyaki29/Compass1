@@ -11,7 +11,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.stage.Popup;
 import javafx.util.Duration;
-import kana.compass.geometry.Vector;
 
 
 public class SimplePopup extends Popup {
@@ -24,15 +23,15 @@ public class SimplePopup extends Popup {
 		this.getContent().add(label);
 	}
 
-	public void show(Node ownerNode, Vector nodeAnchor) {
+	public void show(Node ownerNode, double localX, double localY) {
 //		Window window = ownerNode.getScene().getWindow();
-		Point2D anchor = ownerNode.localToScreen(nodeAnchor.x, nodeAnchor.y);
-		this.show(ownerNode, anchor.getX(), anchor.getY());
+		Point2D anchor = ownerNode.localToScreen(localX, localY);
+		super.show(ownerNode, anchor.getX(), anchor.getY());
 
 		getTimeLine().play();
 	}
 	public void show(Node ownerNode) {
-		show(ownerNode, Vector.zero);
+		show(ownerNode, 0, 0);
 	}
 
 	private static final Duration waitTime = Duration.seconds(2);

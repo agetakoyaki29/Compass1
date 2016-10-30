@@ -4,38 +4,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.canvas.GraphicsContext;
-import kana.compass.geometry.Box;
-import kana.compass.geometry.Geo;
 import kana.compass.geometry.Pen;
 
 
 public class Line extends Drawn {
 
-	public final Point pt1;
-	public final Point pt2;
+	private final Dot dot1;
+	private final Dot dot2;
 
-	public Line(Point pt1, Point pt2) {
-		pt1.addParent();
-		pt2.addParent();
-		this.pt1 = pt1;
-		this.pt2 = pt2;
+	public Line(Dot dot1, Dot dot2) {
+		dot1.addParent();
+		dot2.addParent();
+		this.dot1 = dot1;
+		this.dot2 = dot2;
 	}
 
 	@Override
 	public void draw(GraphicsContext gc) {
-		Pen.strokeLine(gc, pt1, pt2);
+		Pen.strokeLine(gc, dot1, dot2);
 	}
 
-	@Override
-	public Box getBoundBox() {
-		return Geo.makeBoundingBox(pt1.getV(), pt2.getV());
-	}
+//	@Override
+//	public Box getBoundingBox() {
+//		return Geo.makeBoundingBox(pt1.getPt(), pt2.getPt());
+//	}
 
 	@Override
 	public List<Drawn> getComponents() {
 		ArrayList<Drawn> ret = new ArrayList<>();
-		ret.add(pt1);
-		ret.add(pt2);
+		ret.add(dot1);
+		ret.add(dot2);
 		return ret;
 	}
 

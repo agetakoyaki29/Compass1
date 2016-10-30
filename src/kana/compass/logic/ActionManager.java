@@ -7,17 +7,17 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
-import kana.compass.drawn.CenterPoint;
+import kana.compass.drawn.CenterDot;
 import kana.compass.drawn.Cercle;
+import kana.compass.drawn.Dot;
 import kana.compass.drawn.Drawn;
-import kana.compass.drawn.FreePoint;
-import kana.compass.drawn.Point;
+import kana.compass.drawn.FreeDot;
 import kana.compass.drawn.hot.HotCercle;
 import kana.compass.drawn.hot.HotLine;
 import kana.compass.geometry.Geo;
-import kana.compass.geometry.Vector;
 import kana.compass.gui.canvasPage.CanvasMouseHandler;
 import kana.compass.gui.canvasPage.CanvasSceneCtrl;
 import kana.compass.gui.canvasPage.actToolBar.ActToolBarCtrl;
@@ -53,8 +53,8 @@ public class ActionManager {
 		ctrl.setActToolBar(hot.getActToolBarCtrl());	// TODO 繰り返しで初期化したくない
 		hot.begin();
 
-		setOnLeftClicked4FreePoint(pt -> push("freePoint", pt));
-		setOnRightClicked4ReadPoint(pt -> push("readPoint", pt));
+		setOnLeftClicked4FreeDot(pt -> push("freeDot", pt));
+		setOnRightClicked4ReadDot(pt -> push("readDot", pt));
 	}
 
 	private HotDrawn instantiate(Class<? extends HotDrawn> clazz) {
@@ -103,24 +103,24 @@ public class ActionManager {
 
 	// ---- higher-order function ----
 
-	private void setOnLeftClicked4FreePoint(Consumer<Point> consumer) {
+	private void setOnLeftClicked4FreeDot(Consumer<Dot> consumer) {
 		handler.onLeftClicked = event -> {
-			Point pt = new FreePoint(event);
+			Dot pt = new FreeDot(event);
 			consumer.accept(pt);
 		};
 	}
 
-	private void setOnRightClicked4ReadPoint(Consumer<Point> consumer) {
+	private void setOnRightClicked4ReadDot(Consumer<Dot> consumer) {
 		handler.onRightClicked = event -> {
 			// TODO too heavy
 			double r = 5*5;
-			Point t = null;
+			Dot t = null;
 			double distance = r;
-			Vector mouse = new FreePoint(event).getV();
+			Point2D mouse = new FreeDot(event).getPt();
 
-			for (Point pt : pool.getPoints()) {
-				Vector v = pt.getV();
-				double d = Geo.sqeDistance(mouse, v);
+			for (Dot pt : pool.getDots()) {
+				Point2D v = pt.getPt();
+				double d = Geo.sqrDistance(mouse, v);
 				if(d > r) continue;
 				if(d > distance) continue;
 				distance = d;
@@ -180,7 +180,7 @@ public class ActionManager {
 
 		protected void beginPreDraw() {
 			EventHandler<MouseEvent> whenPt2 = event -> {
-				prePushPoint(new FreePoint(event));
+				prePushDot(new FreeDot(event));
 				hotPaper.repaint();
 			};
 			handler.onMoved = whenPt2;
@@ -188,7 +188,7 @@ public class ActionManager {
 			preDraw  = true;
 		}
 
-		public abstract void prePushPoint(Point pt);
+		public abstract void prePushDot(Dot pt);
 
 		public void end() {
 			Set<Drawn> drawns = this.makeColds();
@@ -206,14 +206,14 @@ public class ActionManager {
 
 		// ---- default point ----
 
-		public abstract void pushPoint(Point point);
+		public abstract void pushDot(Dot point);
 
-		public void pushFreePoint(FreePoint freePoint) {
-			pushPoint(freePoint);
+		public void pushFreeDot(FreeDot freeDot) {
+			pushDot(freeDot);
 		}
 
-		public void pushReadPoint(Point readPoint) {
-			pushPoint(readPoint);
+		public void pushReadDot(Dot readDot) {
+			pushDot(readDot);
 		}
 
 	}
@@ -243,10 +243,10 @@ public class ActionManager {
 		hotPaper.setDrawing(cur);
 
 		EventHandler<MouseEvent> whenPt2 = event -> {
-			cur.pt2 = new FreePoint(event);
+			cur.pt2 = new FreeDot(event);
 			hotPaper.repaint();
 		};
-		Consumer<Point> getPt2 = pt -> {
+		Consumer<Dot> getPt2 = pt -> {
 			cur.pt2 = pt;
 			if(cur.pt1.equals(cur.pt2)) {
 				ctrl.showSimplePopup("同一点です");
@@ -259,18 +259,18 @@ public class ActionManager {
 			handler.clearOnMoved();
 			tempLine();
 		};
-		Consumer<Point> getPt1 = pt -> {
+		Consumer<Dot> getPt1 = pt -> {
 			cur.pt1 = pt;
 
 			handler.onMoved = whenPt2;
-			setOnLeftClicked4FreePoint(getPt2);
-			setOnRightClicked4ReadPoint(getPt2);
+			setOnLeftClicked4FreeDot(getPt2);
+			setOnRightClicked4ReadDot(getPt2);
 
 			setStatusText("終点を");
 		};
 
-		setOnLeftClicked4FreePoint(getPt1);
-		setOnRightClicked4ReadPoint(getPt1);
+		setOnLeftClicked4FreeDot(getPt1);
+		setOnRightClicked4ReadDot(getPt1);
 
 		setStatusText("始点を");
 	}
@@ -281,10 +281,10 @@ public class ActionManager {
 		hotPaper.setDrawing(cur);
 
 		EventHandler<MouseEvent> whenPt2 = event -> {
-			cur.pt2 = new FreePoint(event);
+			cur.pt2 = new FreeDot(event);
 			hotPaper.repaint();
 		};
-		Consumer<Point> getPt2 = pt -> {
+		Consumer<Dot> getPt2 = pt -> {
 			cur.pt2 = pt;
 			if(cur.pt1.equals(cur.pt2)) {
 				ctrl.showSimplePopup("同一点です");
@@ -293,24 +293,24 @@ public class ActionManager {
 			hotPaper.clearDrawing();
 			Drawn cercle = cur.makeCold();
 			paper.add(cercle);
-			paper.add(new CenterPoint((Cercle) cercle));
+			paper.add(new CenterDot((Cercle) cercle));
 			hotPaper.repaint();
 
 			handler.clearOnMoved();
 			tempCercle();
 		};
-		Consumer<Point> getPt1 = pt -> {
+		Consumer<Dot> getPt1 = pt -> {
 			cur.pt1 = pt;
 
 			handler.onMoved = whenPt2;
-			setOnLeftClicked4FreePoint(getPt2);
-			setOnRightClicked4ReadPoint(getPt2);
+			setOnLeftClicked4FreeDot(getPt2);
+			setOnRightClicked4ReadDot(getPt2);
 
 			setStatusText("1点目を");
 		};
 
-		setOnLeftClicked4FreePoint(getPt1);
-		setOnRightClicked4ReadPoint(getPt1);
+		setOnLeftClicked4FreeDot(getPt1);
+		setOnRightClicked4ReadDot(getPt1);
 
 		setStatusText("2点目を");
 	}

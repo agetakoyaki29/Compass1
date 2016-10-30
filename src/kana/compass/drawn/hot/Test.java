@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javafx.scene.canvas.GraphicsContext;
+import kana.compass.drawn.Dot;
 import kana.compass.drawn.Drawn;
 import kana.compass.drawn.Line;
-import kana.compass.drawn.Point;
 import kana.compass.gui.canvasPage.actToolBar.ActToolBarCtrl;
 import kana.compass.gui.canvasPage.actToolBar.DrawLineToolBarCtrl;
 import kana.compass.logic.ActionManager;
@@ -15,8 +15,8 @@ import kana.compass.logic.ActionManager.HotDrawn;
 
 
 public class Test extends HotDrawn {
-	private Point pt1 = null;
-	private Point pt2 = null;
+	private Dot pt1 = null;
+	private Dot pt2 = null;
 
 	private Double angle = null;
 
@@ -27,17 +27,17 @@ public class Test extends HotDrawn {
 
 	@Override
 	public void draw(GraphicsContext gc) {
-		Point pt2 = this.pt2;
+		Dot pt2 = this.pt2;
 		if(angle != null) {
 
 		}
 		System.out.println("aa");
-		gc.strokeLine(pt1.getV().x, pt1.getV().y, pt2.getV().x, pt2.getV().y);
+		gc.strokeLine(pt1.getPt().getX(), pt1.getPt().getY(), pt2.getPt().getX(), pt2.getPt().getY());
 	}
 
 	@Override
 	protected Set<Drawn> makeColds() {
-		Point pt2 = this.pt2;
+		Dot pt2 = this.pt2;
 		if(angle != null) {
 
 		}
@@ -46,7 +46,7 @@ public class Test extends HotDrawn {
 	}
 
 	@Override
-	public void pushPoint(Point pt) {
+	public void pushDot(Dot pt) {
 		if(pt1 == null) {
 			pt1 = pt;
 			beginPreDraw();
@@ -66,7 +66,7 @@ public class Test extends HotDrawn {
 	}
 
 	@Override
-	public void prePushPoint(Point pt) {
+	public void prePushDot(Dot pt) {
 		pt2 = pt;
 	}
 

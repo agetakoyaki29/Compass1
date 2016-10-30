@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 import javafx.scene.canvas.GraphicsContext;
-import kana.compass.geometry.Box;
 
 public abstract class Drawn {
 
@@ -21,13 +20,13 @@ public abstract class Drawn {
 	/**
 	 * 子孫にわたる
 	 */
-	public Set<Point> getPoints() {
-		HashSet<Point> ret = new HashSet<>();
+	public Set<Dot> getDots() {
+		HashSet<Dot> ret = new HashSet<>();
 
-		if(this instanceof Point) ret.add((Point) this);
+		if(this instanceof Dot) ret.add((Dot) this);
 
 		for (Drawn drawn : getComponents()) {
-			ret.addAll( drawn.getPoints() );
+			ret.addAll( drawn.getDots() );
 		}
 
 		return ret;
@@ -50,7 +49,7 @@ public abstract class Drawn {
 	/**
 	 * 当代かぎり
 	 */
-	public abstract Box getBoundBox();
+//	public abstract Box getBoundingBox();
 
 	public abstract List<Drawn> getComponents();
 

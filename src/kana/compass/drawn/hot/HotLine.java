@@ -3,14 +3,14 @@ package kana.compass.drawn.hot;
 import javafx.scene.canvas.GraphicsContext;
 import kana.compass.drawn.Drawn;
 import kana.compass.drawn.Line;
-import kana.compass.drawn.Point;
+import kana.compass.drawn.Dot;
 import kana.compass.geometry.Pen;
 
 
 public class HotLine extends OldHotDrawn {
 
-	public Point pt1 = null;
-	public Point pt2 = null;
+	public Dot pt1 = null;
+	public Dot pt2 = null;
 
 	@Override
 	public void draw(GraphicsContext gc) {

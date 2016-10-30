@@ -6,11 +6,11 @@ import java.util.Collection;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import kana.compass.drawn.Cercle;
+import kana.compass.drawn.Dot;
 import kana.compass.drawn.Drawn;
-import kana.compass.drawn.FreePoint;
+import kana.compass.drawn.FreeDot;
 import kana.compass.drawn.Layer;
 import kana.compass.drawn.Line;
-import kana.compass.drawn.Point;
 
 
 public class Paper extends AbstractPaper{
@@ -25,9 +25,9 @@ public class Paper extends AbstractPaper{
 		clearWhole();
 
 		// TODO for test
-		this.add(new Line(new FreePoint(10, 12), new FreePoint(44, 51)));
-		this.add(new Cercle(new ArrayList<Point>(pool.getPoints()).get(1), new FreePoint(100, 100)));
-		this.add(new Cercle(new FreePoint(200, 100), new FreePoint(100, 200)));
+		this.add(new Line(new FreeDot(10, 12), new FreeDot(44, 51)));
+		this.add(new Cercle(new ArrayList<Dot>(pool.getDots()).get(1), new FreeDot(100, 100)));
+		this.add(new Cercle(new FreeDot(200, 100), new FreeDot(100, 200)));
 	}
 
 	@Override
