@@ -1,0 +1,65 @@
+package kana.compass.logic;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import kana.compass.drawn.Cercle;
+import kana.compass.drawn.Drawn;
+import kana.compass.drawn.FreePoint;
+import kana.compass.drawn.Layer;
+import kana.compass.drawn.Line;
+import kana.compass.drawn.Point;
+
+
+public class Paper extends AbstractPaper{
+
+	private DrawnPool pool = new DrawnPool();
+
+	public Paper(GraphicsContext gc) {
+		super(gc);
+
+		gc.setFill(null);
+		gc.setStroke(Color.BLACK);
+		clearWhole();
+
+		// TODO for test
+		this.add(new Line(new FreePoint(10, 12), new FreePoint(44, 51)));
+		this.add(new Cercle(new ArrayList<Point>(pool.getPoints()).get(1), new FreePoint(100, 100)));
+		this.add(new Cercle(new FreePoint(200, 100), new FreePoint(100, 200)));
+	}
+
+	@Override
+	public void repaint() {
+		clearWhole();
+
+//		for (Drawn drawn : pool.getList()) {
+//			drawn.draw(gc);
+//		}
+		for (Layer layer : pool.getLayers()) {
+			layer.draw(gc);
+		}
+	}
+
+	public void add(Drawn drawn) {
+		pool.add(drawn);
+		drawn.draw(gc);
+	}
+
+	public void addAll(Collection<? extends Drawn> drawns) {
+		for (Drawn drawn : drawns) {
+			add(drawn);
+		}
+	}
+
+	public void delete(Collection<Drawn> del) {
+		// TODO
+		repaint();
+	}
+
+	public DrawnPool getPool() {
+		return pool;
+	}
+
+}
