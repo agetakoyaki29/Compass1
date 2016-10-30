@@ -10,15 +10,15 @@
 <?import java.lang.*?>
 <?import javafx.scene.canvas.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <BorderPane fx:id="mainPane" stylesheets="@CanvasPage.css" BorderPane.alignment="CENTER">
          <bottom>
-            <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="28.0" style="-fx-background-color: none; -fx-border-style: solid none none none;" styleClass="region" BorderPane.alignment="CENTER">
+            <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="28.0" styleClass="bordered-pane-bottom" BorderPane.alignment="CENTER">
                <items>
                   <Text fx:id="statusText" strokeType="OUTSIDE" strokeWidth="0.0" text="hello, world!" />
                   <Separator layoutX="68.0" layoutY="10.0" orientation="VERTICAL" />
-                  <Button mnemonicParsing="false" text="Button" />
+                  <Button mnemonicParsing="false" text="Botton" />
                </items>
                <padding>
                   <Insets bottom="2.0" left="6.0" right="6.0" top="1.0" />
@@ -26,7 +26,7 @@
             </ToolBar>
          </bottom>
          <left>
-            <Pane fx:id="tool" minWidth="100.0" style="-fx-border-style: none solid none none;" styleClass="region" BorderPane.alignment="CENTER">
+            <Pane fx:id="tool" minWidth="100.0" styleClass="border-pane-left" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="button1" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" text="Button1" />
                   <Button fx:id="button2" layoutX="4.0" layoutY="52.0" mnemonicParsing="false" text="Button2">
@@ -43,20 +43,8 @@
                </children>
             </Pane>
          </left>
-         <center>
-            <ScrollPane prefHeight="32.0" prefWidth="32.0" BorderPane.alignment="CENTER">
-               <content>
-                  <Group>
-                     <children>
-                        <Canvas fx:id="canvas" height="600.0" width="600.0" />
-                        <Canvas fx:id="hotCanvas" height="600.0" width="600.0" />
-                     </children>
-                  </Group>
-               </content>
-            </ScrollPane>
-         </center>
          <right>
-            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefWidth="200.0" styleClass="bordered-pane-right" BorderPane.alignment="CENTER">
                <items>
                   <ScrollPane prefHeight="200.0">
                      <content>
@@ -74,12 +62,27 @@
             </SplitPane>
          </right>
          <top>
-            <ToolBar prefHeight="40.0" prefWidth="200.0" styleClass="hot-tool-bar" BorderPane.alignment="CENTER">
+            <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" styleClass="bordered-pane-top" BorderPane.alignment="CENTER">
               <items>
                 <Button mnemonicParsing="false" text="Button" />
               </items>
             </ToolBar>
          </top>
+         <center>
+            <ScrollPane hbarPolicy="NEVER" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
+               <content>
+                  <StackPane alignment="TOP_LEFT">
+                     <children>
+                        <Canvas fx:id="canvas" />
+                        <Canvas fx:id="hotCanvas" />
+                     </children>
+                  </StackPane>
+               </content>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </ScrollPane>
+         </center>
       </BorderPane>
    </center>
    <top>

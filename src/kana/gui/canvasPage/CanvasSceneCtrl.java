@@ -1,6 +1,7 @@
 package kana.gui.canvasPage;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleGroup;
@@ -8,6 +9,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import kana.drawn.hot.Test;
 import kana.gui.canvasPage.actToolBar.ActToolBarCtrl;
@@ -58,6 +60,10 @@ public class CanvasSceneCtrl extends SceneCtrl {
 //		root.getChildren().add(0, menuBarCtrl.getRoot());
 		root.setTop(menuBarCtrl.getRoot());
 
+		// canvas full screen
+		Rectangle2D screen = Screen.getPrimary().getVisualBounds();
+		canvas.setWidth(screen.getWidth());
+		canvas.setHeight(screen.getHeight());
 		hotCanvas.setWidth(canvas.getWidth());
 		hotCanvas.setHeight(canvas.getHeight());
 

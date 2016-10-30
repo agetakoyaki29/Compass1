@@ -1,14 +1,6 @@
 
-.region {
-	-fx-border-color: #6E6E6E;
-}
-
-.hot-tool-bar {
+.tool-bar {
 	-fx-background-color: none;
-	-fx-border-color: #6E6E6E;
-	-fx-border-style: none none solid none;
-
-	-fx-padding: 5 20 5 20;
 }
 
 /*
@@ -19,3 +11,28 @@
 	-fx-border-radias: 5;
 }
 */
+
+
+.bordered-pane-top {
+	-fx-border-color: #6E6E6E;
+	-fx-border-style: none none solid none;
+}
+.border-pane-left {
+	-fx-border-color: #6E6E6E;
+	-fx-border-style: none solid none none;
+}
+.bordered-pane-right {
+	-fx-border-color: #6E6E6E;
+	-fx-border-style: none none none solid;
+}
+.bordered-pane-bottom {
+	-fx-border-color: #6E6E6E;
+	-fx-border-style: solid none none none;
+}
+
+.hot-tool-bar {
+	-fx-padding: 5 20 5 20;
+}
+
+
+
