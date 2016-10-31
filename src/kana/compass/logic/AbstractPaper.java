@@ -3,7 +3,6 @@ package kana.compass.logic;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.transform.Affine;
-import kana.compass.geometry.Pen;
 
 
 public abstract class AbstractPaper {

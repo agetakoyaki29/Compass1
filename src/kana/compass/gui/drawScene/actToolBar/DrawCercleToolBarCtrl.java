@@ -1,4 +1,4 @@
-package kana.compass.gui.canvasPage.actToolBar;
+package kana.compass.gui.drawScene.actToolBar;
 
 
 public class DrawCercleToolBarCtrl extends ActToolBarCtrl {

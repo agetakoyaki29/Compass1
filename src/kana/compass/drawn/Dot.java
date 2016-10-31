@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.geometry.Point2D;
-import kana.compass.geometry.Pen;
+import kana.compass.logic.Pen;
 
 
 public abstract class Dot extends Drawn {

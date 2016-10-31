@@ -1,4 +1,4 @@
-package kana.compass.gui.canvasPage;
+package kana.compass.gui.drawScene;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
@@ -13,15 +13,14 @@ import javafx.stage.Stage;
 import kana.compass.MainApp;
 import kana.compass.drawn.hot.Test;
 import kana.compass.gui.SimplePopup;
-import kana.compass.gui.canvasPage.actToolBar.ActToolBarCtrl;
+import kana.compass.gui.drawScene.actToolBar.ActToolBarCtrl;
 import kana.compass.gui.menuBar.MenuBarCtrl;
-import kana.compass.logic.ActionManager;
-import kana.compass.logic.CanvasManager;
+import kana.compass.logic.ActionCenter;
 import kana.compass.stage.transition.SceneCtrl;
 import kana.scene.control.RadioToggleButton;
 
 
-public class CanvasSceneCtrl extends SceneCtrl {
+public class DrawSceneCtrl extends SceneCtrl {
 
 	@FXML private BorderPane mainPane;
 
@@ -40,10 +39,8 @@ public class CanvasSceneCtrl extends SceneCtrl {
 
 	private MenuBarCtrl menuBarCtrl;
 
-	private CanvasManager cm;
-	private ActionManager manager;
-
-	private CanvasMouseHandler handler;
+	private CanvasManager manager;
+	private ActionCenter center;
 
 
 	@Override
@@ -67,33 +64,30 @@ public class CanvasSceneCtrl extends SceneCtrl {
 		hotCanvas.setWidth(canvas.getWidth());
 		hotCanvas.setHeight(canvas.getHeight());
 
-		// init logic
-		cm = new CanvasManager(canvas, hotCanvas);
+		// init CanvasManager
+		manager = new CanvasManager(canvas, hotCanvas);
 
-		// init handler
-		handler = new CanvasMouseHandler(hotCanvas);
-
-		// init manager
-		manager = new ActionManager(this, handler, cm);
+		// init ActionManager
+		center = new ActionCenter(this, manager);
 
 		// set event handler
-		drawLine.setOnAction(event ->  manager.drawLine());
-		drawCercle.setOnAction(event -> manager.drawCercle());
+		drawLine.setOnAction(event ->  center.drawLine());
+		drawCercle.setOnAction(event -> center.drawCercle());
 
 		// first action
-		manager.drawLine();
+		center.drawLine();
 
 		// TODO for test
 		button1.setTooltip(new Tooltip("for test"));
 //		button1.setOnAction(event -> MainApp.MovePage(CanvasPageController.class));
-		button2.setOnAction(event -> { manager.setHotDrawn(Test.class); });
+		button2.setOnAction(event -> { center.setHotDrawn(Test.class); });
 		button3.setOnAction(event -> drawCercle.setSelected(true));
 	}
 
 	// ---- access to components ----
 
 	public MenuBarCtrl getMenuBarCtrl() { return menuBarCtrl; }
-	public ActionManager getActionManager() { return manager; }
+	public ActionCenter getActionManager() { return center; }
 
 	// ----
 

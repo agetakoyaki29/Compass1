@@ -6,7 +6,7 @@ import kana.compass.drawn.Dot;
 import kana.compass.drawn.Drawn;
 import kana.compass.geometry.Bound2D;
 import kana.compass.geometry.Geo;
-import kana.compass.geometry.Pen;
+import kana.compass.logic.Pen;
 
 
 public class HotCercle extends OldHotDrawn {

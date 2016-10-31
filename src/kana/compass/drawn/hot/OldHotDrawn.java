@@ -1,7 +1,7 @@
 package kana.compass.drawn.hot;
 
 import kana.compass.drawn.Drawn;
-import kana.compass.geometry.Pen;
+import kana.compass.logic.Pen;
 
 public abstract class OldHotDrawn {
 

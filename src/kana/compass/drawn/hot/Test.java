@@ -7,11 +7,11 @@ import java.util.Set;
 import kana.compass.drawn.Dot;
 import kana.compass.drawn.Drawn;
 import kana.compass.drawn.Line;
-import kana.compass.geometry.Pen;
-import kana.compass.gui.canvasPage.actToolBar.ActToolBarCtrl;
-import kana.compass.gui.canvasPage.actToolBar.DrawLineToolBarCtrl;
-import kana.compass.logic.ActionManager;
-import kana.compass.logic.ActionManager.HotDrawn;
+import kana.compass.gui.drawScene.actToolBar.ActToolBarCtrl;
+import kana.compass.gui.drawScene.actToolBar.DrawLineToolBarCtrl;
+import kana.compass.logic.ActionCenter;
+import kana.compass.logic.Pen;
+import kana.compass.logic.ActionCenter.HotDrawn;
 
 
 public class Test extends HotDrawn {
@@ -21,7 +21,7 @@ public class Test extends HotDrawn {
 	private Double angle = null;
 
 
-	public Test(ActionManager outer) {
+	public Test(ActionCenter outer) {
 		outer.super();
 	}
 

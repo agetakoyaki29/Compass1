@@ -2,7 +2,7 @@ package kana.compass.drawn;
 
 import java.util.List;
 
-import kana.compass.geometry.Pen;
+import kana.compass.logic.Pen;
 
 public abstract class DNode {
 

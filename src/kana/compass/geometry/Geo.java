@@ -4,7 +4,10 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import javafx.geometry.Point2D;
+import javafx.scene.input.GestureEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.transform.Affine;
+import javafx.scene.transform.NonInvertibleTransformException;
 import kana.compass.util.MyRuntimeException;
 
 
@@ -16,7 +19,12 @@ public class Geo {
 
 	// ---- Point2D ----
 
-	// newPoint2D(MouseEvent event)
+	public static Point2D newPoint2D(MouseEvent event) {
+		return new Point2D(event.getX(), event.getY());
+	}
+	public static Point2D newPoint2D(GestureEvent event) {
+		return new Point2D(event.getX(), event.getY());
+	}
 
 	// scale
 	public static Point2D scale(Point2D pt, double d) {
@@ -47,6 +55,14 @@ public class Geo {
 		double d1 = pt.getX();
 		double d2 = pt.getY();
 		return d1 * d1 + d2 * d2;
+	}
+
+	public static Point2D inverseTransform(Affine affine, Point2D pt) {
+		try {
+			return affine.inverseTransform(pt);
+		} catch (NonInvertibleTransformException e) {
+			throw new MyRuntimeException(e);
+		}
 	}
 
 	// ---- Bound2D ----

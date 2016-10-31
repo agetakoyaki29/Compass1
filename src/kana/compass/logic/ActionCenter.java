@@ -9,9 +9,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
-import javafx.scene.input.MouseEvent;
 import kana.compass.drawn.CenterDot;
 import kana.compass.drawn.Cercle;
 import kana.compass.drawn.Dot;
@@ -20,20 +18,20 @@ import kana.compass.drawn.FreeDot;
 import kana.compass.drawn.hot.HotCercle;
 import kana.compass.drawn.hot.HotLine;
 import kana.compass.geometry.Geo;
-import kana.compass.geometry.Pen;
-import kana.compass.gui.canvasPage.CanvasMouseHandler;
-import kana.compass.gui.canvasPage.CanvasSceneCtrl;
-import kana.compass.gui.canvasPage.actToolBar.ActToolBarCtrl;
-import kana.compass.gui.canvasPage.actToolBar.DrawCercleToolBarCtrl;
-import kana.compass.gui.canvasPage.actToolBar.DrawLineToolBarCtrl;
+import kana.compass.gui.drawScene.CanvasManager;
+import kana.compass.gui.drawScene.CanvasMouseHandler;
+import kana.compass.gui.drawScene.DrawSceneCtrl;
+import kana.compass.gui.drawScene.actToolBar.ActToolBarCtrl;
+import kana.compass.gui.drawScene.actToolBar.DrawCercleToolBarCtrl;
+import kana.compass.gui.drawScene.actToolBar.DrawLineToolBarCtrl;
 import kana.compass.util.MyRuntimeException;
 
 
-public class ActionManager {
+public class ActionCenter {
 
-	private final CanvasSceneCtrl ctrl;
+	private final DrawSceneCtrl ctrl;
 	private final CanvasMouseHandler handler;
-	private final CanvasManager cm;
+	private final CanvasManager manager;
 	private final Paper paper;
 	private final HotPaper hotPaper;
 	private final DrawnPool pool;
@@ -41,12 +39,12 @@ public class ActionManager {
 	private HotDrawn hot = null;
 	private ActToolBarCtrl actToolBarCtrl = null;
 
-	public ActionManager(CanvasSceneCtrl ctrl, CanvasMouseHandler handler, CanvasManager cm) {
+	public ActionCenter(DrawSceneCtrl ctrl, CanvasManager manager) {
 		this.ctrl = ctrl;
-		this.handler = handler;
-		this.cm = cm;
-		this.paper = cm.getPaper();
-		this.hotPaper = cm.getHotPaper();
+		this.manager = manager;
+		this.handler = manager.getHandler();
+		this.paper = manager.getPaper();
+		this.hotPaper = manager.getHotPaper();
 		this.pool = paper.getPool();
 	}
 
@@ -65,7 +63,7 @@ public class ActionManager {
 	private HotDrawn instantiate(Class<? extends HotDrawn> clazz) {
 		Constructor<? extends HotDrawn> constructor;
 		try {
-			constructor = clazz.getConstructor(ActionManager.class);
+			constructor = clazz.getConstructor(ActionCenter.class);
 		} catch (SecurityException | NoSuchMethodException e) {
 			throw new MyRuntimeException(e);
 		}
@@ -109,27 +107,25 @@ public class ActionManager {
 	// ---- higher-order function ----
 
 	private void setOnLeftClicked4FreeDot(Consumer<Dot> consumer) {
-		handler.onLeftClicked = event -> {
-			Dot pt = new FreeDot(event);
-			consumer.accept(pt);
-		};
+		handler.setLeftPoint(pt -> {
+			consumer.accept(new FreeDot(pt));
+		});
 	}
 
 	private void setOnRightClicked4ReadDot(Consumer<Dot> consumer) {
-		handler.onRightClicked = event -> {
+		handler.setRightPoint(pt -> {
 			// TODO too heavy
 			double r = 5*5;
 			Dot t = null;
 			double distance = r;
-			Point2D mouse = new FreeDot(event).getPt();
 
-			for (Dot pt : pool.getDots()) {
-				Point2D v = pt.getPt();
-				double d = Geo.sqrDistance(mouse, v);
+			for (Dot dot : pool.getDots()) {
+				Point2D v = dot.getPt();
+				double d = Geo.sqrDistance(pt, v);
 				if(d > r) continue;
 				if(d > distance) continue;
 				distance = d;
-				t = pt;
+				t = dot;
 			}
 
 			if(t == null) {
@@ -137,7 +133,7 @@ public class ActionManager {
 				return;
 			}
 			consumer.accept(t);
-		};
+		});
 	}
 
 	// ---- class ----
@@ -154,8 +150,8 @@ public class ActionManager {
 
 		private boolean preDraw = false;
 
-		protected ActionManager outer() {
-			return ActionManager.this;
+		protected ActionCenter outer() {
+			return ActionCenter.this;
 		}
 
 		public final void push(String name, Object param) {
@@ -189,11 +185,10 @@ public class ActionManager {
 		public final boolean isPreDraw() { return preDraw; };
 
 		protected final void beginPreDraw() {
-			EventHandler<MouseEvent> whenPt2 = event -> {
-				prePushDot(new FreeDot(event));
+			handler.setMovePoint(pt -> {
+				prePushDot(new FreeDot(pt));
 				hotPaper.repaint();
-			};
-			handler.onMoved = whenPt2;
+			});
 //			hotPaper.setDrawing(this); TODO
 			preDraw  = true;
 		}
@@ -252,8 +247,8 @@ public class ActionManager {
 		HotLine cur = new HotLine();
 		hotPaper.setDrawing(cur);
 
-		EventHandler<MouseEvent> whenPt2 = event -> {
-			cur.pt2 = new FreeDot(event);
+		Consumer<Point2D> whenPt2 = pt -> {
+			cur.pt2 = new FreeDot(pt);
 			hotPaper.repaint();
 		};
 		Consumer<Dot> getPt2 = pt -> {
@@ -272,7 +267,7 @@ public class ActionManager {
 		Consumer<Dot> getPt1 = pt -> {
 			cur.pt1 = pt;
 
-			handler.onMoved = whenPt2;
+			handler.setMovePoint(whenPt2);
 			setOnLeftClicked4FreeDot(getPt2);
 			setOnRightClicked4ReadDot(getPt2);
 
@@ -290,8 +285,8 @@ public class ActionManager {
 		HotCercle cur = new HotCercle();
 		hotPaper.setDrawing(cur);
 
-		EventHandler<MouseEvent> whenPt2 = event -> {
-			cur.pt2 = new FreeDot(event);
+		Consumer<Point2D> whenPt2 = pt -> {
+			cur.pt2 = new FreeDot(pt);
 			hotPaper.repaint();
 		};
 		Consumer<Dot> getPt2 = pt -> {
@@ -312,7 +307,7 @@ public class ActionManager {
 		Consumer<Dot> getPt1 = pt -> {
 			cur.pt1 = pt;
 
-			handler.onMoved = whenPt2;
+			handler.setMovePoint(whenPt2);
 			setOnLeftClicked4FreeDot(getPt2);
 			setOnRightClicked4ReadDot(getPt2);
 

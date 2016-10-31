@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import kana.compass.geometry.Pen;
+import kana.compass.logic.Pen;
 
 public abstract class Drawn {
 

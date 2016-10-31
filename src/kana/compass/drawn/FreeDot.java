@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.geometry.Point2D;
-import javafx.scene.input.MouseEvent;
 
 public class FreeDot extends Dot {
 	private Point2D pt;
@@ -15,10 +14,6 @@ public class FreeDot extends Dot {
 
 	public FreeDot(Point2D pt) {
 		this.pt = pt;
-	}
-
-	public FreeDot(MouseEvent event) {
-		this.pt = new Point2D(event.getX(), event.getY());
 	}
 
 	@Override

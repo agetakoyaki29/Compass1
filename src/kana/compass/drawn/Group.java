@@ -3,7 +3,7 @@ package kana.compass.drawn;
 import java.util.LinkedList;
 import java.util.List;
 
-import kana.compass.geometry.Pen;
+import kana.compass.logic.Pen;
 
 
 public class Group extends DNode {

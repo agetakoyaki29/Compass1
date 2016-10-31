@@ -3,7 +3,7 @@ package kana.compass;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import kana.compass.gui.canvasPage.CanvasSceneCtrl;
+import kana.compass.gui.drawScene.DrawSceneCtrl;
 import kana.compass.stage.transition.Launcher;
 
 
@@ -21,7 +21,7 @@ public final class MainApp extends Launcher{
 		stage.setScene(new Scene(root));
 		stage.centerOnScreen();
 
-		moveScene(new CanvasSceneCtrl());
+		moveScene(new DrawSceneCtrl());
 	}
 
 	private static Launcher instance = null;
