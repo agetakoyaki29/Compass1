@@ -2,11 +2,11 @@ package kana.compass.drawn;
 
 import java.util.List;
 
-import javafx.scene.canvas.GraphicsContext;
+import kana.compass.geometry.Pen;
 
 public abstract class DNode {
 
-	public abstract void draw(GraphicsContext gc);
+	public abstract void draw(Pen pen);
 	public abstract List<Drawn> getDrawns();
 
 }

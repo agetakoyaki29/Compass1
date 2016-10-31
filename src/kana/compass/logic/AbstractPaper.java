@@ -2,15 +2,21 @@ package kana.compass.logic;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.transform.Affine;
+import kana.compass.geometry.Pen;
 
 
 public abstract class AbstractPaper {
 
-	protected GraphicsContext gc;
+	private final GraphicsContext gc;
+	private final Pen pen;
 
-	public AbstractPaper(GraphicsContext gc) {
+	public AbstractPaper(GraphicsContext gc, Affine coord) {
 		this.gc = gc;
+		this.pen = new Pen(gc, coord);
 	}
+
+	public final Pen getPen() { return pen; }
 
 	protected void clearWhole() {
 		Canvas canvas = gc.getCanvas();

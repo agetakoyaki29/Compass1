@@ -1,9 +1,8 @@
 package kana.compass.drawn.hot;
 
-import javafx.scene.canvas.GraphicsContext;
+import kana.compass.drawn.Dot;
 import kana.compass.drawn.Drawn;
 import kana.compass.drawn.Line;
-import kana.compass.drawn.Dot;
 import kana.compass.geometry.Pen;
 
 
@@ -13,10 +12,10 @@ public class HotLine extends OldHotDrawn {
 	public Dot pt2 = null;
 
 	@Override
-	public void draw(GraphicsContext gc) {
+	public void draw(Pen pen) {
 		if(pt2 == null || pt1 == null) return;
 
-		Pen.strokeLine(gc, pt1, pt2);
+		pen.strokeLine(pt1.getPt(), pt2.getPt());
 	}
 
 	public Drawn makeCold() {

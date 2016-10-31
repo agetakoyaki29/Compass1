@@ -6,7 +6,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
-import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
@@ -17,8 +16,7 @@ import kana.compass.gui.SimplePopup;
 import kana.compass.gui.canvasPage.actToolBar.ActToolBarCtrl;
 import kana.compass.gui.menuBar.MenuBarCtrl;
 import kana.compass.logic.ActionManager;
-import kana.compass.logic.HotPaper;
-import kana.compass.logic.Paper;
+import kana.compass.logic.CanvasManager;
 import kana.compass.stage.transition.SceneCtrl;
 import kana.scene.control.RadioToggleButton;
 
@@ -42,11 +40,11 @@ public class CanvasSceneCtrl extends SceneCtrl {
 
 	private MenuBarCtrl menuBarCtrl;
 
+	private CanvasManager cm;
+	private ActionManager manager;
+
 	private CanvasMouseHandler handler;
 
-	private Paper paper;
-	private HotPaper hotPaper;
-	private ActionManager manager;
 
 	@Override
 	public void init() {
@@ -70,18 +68,13 @@ public class CanvasSceneCtrl extends SceneCtrl {
 		hotCanvas.setHeight(canvas.getHeight());
 
 		// init logic
-		paper = new Paper(canvas.getGraphicsContext2D());
-		paper.repaint();
-
-		hotCanvas.setBlendMode(BlendMode.COLOR_BURN);	// TODO なににしよう(fxmlで指定)
-		hotPaper = new HotPaper(hotCanvas.getGraphicsContext2D());
-		hotPaper.repaint();
+		cm = new CanvasManager(canvas, hotCanvas);
 
 		// init handler
 		handler = new CanvasMouseHandler(hotCanvas);
 
 		// init manager
-		manager = new ActionManager(this, handler, paper, hotPaper);
+		manager = new ActionManager(this, handler, cm);
 
 		// set event handler
 		drawLine.setOnAction(event ->  manager.drawLine());
@@ -100,7 +93,6 @@ public class CanvasSceneCtrl extends SceneCtrl {
 	// ---- access to components ----
 
 	public MenuBarCtrl getMenuBarCtrl() { return menuBarCtrl; }
-	public Paper getPaper() { return paper; }
 	public ActionManager getActionManager() { return manager; }
 
 	// ----

@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.geometry.Point2D;
-import javafx.scene.canvas.GraphicsContext;
+import kana.compass.geometry.Pen;
 
 
 public abstract class Dot extends Drawn {
 
 	@Override
-	public void draw(GraphicsContext gc) {
+	public void draw(Pen pen) {
 		double x = getPt().getX();
 		double y = getPt().getY();
-		gc.strokeLine(x, y-1, x, y+1);
-		gc.strokeLine(x-1, y, x+1, y);
+		pen.strokeLine(x, y-1, x, y+1);
+		pen.strokeLine(x-1, y, x+1, y);
 	}
 
 //	@Override

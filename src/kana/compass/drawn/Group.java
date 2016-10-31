@@ -3,7 +3,7 @@ package kana.compass.drawn;
 import java.util.LinkedList;
 import java.util.List;
 
-import javafx.scene.canvas.GraphicsContext;
+import kana.compass.geometry.Pen;
 
 
 public class Group extends DNode {
@@ -11,9 +11,9 @@ public class Group extends DNode {
 	List<Drawn> drawns = new LinkedList<>();
 
 	@Override
-	public void draw(GraphicsContext gc) {
+	public void draw(Pen pen) {
 		for (Drawn drawn : drawns) {
-			drawn.draw(gc);
+			drawn.draw(pen);
 		}
 	}
 

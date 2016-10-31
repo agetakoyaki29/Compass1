@@ -4,10 +4,10 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import javafx.scene.canvas.GraphicsContext;
 import kana.compass.drawn.Dot;
 import kana.compass.drawn.Drawn;
 import kana.compass.drawn.Line;
+import kana.compass.geometry.Pen;
 import kana.compass.gui.canvasPage.actToolBar.ActToolBarCtrl;
 import kana.compass.gui.canvasPage.actToolBar.DrawLineToolBarCtrl;
 import kana.compass.logic.ActionManager;
@@ -26,19 +26,20 @@ public class Test extends HotDrawn {
 	}
 
 	@Override
-	public void draw(GraphicsContext gc) {
-		Dot pt2 = this.pt2;
-		if(angle != null) {
+	protected void began() {
+		outer().setStatusText("１点目！");
+	}
 
+	@Override
+	public void draw(Pen pen) {
+		if(angle != null) {
 		}
-		gc.strokeLine(pt1.getPt().getX(), pt1.getPt().getY(), pt2.getPt().getX(), pt2.getPt().getY());
+		pen.strokeLine(pt1.getPt(), pt2.getPt());
 	}
 
 	@Override
 	protected Set<Drawn> makeColds() {
-		Dot pt2 = this.pt2;
 		if(angle != null) {
-
 		}
 		Drawn cold = new Line(pt1, pt2);
 		return new HashSet<Drawn>(Arrays.asList(cold));
@@ -49,6 +50,7 @@ public class Test extends HotDrawn {
 		if(pt1 == null) {
 			pt1 = pt;
 			beginPreDraw();
+			outer().setStatusText("２点目！");
 		} else if(isPreDraw()) {
 			pt2 = pt;
 			end();

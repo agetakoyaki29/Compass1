@@ -1,11 +1,11 @@
 package kana.compass.drawn.hot;
 
-import javafx.scene.canvas.GraphicsContext;
 import kana.compass.drawn.Drawn;
+import kana.compass.geometry.Pen;
 
 public abstract class OldHotDrawn {
 
-	public abstract void draw(GraphicsContext gc);
+	public abstract void draw(Pen pen);
 
 	public abstract Drawn makeCold();
 

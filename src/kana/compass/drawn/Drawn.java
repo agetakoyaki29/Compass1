@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javafx.scene.canvas.GraphicsContext;
+import kana.compass.geometry.Pen;
 
 public abstract class Drawn {
 
@@ -44,12 +44,12 @@ public abstract class Drawn {
 
 	// ---- abstract ----
 
-	public abstract void draw(GraphicsContext gc);
+	public abstract void draw(Pen pen);
 
 	/**
 	 * 当代かぎり
 	 */
-//	public abstract Box getBoundingBox();
+//	public abstract Bound2D getBoundingBox();
 
 	public abstract List<Drawn> getComponents();
 

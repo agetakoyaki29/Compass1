@@ -1,6 +1,10 @@
 package kana.compass.geometry;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 import javafx.geometry.Point2D;
+import javafx.scene.transform.Affine;
 import kana.compass.util.MyRuntimeException;
 
 
@@ -15,6 +19,9 @@ public class Geo {
 	// newPoint2D(MouseEvent event)
 
 	// scale
+	public static Point2D scale(Point2D pt, double d) {
+		return new Point2D(d * pt.getX(), d * pt.getY());
+	}
 
 	public static double distance(Point2D pt1, Point2D pt2) {
 		return pt1.subtract(pt2).magnitude();
@@ -24,11 +31,17 @@ public class Geo {
 		return Geo.sqrMagnitude( pt1.subtract(pt2) );
 	}
 
-//	public static Vector midpoint(Vector... vs) {
-//		return v1.add(v2).devide(2);
-//	}
-//	public static Vector midpoint(Collection<Vector> vs) {
-//	}
+	public static Point2D midpoint(Point2D... pts) {
+		return midpoint(Arrays.asList(pts));
+	}
+	public static Point2D midpoint(Collection<Point2D> pts) {
+		if(pts.size() <= 0) return null;
+		Point2D ret = Point2D.ZERO;
+		for (Point2D pt : pts) {
+			ret = ret.add(pt);
+		}
+		return Geo.scale(ret, 1/pts.size());
+	}
 
 	public static double sqrMagnitude(Point2D pt) {
 		double d1 = pt.getX();
@@ -36,12 +49,12 @@ public class Geo {
 		return d1 * d1 + d2 * d2;
 	}
 
-	// ---- x ----
+	// ---- Bound2D ----
 
-//	public static Box makeBoundingBox(Vector... vs) {
+//	public static Bound2D newBound2D(Vector... vs) {
 //		return makeBoundingBox(vs);
 //	}
-//	public static Box makeBoundingBox(Collection<Vector> vs) {
+//	public static Bound2D newBound2D(Collection<Vector> vs) {
 //		if(vs.size() <= 0) throw new MyRuntimeException("ge 1, plz");
 //
 //		double minX = Double.POSITIVE_INFINITY;
@@ -58,5 +71,11 @@ public class Geo {
 //
 //		return new Box(new Vector(minX, minY), new Vector(maxX, maxY));
 //	}
+
+	public static Bound2D transform(Affine affine, Bound2D bounds) {
+		Point2D min = affine.transform(bounds.getMin());
+		Point2D max = affine.transform(bounds.getMax());
+		return new Bound2D(min, max);
+	}
 
 }

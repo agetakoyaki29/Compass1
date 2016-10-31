@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.geometry.Point2D;
-import javafx.scene.canvas.GraphicsContext;
+import kana.compass.geometry.Bound2D;
 import kana.compass.geometry.Geo;
 import kana.compass.geometry.Pen;
 
@@ -37,10 +37,12 @@ public class Cercle extends Drawn {
 	}
 
 	@Override
-	public void draw(GraphicsContext gc) {
+	public void draw(Pen pen) {
 		Point2D c = getCenter();
 		double r = getRange();
-		Pen.strokeCercle(gc, c, r);
+		Point2D rr = new Point2D(r, r);
+		Bound2D bounds = new Bound2D(c.subtract(rr), c.add(rr));
+		pen.strokeCercle(bounds);
 	}
 
 //	@Override

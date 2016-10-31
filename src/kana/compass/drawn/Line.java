@@ -3,7 +3,6 @@ package kana.compass.drawn;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.scene.canvas.GraphicsContext;
 import kana.compass.geometry.Pen;
 
 
@@ -20,8 +19,8 @@ public class Line extends Drawn {
 	}
 
 	@Override
-	public void draw(GraphicsContext gc) {
-		Pen.strokeLine(gc, dot1, dot2);
+	public void draw(Pen pen) {
+		pen.strokeLine(dot1.getPt(), dot2.getPt());
 	}
 
 //	@Override

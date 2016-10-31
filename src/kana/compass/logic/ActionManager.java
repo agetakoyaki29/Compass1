@@ -11,7 +11,6 @@ import java.util.stream.Stream;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import kana.compass.drawn.CenterDot;
 import kana.compass.drawn.Cercle;
@@ -21,6 +20,7 @@ import kana.compass.drawn.FreeDot;
 import kana.compass.drawn.hot.HotCercle;
 import kana.compass.drawn.hot.HotLine;
 import kana.compass.geometry.Geo;
+import kana.compass.geometry.Pen;
 import kana.compass.gui.canvasPage.CanvasMouseHandler;
 import kana.compass.gui.canvasPage.CanvasSceneCtrl;
 import kana.compass.gui.canvasPage.actToolBar.ActToolBarCtrl;
@@ -33,6 +33,7 @@ public class ActionManager {
 
 	private final CanvasSceneCtrl ctrl;
 	private final CanvasMouseHandler handler;
+	private final CanvasManager cm;
 	private final Paper paper;
 	private final HotPaper hotPaper;
 	private final DrawnPool pool;
@@ -40,11 +41,12 @@ public class ActionManager {
 	private HotDrawn hot = null;
 	private ActToolBarCtrl actToolBarCtrl = null;
 
-	public ActionManager(CanvasSceneCtrl ctrl, CanvasMouseHandler handler, Paper paper, HotPaper hotPaper) {
+	public ActionManager(CanvasSceneCtrl ctrl, CanvasMouseHandler handler, CanvasManager cm) {
 		this.ctrl = ctrl;
 		this.handler = handler;
-		this.paper = paper;
-		this.hotPaper = hotPaper;
+		this.cm = cm;
+		this.paper = cm.getPaper();
+		this.hotPaper = cm.getHotPaper();
 		this.pool = paper.getPool();
 	}
 
@@ -156,7 +158,7 @@ public class ActionManager {
 			return ActionManager.this;
 		}
 
-		public void push(String name, Object param) {
+		public final void push(String name, Object param) {
 			String methodName = "push" + name.substring(0, 1).toUpperCase() + name.substring(1);
 
 			List<Method> methods = Stream.of( this.getClass().getMethods() )
@@ -175,14 +177,18 @@ public class ActionManager {
 			}
 		}
 
-		private void begin() {
+		private final void begin() {
+			began();
+			// TODO endと合わせて作ったけど、なにしよう
 		}
 
-		public abstract void draw(GraphicsContext gc);
+		protected abstract void began();
 
-		public boolean isPreDraw() { return preDraw; };
+		public abstract void draw(Pen pen);
 
-		protected void beginPreDraw() {
+		public final boolean isPreDraw() { return preDraw; };
+
+		protected final void beginPreDraw() {
 			EventHandler<MouseEvent> whenPt2 = event -> {
 				prePushDot(new FreeDot(event));
 				hotPaper.repaint();
@@ -194,7 +200,7 @@ public class ActionManager {
 
 		public abstract void prePushDot(Dot pt);
 
-		public void end() {
+		public final void end() {
 			Set<Drawn> drawns = this.makeColds();
 			paper.addAll(drawns);
 
