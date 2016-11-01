@@ -23,6 +23,7 @@ public class SimplePopup extends Popup {
 		this.getContent().add(label);
 	}
 
+	@Override
 	public void show(Node ownerNode, double localX, double localY) {
 //		Window window = ownerNode.getScene().getWindow();
 		Point2D anchor = ownerNode.localToScreen(localX, localY);

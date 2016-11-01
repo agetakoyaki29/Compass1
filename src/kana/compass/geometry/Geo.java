@@ -57,14 +57,6 @@ public class Geo {
 		return d1 * d1 + d2 * d2;
 	}
 
-	public static Point2D inverseTransform(Affine affine, Point2D pt) {
-		try {
-			return affine.inverseTransform(pt);
-		} catch (NonInvertibleTransformException e) {
-			throw new MyRuntimeException(e);
-		}
-	}
-
 	// ---- Bound2D ----
 
 //	public static Bound2D newBound2D(Vector... vs) {
@@ -92,6 +84,14 @@ public class Geo {
 		Point2D min = affine.transform(bounds.getMin());
 		Point2D max = affine.transform(bounds.getMax());
 		return new Bound2D(min, max);
+	}
+
+	public static Point2D inverseTransform(Affine affine, Point2D pt) {
+		try {
+			return affine.inverseTransform(pt);
+		} catch (NonInvertibleTransformException e) {
+			throw new MyRuntimeException(e);
+		}
 	}
 
 }

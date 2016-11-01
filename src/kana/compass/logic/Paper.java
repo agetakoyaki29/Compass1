@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.transform.Affine;
 import kana.compass.drawn.Cercle;
 import kana.compass.drawn.Dot;
 import kana.compass.drawn.Drawn;
@@ -18,8 +17,8 @@ public class Paper extends AbstractPaper{
 
 	private DrawnPool pool = new DrawnPool();
 
-	public Paper(GraphicsContext gc, Affine coord) {
-		super(gc, coord);
+	public Paper(GraphicsContext gc, ScopeTransform scope) {
+		super(gc, scope);
 
 		gc.setFill(null);
 		gc.setStroke(Color.BLACK);

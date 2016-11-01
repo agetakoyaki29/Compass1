@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import kana.scene.control.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.*?>
@@ -13,18 +14,6 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <BorderPane fx:id="mainPane" stylesheets="@DrawScene.css" BorderPane.alignment="CENTER">
-         <bottom>
-            <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="28.0" styleClass="bordered-pane-bottom" BorderPane.alignment="CENTER">
-               <items>
-                  <Text fx:id="statusText" strokeType="OUTSIDE" strokeWidth="0.0" text="hello, world!" />
-                  <Separator layoutX="68.0" layoutY="10.0" orientation="VERTICAL" />
-                  <Button mnemonicParsing="false" text="Botton" />
-               </items>
-               <padding>
-                  <Insets bottom="2.0" left="6.0" right="6.0" top="1.0" />
-               </padding>
-            </ToolBar>
-         </bottom>
          <left>
             <Pane fx:id="tool" minWidth="100.0" styleClass="border-pane-left" BorderPane.alignment="CENTER">
                <children>
@@ -57,7 +46,10 @@
                         </TreeTableView>
                      </content>
                   </ScrollPane>
-                  <Pane style="-fx-background-color: gray;" />
+                  <Pane style="-fx-background-color: gray;">
+                     <children>
+                        <Slider layoutX="14.0" layoutY="66.0" />
+                     </children></Pane>
                </items>
             </SplitPane>
          </right>
@@ -69,7 +61,7 @@
             </ToolBar>
          </top>
          <center>
-            <ScrollPane hbarPolicy="NEVER" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
+            <ScrollPane fx:id="canvasScrollPane" hbarPolicy="NEVER" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
                <content>
                   <StackPane alignment="TOP_LEFT">
                      <children>
@@ -83,6 +75,56 @@
                </opaqueInsets>
             </ScrollPane>
          </center>
+         <bottom>
+            <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="28.0" styleClass="bordered-pane-bottom" BorderPane.alignment="CENTER">
+               <children>
+                  <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="28.0" AnchorPane.leftAnchor="0.0">
+                     <items>
+                        <Text fx:id="statusText" strokeType="OUTSIDE" strokeWidth="0.0" text="hello, world!" />
+                        <Separator layoutX="68.0" layoutY="10.0" orientation="VERTICAL" />
+                        <Button mnemonicParsing="false" text="Botton" />
+                        <Separator orientation="VERTICAL" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                     </items>
+                     <padding>
+                        <Insets bottom="2.0" left="6.0" right="6.0" top="2.0" />
+                     </padding>
+                  </ToolBar>
+                  <ToolBar maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" AnchorPane.rightAnchor="0.0">
+                     <padding>
+                        <Insets bottom="2.0" left="6.0" right="6.0" top="2.0" />
+                     </padding>
+                     <items>
+                        <ToolBar nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#onTBScopeClicked" styleClass="button">
+                           <items>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="倍率:" />
+                              <Label fx:id="scopeLabel" text="1.00e+0" />
+                           </items>
+                           <contextMenu>
+                              <ContextMenu>
+                                <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#onCtxItmInitScope" text="初期位置" />
+                                  <MenuItem mnemonicParsing="false" onAction="#onCtxItmResetScope" text="倍率: 1" />
+                                    <CustomMenuItem hideOnClick="false" mnemonicParsing="false" text="+">
+                                       <content>
+                                          <HBox>
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#onCtxBtnPlusScope" text="+" />
+                                                <Button mnemonicParsing="false" onAction="#onCtxBtnMinusScope" text="-" />
+                                             </children>
+                                          </HBox>
+                                       </content>
+                                    </CustomMenuItem>
+                                </items>
+                              </ContextMenu>
+                           </contextMenu>
+                        </ToolBar>
+                        <Separator orientation="VERTICAL" />
+                     </items>
+                  </ToolBar>
+               </children>
+            </AnchorPane>
+         </bottom>
       </BorderPane>
    </center>
    <top>

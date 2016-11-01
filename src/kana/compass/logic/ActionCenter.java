@@ -30,8 +30,9 @@ import kana.compass.util.MyRuntimeException;
 public class ActionCenter {
 
 	private final DrawSceneCtrl ctrl;
-	private final CanvasMouseHandler handler;
 	private final CanvasManager manager;
+	private final CanvasMouseHandler handler;
+	private final ScopeTransform scope;
 	private final Paper paper;
 	private final HotPaper hotPaper;
 	private final DrawnPool pool;
@@ -43,6 +44,7 @@ public class ActionCenter {
 		this.ctrl = ctrl;
 		this.manager = manager;
 		this.handler = manager.getHandler();
+		this.scope = manager.getScope();
 		this.paper = manager.getPaper();
 		this.hotPaper = manager.getHotPaper();
 		this.pool = paper.getPool();
@@ -85,8 +87,8 @@ public class ActionCenter {
 
 	public void clearOns() {
 		handler.clearOnMoved();
-		handler.clearOnLeftClicked();
-		handler.clearOnRightClicked();
+		handler.clearOnClickedLeft();
+		handler.clearOnClickedRight();
 	}
 
 	// ---- hot drawings ----
@@ -107,13 +109,13 @@ public class ActionCenter {
 	// ---- higher-order function ----
 
 	private void setOnLeftClicked4FreeDot(Consumer<Dot> consumer) {
-		handler.setLeftPoint(pt -> {
+		handler.setClickedLeftPoint(pt -> {
 			consumer.accept(new FreeDot(pt));
 		});
 	}
 
 	private void setOnRightClicked4ReadDot(Consumer<Dot> consumer) {
-		handler.setRightPoint(pt -> {
+		handler.setClickedRightPoint(pt -> {
 			// TODO too heavy
 			double r = 5*5;
 			Dot t = null;

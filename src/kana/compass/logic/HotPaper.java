@@ -2,7 +2,6 @@ package kana.compass.logic;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.transform.Affine;
 import kana.compass.drawn.hot.OldHotDrawn;
 
 public class HotPaper extends AbstractPaper {
@@ -10,8 +9,8 @@ public class HotPaper extends AbstractPaper {
 	private OldHotDrawn drawing = null;
 	// TODO public HotDrawn select = null;
 
-	public HotPaper(GraphicsContext gc, Affine coord) {
-		super(gc, coord);
+	public HotPaper(GraphicsContext gc, ScopeTransform scope) {
+		super(gc, scope);
 
 		gc.setFill(null);
 		gc.setStroke(Color.RED);

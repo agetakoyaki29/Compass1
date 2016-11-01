@@ -2,7 +2,6 @@ package kana.compass.logic;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.transform.Affine;
 
 
 public abstract class AbstractPaper {
@@ -10,9 +9,9 @@ public abstract class AbstractPaper {
 	private final GraphicsContext gc;
 	private final Pen pen;
 
-	public AbstractPaper(GraphicsContext gc, Affine coord) {
+	public AbstractPaper(GraphicsContext gc, ScopeTransform scope) {
 		this.gc = gc;
-		this.pen = new Pen(gc, coord);
+		this.pen = new Pen(gc, scope);
 	}
 
 	public final Pen getPen() { return pen; }

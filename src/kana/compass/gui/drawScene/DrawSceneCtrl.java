@@ -1,11 +1,17 @@
 package kana.compass.gui.drawScene;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
@@ -16,7 +22,9 @@ import kana.compass.gui.SimplePopup;
 import kana.compass.gui.drawScene.actToolBar.ActToolBarCtrl;
 import kana.compass.gui.menuBar.MenuBarCtrl;
 import kana.compass.logic.ActionCenter;
+import kana.compass.logic.ScopeTransform;
 import kana.compass.stage.transition.SceneCtrl;
+import kana.compass.util.ExpStringConverter;
 import kana.scene.control.RadioToggleButton;
 
 
@@ -24,6 +32,7 @@ public class DrawSceneCtrl extends SceneCtrl {
 
 	@FXML private BorderPane mainPane;
 
+	@FXML private ScrollPane canvasScrollPane;
 	@FXML private Canvas canvas;
 	@FXML private Canvas hotCanvas;
 
@@ -36,9 +45,11 @@ public class DrawSceneCtrl extends SceneCtrl {
 	@FXML private RadioToggleButton drawCercle;
 
 	@FXML private Text statusText;
+	@FXML private Label scopeLabel;
 
 	private MenuBarCtrl menuBarCtrl;
 
+	private ScopeTransform scope;
 	private CanvasManager manager;
 	private ActionCenter center;
 
@@ -64,15 +75,28 @@ public class DrawSceneCtrl extends SceneCtrl {
 		hotCanvas.setWidth(canvas.getWidth());
 		hotCanvas.setHeight(canvas.getHeight());
 
-		// init CanvasManager
-		manager = new CanvasManager(canvas, hotCanvas);
+		// status pane
+		scopeLabel.getStyleClass().setAll("label");
 
-		// init ActionManager
+		// init logic
+		manager = new CanvasManager(canvasScrollPane, canvas, hotCanvas);
 		center = new ActionCenter(this, manager);
+
+		scope = manager.getScope();
 
 		// set event handler
 		drawLine.setOnAction(event ->  center.drawLine());
 		drawCercle.setOnAction(event -> center.drawCercle());
+
+		// property bind
+		ReadOnlyDoubleProperty powerProperty = scope.powerProperty();
+		ExpStringConverter powerPropertyConverter = new ExpStringConverter();
+		scopeLabel.textProperty().bind(
+				Bindings.createStringBinding(() -> powerPropertyConverter.toString(powerProperty.get()+""),
+						powerProperty));
+
+		// handle event
+
 
 		// first action
 		center.drawLine();
@@ -82,6 +106,36 @@ public class DrawSceneCtrl extends SceneCtrl {
 //		button1.setOnAction(event -> MainApp.MovePage(CanvasPageController.class));
 		button2.setOnAction(event -> { center.setHotDrawn(Test.class); });
 		button3.setOnAction(event -> drawCercle.setSelected(true));
+	}
+
+	// ----
+
+	@FXML
+	public void onCtxItmInitScope(ActionEvent event) {
+		scope.initTrans();
+		manager.repaint();
+	}
+	@FXML
+	public void onCtxItmResetScope(ActionEvent event) {
+		scope.setScale(1);
+		manager.repaint();
+	}
+	@FXML
+	public void onCtxBtnPlusScope(ActionEvent event) {
+		scope.appendScale(1.5);
+		manager.repaint();
+	}
+	@FXML
+	public void onCtxBtnMinusScope(ActionEvent event) {
+		scope.appendScale(1/1.5);
+		manager.repaint();
+	}
+	@FXML
+	public void onTBScopeClicked(MouseEvent event) {
+		// TODO
+//		Control control = (Control) event.getPickResult().getIntersectedNode();
+//		control.getContextMenu().show(control, Side.LEFT, 0, 0);
+//		event.consume();
 	}
 
 	// ---- access to components ----
