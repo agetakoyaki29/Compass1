@@ -65,7 +65,7 @@
                <content>
                   <StackPane alignment="TOP_LEFT">
                      <children>
-                        <Canvas fx:id="canvas" />
+                        <Canvas fx:id="canvas" cache="true" cacheHint="SPEED" />
                         <Canvas fx:id="hotCanvas" />
                      </children>
                   </StackPane>
