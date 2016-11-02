@@ -1,7 +1,5 @@
 package kana.compass.gui.drawScene;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
@@ -25,6 +23,7 @@ import kana.compass.logic.ActionCenter;
 import kana.compass.logic.ScopeTransform;
 import kana.compass.stage.transition.SceneCtrl;
 import kana.compass.util.ExpStringConverter;
+import kana.compass.util.Util;
 import kana.scene.control.RadioToggleButton;
 
 
@@ -89,14 +88,9 @@ public class DrawSceneCtrl extends SceneCtrl {
 		drawCercle.setOnAction(event -> center.drawCercle());
 
 		// property bind
-		ReadOnlyDoubleProperty powerProperty = scope.powerProperty();
-		ExpStringConverter powerPropertyConverter = new ExpStringConverter();
-		scopeLabel.textProperty().bind(
-				Bindings.createStringBinding(() -> powerPropertyConverter.toString(powerProperty.get()+""),
-						powerProperty));
+		Util.bind(scopeLabel.textProperty(), scope.powerProperty(), new ExpStringConverter());
 
 		// handle event
-
 
 		// first action
 		center.drawLine();

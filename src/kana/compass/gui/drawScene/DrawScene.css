@@ -3,14 +3,13 @@
 	-fx-background-color: none;
 }
 
-/*
 .tooltip {
 	-fx-text-fill: black;
-	-fx-background-color: white;
+	-fx-background-color: #FFFFE1;
 	-fx-border-color: black;
 	-fx-border-radias: 5;
 }
-*/
+
 
 
 .bordered-pane-top {

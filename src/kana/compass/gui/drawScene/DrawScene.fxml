@@ -120,6 +120,20 @@
                            </contextMenu>
                         </ToolBar>
                         <Separator orientation="VERTICAL" />
+                        <ToolBar nodeOrientation="LEFT_TO_RIGHT" styleClass="button">
+                           <items>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="角度:" />
+                              <Label text="-122" />
+                           </items>
+                        </ToolBar>
+                        <Separator orientation="VERTICAL" />
+                        <ToolBar nodeOrientation="LEFT_TO_RIGHT" styleClass="button">
+                           <items>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="位置:" />
+                              <Label text="21x51" />
+                           </items>
+                        </ToolBar>
+                        <Separator orientation="VERTICAL" />
                      </items>
                   </ToolBar>
                </children>

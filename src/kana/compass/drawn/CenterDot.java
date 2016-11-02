@@ -22,8 +22,8 @@ public class CenterDot extends Dot {
 
 	@Override
 	public Point2D getPt() {
-		Point2D pt1 = cercle.dot1.getPt();
-		Point2D pt2 = cercle.dot2.getPt();
+		Point2D pt1 = cercle.getDot1().getPt();
+		Point2D pt2 = cercle.getDot2().getPt();
 		return pt1.midpoint(pt2);
 	}
 

@@ -117,16 +117,15 @@ public class ActionCenter {
 	private void setOnRightClicked4ReadDot(Consumer<Dot> consumer) {
 		handler.setClickedRightPoint(pt -> {
 			// TODO too heavy
-			double r = 5*5;
+			double min = 8 * scope.get1Pixel();
+			min *= min;
 			Dot t = null;
-			double distance = r;
 
 			for (Dot dot : pool.getDots()) {
 				Point2D v = dot.getPt();
 				double d = Geo.sqrDistance(pt, v);
-				if(d > r) continue;
-				if(d > distance) continue;
-				distance = d;
+				if(d > min) continue;
+				min = d;
 				t = dot;
 			}
 

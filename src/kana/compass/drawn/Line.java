@@ -3,6 +3,8 @@ package kana.compass.drawn;
 import java.util.ArrayList;
 import java.util.List;
 
+import kana.compass.geometry.Bound2D;
+import kana.compass.geometry.Geo;
 import kana.compass.logic.Pen;
 
 
@@ -23,10 +25,10 @@ public class Line extends Drawn {
 		pen.strokeLine(dot1.getPt(), dot2.getPt());
 	}
 
-//	@Override
-//	public Box getBoundingBox() {
-//		return Geo.makeBoundingBox(pt1.getPt(), pt2.getPt());
-//	}
+	@Override
+	public Bound2D getBoundingBox() {
+		return Geo.newBound2D(dot1.getPt(), dot2.getPt());
+	}
 
 	@Override
 	public List<Drawn> getComponents() {

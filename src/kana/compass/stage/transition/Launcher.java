@@ -7,21 +7,16 @@ import javafx.stage.Stage;
 
 public abstract class Launcher extends Application {
 
-	private boolean isStart = false;
 	private Stage stage = null;
 	private SceneCtrl sceneCtrl;
 
 	@Override
 	public void start(Stage primaryStage) {
-		isStart = true;
-
 		// インスタンス
-		setInstance(this);
+		instance = this;
 
 		// set ステージ
 		stage = primaryStage;
-
-		stage.show();
 	}
 
 	public void moveScene(SceneCtrl ctrl) {
@@ -34,18 +29,14 @@ public abstract class Launcher extends Application {
 		sceneCtrl = ctrl;
 	}
 
-	public final boolean isStart() { return isStart; }
+
+	private static Launcher instance = null;
+
+	public static Launcher getInstance(){ return instance; }
 
 	public final Stage getStage() { return stage; }
 
 	public final SceneCtrl getSceneCtrl() { return sceneCtrl; }
-
-	// ---- abstract ----
-
-	/**
-	 * staticなinstenceにsetするために使う
-	 */
-	protected abstract void setInstance(Launcher me);
 
 }
 

@@ -11,8 +11,8 @@ import kana.compass.drawn.Layer;
 
 public class DrawnPool {
 
-	//private List<Drawn> list = new ArrayList<>();	// TODO 存在価値が謎
 	private Set<Dot> dots = new HashSet<>();
+	private Set<Drawn> drawns = new HashSet<Drawn>();
 
 	private final int layerSize = 10;
 	private ArrayList<Layer> layers = new ArrayList<>();

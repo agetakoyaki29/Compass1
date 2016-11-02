@@ -10,6 +10,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.NonInvertibleTransformException;
 import kana.compass.geometry.Bound2D;
+import kana.compass.geometry.Geo;
 import kana.compass.util.MyRuntimeException;
 
 
@@ -20,10 +21,13 @@ public final class ScopeTransform {
 
 	private final ObjectProperty<Point2D> centerProperty = new SimpleObjectProperty<Point2D>(Point2D.ZERO);
 
-
 	public ScopeTransform(ObservableValue<Point2D> centerProperty) {
 		this.centerProperty.bind(centerProperty);
 		initTrans();
+	}
+
+	public double get1Pixel() {
+		return 1 / powerProperty.get();
 	}
 
 	public ReadOnlyDoubleProperty powerProperty() {
@@ -33,6 +37,7 @@ public final class ScopeTransform {
 		return centerProperty;
 	}
 
+	// ---- ----
 
 	public void appendTranslation(Point2D delta) {
 		affine.appendTranslation(delta.getX(), delta.getY());
@@ -65,6 +70,9 @@ public final class ScopeTransform {
 	public Point2D transform(Point2D pt) {
 		return affine.transform(pt);
 	}
+	public Point2D deltaTransform(Point2D delta) {
+		return Geo.scale(delta, powerProperty.get());
+	}
 
 	public Point2D inverseTransform(Point2D pt) {
 		try {
@@ -73,13 +81,12 @@ public final class ScopeTransform {
 			throw new MyRuntimeException(e);
 		}
 	}
-
 	public Point2D inverseDeltaTransform(Point2D delta) {
-		try {
-			return affine.inverseDeltaTransform(delta);
-		} catch (NonInvertibleTransformException e) {
-			throw new MyRuntimeException(e);
-		}
+		return Geo.scale(delta, 1/powerProperty.get());
+	}
+
+	public double angleTransform(double angle) {
+		return angle;	// TODO 回転を含めるなら
 	}
 
 	public Bound2D transform(Bound2D bounds) {

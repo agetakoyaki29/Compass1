@@ -13,6 +13,9 @@ import java.util.stream.Stream;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.Property;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -21,6 +24,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import javafx.util.StringConverter;
 
 
 public class Util {
@@ -32,6 +36,8 @@ public class Util {
 	public static <T> Set<T> GetOneSet(T ta) {
 		return new HashSet<T>(Arrays.asList(ta));
 	}
+
+	// ---- ----
 
 	public static BackgroundFill getSimpleBackgroudFill(Color color) {
 		return new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY);
@@ -46,7 +52,15 @@ public class Util {
 		return new Timeline(new KeyFrame(Duration.ONE, handler));
 	}
 
+	public static void bind(Property<String> property, ObservableValue<Number> observable,
+			StringConverter<Double> converter) {
 
+		property.bind(
+				Bindings.createStringBinding(() -> converter.toString((Double) observable.getValue()),
+						observable));
+	}
+
+	// ---- reflection ----
 
 	public static void callMethod(Object receiver, String name, Object param) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		String methodName = "push" + name.substring(0, 1).toUpperCase() + name.substring(1);

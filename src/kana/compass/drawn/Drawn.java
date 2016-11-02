@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import kana.compass.geometry.Bound2D;
 import kana.compass.logic.Pen;
 
 public abstract class Drawn {
@@ -49,7 +50,7 @@ public abstract class Drawn {
 	/**
 	 * 当代かぎり
 	 */
-//	public abstract Bound2D getBoundingBox();
+	public abstract Bound2D getBoundingBox();
 
 	public abstract List<Drawn> getComponents();
 

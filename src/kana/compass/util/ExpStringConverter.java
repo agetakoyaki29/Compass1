@@ -2,7 +2,7 @@ package kana.compass.util;
 
 import javafx.util.StringConverter;
 
-public class ExpStringConverter extends StringConverter<String> {
+public class ExpStringConverter extends StringConverter<Double> {
 
 	private final String format;
 
@@ -17,14 +17,8 @@ public class ExpStringConverter extends StringConverter<String> {
 	}
 
 	@Override
-	public String toString(String object) {
-        if (object == null) return "";
-
-        object = object.trim();
-
-        if (object.length() < 1) return "";
-
-        Double d = Double.valueOf(object);
+	public String toString(Double object) {
+		double d = object;
         int digit = (int) Math.floor( Math.log10(d) );
 
 //        return String.format("%6e", d);
@@ -32,8 +26,19 @@ public class ExpStringConverter extends StringConverter<String> {
 	}
 
 	@Override
-	public String fromString(String string) {
-        return string;
+	public Double fromString(String string) {
+        // If the specified value is null or zero-length, return null
+        if (string == null) {
+            return null;
+        }
+
+        string = string.trim();
+
+        if (string.length() < 1) {
+            return null;
+        }
+
+        return Double.valueOf(string);
 	}
 
 

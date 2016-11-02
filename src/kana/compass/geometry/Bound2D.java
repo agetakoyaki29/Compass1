@@ -50,7 +50,7 @@ public final class Bound2D {
 	}
 	public boolean contains(double minX, double minY, double maxX, double maxY) {
 		boolean isEmpty = minX > maxX || minY > maxY;
-		return isEmpty || (contains(minX, minY) && contains(maxX, maxY));
+		return !isEmpty || (contains(minX, minY) && contains(maxX, maxY));
 	}
 
 	public boolean isEmpty() {
