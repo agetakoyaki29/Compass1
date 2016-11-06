@@ -6,11 +6,12 @@ import java.util.Collection;
 import javafx.geometry.Point2D;
 import javafx.scene.input.GestureEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.transform.Affine;
-import javafx.scene.transform.NonInvertibleTransformException;
 import kana.compass.util.MyRuntimeException;
 
 
+/**
+ * 2D
+ */
 public class Geo {
 
 	private Geo() {
@@ -53,13 +54,21 @@ public class Geo {
 	}
 
 	public static double sqrMagnitude(Point2D pt) {
-		double d1 = pt.getX();
-		double d2 = pt.getY();
-		return d1 * d1 + d2 * d2;
+		double x = pt.getX();
+		double y = pt.getY();
+		return x*x + y*y;
 	}
 
 	public static double crossProduct2D(Point2D pt1, Point2D pt2) {
 		return pt1.getX()*pt2.getY() - pt1.getY()*pt2.getX();
+	}
+
+	public static double dotProduct2D(Point2D pt1, Point2D pt2) {
+		return pt1.getX()*pt2.getX() + pt1.getY()*pt2.getY();
+	}
+
+	public static Point2D diagonally(Point2D pt, double d) {
+		return new Point2D(pt.getX() + d, pt.getY() + d);
 	}
 
 	public static Point2D scale(Point2D pt, double d) {
@@ -100,20 +109,6 @@ public class Geo {
 		}
 
 		return new Bound2D(new Point2D(minX, minY), new Point2D(maxX, maxY));
-	}
-
-	public static Bound2D transform(Affine affine, Bound2D bounds) {
-		Point2D min = affine.transform(bounds.getMin());
-		Point2D max = affine.transform(bounds.getMax());
-		return new Bound2D(min, max);
-	}
-
-	public static Point2D inverseTransform(Affine affine, Point2D pt) {
-		try {
-			return affine.inverseTransform(pt);
-		} catch (NonInvertibleTransformException e) {
-			throw new MyRuntimeException(e);
-		}
 	}
 
 }

@@ -88,7 +88,7 @@ public class DrawSceneCtrl extends SceneCtrl {
 		drawCercle.setOnAction(event -> center.drawCercle());
 
 		// property bind
-		Util.bind(scopeLabel.textProperty(), scope.powerProperty(), new ExpStringConverter());
+		Util.bind(scopeLabel.textProperty(), scope.powerProperty().asObject(), new ExpStringConverter());
 
 		// handle event
 

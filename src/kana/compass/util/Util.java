@@ -52,11 +52,10 @@ public class Util {
 		return new Timeline(new KeyFrame(Duration.ONE, handler));
 	}
 
-	public static void bind(Property<String> property, ObservableValue<Number> observable,
-			StringConverter<Double> converter) {
-
+	public static <T> void bind(Property<String> property, ObservableValue<T> observable,
+			StringConverter<T> converter) {
 		property.bind(
-				Bindings.createStringBinding(() -> converter.toString((Double) observable.getValue()),
+				Bindings.createStringBinding(() -> converter.toString(observable.getValue()),
 						observable));
 	}
 
