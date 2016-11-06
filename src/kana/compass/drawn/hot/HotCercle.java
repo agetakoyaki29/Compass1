@@ -1,42 +1,71 @@
 package kana.compass.drawn.hot;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javafx.geometry.Point2D;
 import kana.compass.drawn.Cercle;
-import kana.compass.drawn.Dot;
 import kana.compass.drawn.Drawn;
-import kana.compass.geometry.Bound2D;
 import kana.compass.geometry.Geo;
+import kana.compass.gui.drawScene.opToolBar.DrawCercleToolBarCtrl;
+import kana.compass.gui.drawScene.opToolBar.OpToolBarCtrl;
+import kana.compass.logic.OperationCenter;
+import kana.compass.logic.OperationCenter.HotDrawn;
 import kana.compass.logic.Pen;
 
 
-public class HotCercle extends OldHotDrawn {
+public class HotCercle extends HotDrawn {
+	private Point2D center = null;
+	private Double range = null;
+	private Cercle pre = null;
 
-	public Dot pt1 = null;
-	public Dot pt2 = null;
 
-	public Point2D getCenter() {
-		return pt1.getPt().midpoint(pt2.getPt());
-	}
-
-	public double getRange() {
-		return Geo.distance(pt1.getPt(), pt2.getPt()) / 2;
+	public HotCercle(OperationCenter outer) {
+		outer.super();
 	}
 
 	@Override
-	public void draw(Pen pen) {
-		if(pt2 == null || pt1 == null) return;
-
-		Point2D c = getCenter();
-		double r = getRange();
-		Point2D rr = new Point2D(r, r);
-		Bound2D bounds = new Bound2D(c.subtract(rr), c.add(rr));
-
-		pen.strokeCercle(bounds);
+	protected void began() {
+		center = null;
+		range = null;
+		pre = null;
+		outer().setStatusText("中心点");
 	}
 
 	@Override
-	public Drawn makeCold() {
-		return new Cercle(pt1, pt2);
+	public void preDraw(Pen pen) {
+		if(pre == null) return;
+		pre.draw(pen);
+	}
+
+	@Override
+	public void prePushPoint(Point2D pt) {
+		double range = Geo.distance(center, pt);
+		pre = new Cercle(center, range);
+	}
+
+	@Override
+	protected Set<Drawn> makeColds() {
+		Set<Drawn> ret = new HashSet<>();
+		ret.add(pre);
+		return ret;
+	}
+
+	@Override
+	public void pushPoint(Point2D pt) {
+		if(center == null) {
+			center = pt;
+			beginPreDraw();
+			outer().setStatusText("半径");
+		} else if(isPreDraw()) {
+			prePushPoint(pt);
+			finish();
+		}
+	}
+
+	@Override
+	public OpToolBarCtrl getOpToolBarCtrl() {
+		return new DrawCercleToolBarCtrl(this);
 	}
 
 }

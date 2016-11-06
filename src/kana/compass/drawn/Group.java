@@ -23,7 +23,6 @@ public class Group extends DNode {
 	}
 
 	public void add(Drawn drawn) {
-		drawn.addParent();
 		drawns.add(drawn);
 	}
 

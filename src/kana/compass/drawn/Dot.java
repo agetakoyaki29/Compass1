@@ -15,9 +15,8 @@ public abstract class Dot extends Drawn {
 		double x = getPt().getX();
 		double y = getPt().getY();
 		double l = pen.get1Pixel();
-		System.out.println(l);
-		pen.strokeLine(x, y-l, x, y+l);
-		pen.strokeLine(x-l, y, x+l, y);
+		pen.strokeLine(x-l, y-l, x+l, y+l);
+		pen.strokeLine(x+l, y-l, x-l, y+l);
 	}
 
 	@Override
@@ -26,8 +25,9 @@ public abstract class Dot extends Drawn {
 	}
 
 	@Override
-	public List<Drawn> getComponents() {	// TODO coordinate?
-		ArrayList<Drawn> ret = new ArrayList<>();
+	public List<Point2D> getPts() {
+		List<Point2D> ret = new ArrayList<>();
+		ret.add(getPt());
 		return ret;
 	}
 

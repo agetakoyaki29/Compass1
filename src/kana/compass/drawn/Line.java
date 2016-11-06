@@ -3,6 +3,7 @@ package kana.compass.drawn;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.geometry.Point2D;
 import kana.compass.geometry.Bound2D;
 import kana.compass.geometry.Geo;
 import kana.compass.logic.Pen;
@@ -10,32 +11,44 @@ import kana.compass.logic.Pen;
 
 public class Line extends Drawn {
 
-	private final Dot dot1;
-	private final Dot dot2;
+	private final Point2D startPt;
+	private final Point2D stopPt;
 
-	public Line(Dot dot1, Dot dot2) {
-		dot1.addParent();
-		dot2.addParent();
-		this.dot1 = dot1;
-		this.dot2 = dot2;
+	public Line(Point2D startPt, Point2D stopPt) {
+		this.startPt = startPt;
+		this.stopPt = stopPt;
 	}
 
 	@Override
 	public void draw(Pen pen) {
-		pen.strokeLine(dot1.getPt(), dot2.getPt());
+		pen.strokeLine(startPt, stopPt);
 	}
 
 	@Override
 	public Bound2D getBoundingBox() {
-		return Geo.newBound2D(dot1.getPt(), dot2.getPt());
+		return Geo.newBound2D(startPt, stopPt);
 	}
 
 	@Override
-	public List<Drawn> getComponents() {
-		ArrayList<Drawn> ret = new ArrayList<>();
-		ret.add(dot1);
-		ret.add(dot2);
+	public List<Point2D> getPts() {
+		List<Point2D> ret = new ArrayList<>();
+		ret.add(startPt);
+		ret.add(stopPt);
 		return ret;
+	}
+
+	public Point2D closet(Point2D pt) {
+		Point2D v = stopPt.subtract(startPt);
+		Point2D p = pt.subtract(startPt);
+		Point2D n = Geo.normal(v);
+		double distance = Geo.crossProduct2D(v, p) / v.magnitude();
+		return pt.add(Geo.scale(n, distance));
+	}
+
+	public double distance(Point2D pt) {
+		Point2D v = stopPt.subtract(startPt);
+		Point2D p = pt.subtract(startPt);
+		return Math.abs( Geo.crossProduct2D(v, p) / v.magnitude() );
 	}
 
 }

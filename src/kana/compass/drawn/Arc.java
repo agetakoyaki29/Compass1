@@ -10,61 +10,61 @@ import kana.compass.logic.Pen;
 
 public class Arc extends Drawn {
 
-	public final Dot dot1;
-	public final Dot dot2;
+	private final Point2D center;
+	private final double range;
 	private final double startAngle;
 	private final double arcExtent;
 
-	public Arc(Dot dot1, Dot dot2, double startAngle, double arcExtent) {
-		this.dot1 = dot1;
-		this.dot2 = dot2;
+	public Arc(Point2D center, double range, double startAngle, double arcExtent) {
+		this.center = center;
+		this.range = range;
 		this.startAngle = startAngle;
 		this.arcExtent = arcExtent;
 	}
 
 	@Override
 	public void draw(Pen pen) {
-		pen.strokeArc(getCercleBounds(), startAngle, arcExtent);
-//		Point2D center = getCenter();
-//		double range = getRange();
-//		Point2D start = Geo.arcPoint(center, range, startAngle);
-//		Point2D stop = Geo.arcPoint(center, range, stopAngle());
-//		pen.strokeLine(start, stop);
+		Point2D min = Geo.diagonally(center, -range);
+		Point2D size = new Point2D(2*range, 2*range);
+		pen.strokeArc(min, size, startAngle, arcExtent);
 	}
 
 	@Override
 	public Bound2D getBoundingBox() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		Point2D startPt = getStartPt();
+		double minX, minY, maxX, maxY;
+		minX = maxX = startPt.getX();
+		minY = maxY = startPt.getY();
+
+		double start = (startAngle / 90 );
+		double stop = (getStopAngle() / 90 );
+		for(int i=(int)Math.floor(start); i<=stop; i++) {
+			// TODO
+		}
+
+		return new Bound2D(new Point2D(minX, minY), new Point2D(maxX, maxY));
 	}
 
 	@Override
-	public List<Drawn> getComponents() {
-		ArrayList<Drawn> ret = new ArrayList<>();
-		ret.add(dot1);
-		ret.add(dot2);
+	public List<Point2D> getPts() {
+		List<Point2D> ret = new ArrayList<>();
+		ret.add(getStartPt());
+		ret.add(getStopPt());
 		return ret;
 	}
 
 	// ---- ----
 
-	public double stopAngle() {
+	public double getStopAngle() {
 		return startAngle + arcExtent;
 	}
 
-	public Point2D getCenter() {
-		return dot1.getPt().midpoint(dot2.getPt());
+	public Point2D getStartPt() {
+		return Geo.onCercle(center, range, startAngle);
 	}
 
-	public double getRange() {
-		return Geo.distance(dot1.getPt(), dot2.getPt()) / 2;
-	}
-
-	public Bound2D getCercleBounds() {
-		Point2D c = getCenter();
-		double r = getRange();
-		Point2D rr = new Point2D(r, r);
-		return new Bound2D(c.subtract(rr), c.add(rr));
+	public Point2D getStopPt() {
+		return Geo.onCercle(center, range, getStopAngle());
 	}
 
 }

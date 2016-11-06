@@ -2,11 +2,11 @@ package kana.compass.logic;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import kana.compass.drawn.hot.OldHotDrawn;
+import kana.compass.logic.OperationCenter.HotDrawn;
 
 public class HotPaper extends AbstractPaper {
 
-	private OldHotDrawn drawing = null;
+	private HotDrawn drawing = null;
 	// TODO public HotDrawn select = null;
 
 	public HotPaper(GraphicsContext gc, ScopeTransform scope) {
@@ -22,7 +22,7 @@ public class HotPaper extends AbstractPaper {
 		clearWhole();
 
 		if(drawing == null) return;
-		drawing.draw(getPen());
+		drawing.preDraw(getPen());
 	}
 
 	public void clearDrawing() {
@@ -30,15 +30,8 @@ public class HotPaper extends AbstractPaper {
 		repaint();
 	}
 
-	public void setDrawing(OldHotDrawn drawn) {
+	public void setDrawing(HotDrawn drawn) {
 		drawing = drawn;
 	}
-//	public void setDrawings(OldHotDrawn... drawns) {
-//		setDrawings(Arrays.asList(drawns));
-//	}
-//	public void setDrawings(Collection<? extends OldHotDrawn> drawns) {
-//		drawings.clear();
-//		drawings.addAll(drawns);
-//	}
 
 }

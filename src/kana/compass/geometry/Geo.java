@@ -20,11 +20,14 @@ public class Geo {
 
 	// ---- angle ----
 
-	public static Point2D arcPoint(Point2D center, double range, double angle) {
-		if(range <= 0) throw new MyRuntimeException("range must > 0");
+	public static Point2D onUnitCercle(double angle) {
 		double rad = Math.toRadians(angle);
-		Point2D pt = new Point2D(range * Math.cos(rad), range * -Math.sin(rad));
-		return center.add(pt);
+		return new Point2D(Math.cos(rad), -Math.sin(rad));
+	}
+
+	public static Point2D onCercle(Point2D center, double range, double angle) {
+		if(range <= 0) throw new MyRuntimeException("range must > 0");
+		return Geo.scale(onUnitCercle(angle), range).add(center);
 	}
 
 	public static double angle2D(Point2D pt1, Point2D pt2) {
@@ -67,6 +70,10 @@ public class Geo {
 		return pt1.getX()*pt2.getX() + pt1.getY()*pt2.getY();
 	}
 
+	public static Point2D normal(Point2D pt) {
+		return new Point2D(pt.getY(), -pt.getX());
+	}
+
 	public static Point2D diagonally(Point2D pt, double d) {
 		return new Point2D(pt.getX() + d, pt.getY() + d);
 	}
@@ -95,10 +102,9 @@ public class Geo {
 	public static Bound2D newBound2D(Collection<Point2D> pts) {
 		if(pts.size() <= 0) throw new MyRuntimeException("ge 1, plz");
 
-		double minX = Double.POSITIVE_INFINITY;
-		double minY = Double.POSITIVE_INFINITY;
-		double maxX = Double.NEGATIVE_INFINITY;
-		double maxY = Double.NEGATIVE_INFINITY;
+		double minX, minY, maxX, maxY;
+		minX = minY = Double.POSITIVE_INFINITY;
+		maxX = maxY = Double.NEGATIVE_INFINITY;
 
 		for (Point2D pt : pts) {
 			double x = pt.getX(), y = pt.getY();

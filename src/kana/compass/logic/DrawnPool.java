@@ -5,13 +5,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import kana.compass.drawn.Dot;
+import javafx.geometry.Point2D;
 import kana.compass.drawn.Drawn;
 import kana.compass.drawn.Layer;
 
 public class DrawnPool {
 
-	private Set<Dot> dots = new HashSet<>();
+	private Set<Point2D> points = new HashSet<>();
 	private Set<Drawn> drawns = new HashSet<Drawn>();
 
 	private final int layerSize = 10;
@@ -28,11 +28,11 @@ public class DrawnPool {
 
 	public void add(Drawn drawn) {
 		layer.add(drawn);
-		dots.addAll( drawn.getDots() );
+		points.addAll( drawn.getPts() );
 	}
 
-	public Set<Dot> getDots() {
-		return dots;
+	public Set<Point2D> getPts() {
+		return points;
 	}
 
 	public List<Layer> getLayers() {

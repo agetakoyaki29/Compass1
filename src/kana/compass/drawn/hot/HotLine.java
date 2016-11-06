@@ -1,25 +1,100 @@
 package kana.compass.drawn.hot;
 
-import kana.compass.drawn.Dot;
+import java.util.HashSet;
+import java.util.Set;
+
+import javafx.geometry.Point2D;
 import kana.compass.drawn.Drawn;
 import kana.compass.drawn.Line;
+import kana.compass.geometry.Geo;
+import kana.compass.gui.drawScene.opToolBar.DrawLineToolBarCtrl;
+import kana.compass.gui.drawScene.opToolBar.OpToolBarCtrl;
+import kana.compass.logic.OperationCenter;
+import kana.compass.logic.OperationCenter.HotDrawn;
 import kana.compass.logic.Pen;
 
 
-public class HotLine extends OldHotDrawn {
+public class HotLine extends HotDrawn {
+	private Point2D startPt;
+	private Line pre;
 
-	public Dot pt1 = null;
-	public Dot pt2 = null;
+	private Point2D align = null;
+	private boolean axisAlign = false;
 
-	@Override
-	public void draw(Pen pen) {
-		if(pt2 == null || pt1 == null) return;
 
-		pen.strokeLine(pt1.getPt(), pt2.getPt());
+	public HotLine(OperationCenter outer) {
+		outer.super();
 	}
 
-	public Drawn makeCold() {
-		return new Line(pt1, pt2);
+	@Override
+	protected void began() {
+		startPt = null;
+		pre = null;
+		outer().setStatusText("開始点");
+	}
+
+	@Override
+	public void preDraw(Pen pen) {
+		if(pre == null) return;
+		pre.draw(pen);
+	}
+
+	@Override
+	public void prePushPoint(Point2D pt) {
+		Point2D stopPt = alinedPt(pt);
+		pre = new Line(startPt, stopPt);
+	}
+
+	private Point2D alinedPt(Point2D pt) {
+		if(axisAlign) {
+			Point2D v = pt.subtract(startPt);
+			if(Math.abs(v.getX()) < Math.abs(v.getY())) {
+				return new Point2D(startPt.getX(), pt.getY());
+			} else {
+				return new Point2D(pt.getX(), startPt.getY());
+			}
+		} else if(align != null) {
+			Line straight = new Line(startPt, startPt.add(align));
+			return straight.closet(pt);
+		}
+		return pt;
+	}
+
+	@Override
+	protected Set<Drawn> makeColds() {
+		Set<Drawn> ret = new HashSet<>();
+		ret.add(pre);
+		return ret;
+	}
+
+	@Override
+	public void pushPoint(Point2D pt) {
+		if(startPt == null) {
+			startPt = pt;
+			beginPreDraw();
+			outer().setStatusText("終了点");
+		} else if(isPreDraw()) {
+			Point2D stopPt = alinedPt(pt);
+			if(startPt.equals(stopPt)) {
+				outer().showPopup("同一点です");
+				return;
+			}
+			pre = new Line(startPt, stopPt);
+			finish();
+		}
+	}
+
+	@Override
+	public OpToolBarCtrl getOpToolBarCtrl() {
+		return new DrawLineToolBarCtrl(this);
+	}
+
+	public void pushAngle(Double angle) {
+		align = angle==null ? null : Geo.onUnitCercle(angle);
+	}
+
+	public void pushAxisAline(boolean axisAlign) {
+		this.axisAlign = axisAlign;
 	}
 
 }

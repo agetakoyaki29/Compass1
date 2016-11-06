@@ -14,11 +14,14 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.Property;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -35,6 +38,14 @@ public class Util {
 
 	public static <T> Set<T> GetOneSet(T ta) {
 		return new HashSet<T>(Arrays.asList(ta));
+	}
+
+	public static Double parseDouble(String str) {
+		try {
+			return Double.valueOf(str);
+		} catch (NumberFormatException e) {
+			return null;
+		}
 	}
 
 	// ---- ----
@@ -57,6 +68,13 @@ public class Util {
 		property.bind(
 				Bindings.createStringBinding(() -> converter.toString(observable.getValue()),
 						observable));
+	}
+
+	public static ObjectProperty<String> textProperty(TextInputControl tiCtrl) {
+		// TODO これ、どうすりゃええねん
+		TextFormatter<String> formatter = new TextFormatter<>(TextFormatter.IDENTITY_STRING_CONVERTER);
+		tiCtrl.setTextFormatter(formatter);
+		return formatter.valueProperty();
 	}
 
 	// ---- reflection ----

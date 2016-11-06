@@ -1,8 +1,5 @@
 package kana.compass.drawn;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javafx.geometry.Point2D;
 
 public class FreeDot extends Dot {
@@ -14,11 +11,6 @@ public class FreeDot extends Dot {
 
 	public FreeDot(Point2D pt) {
 		this.pt = pt;
-	}
-
-	@Override
-	public List<Drawn> getComponents() {
-		return new ArrayList<>();
 	}
 
 	@Override

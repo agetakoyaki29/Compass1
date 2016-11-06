@@ -15,11 +15,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import kana.compass.MainApp;
-import kana.compass.drawn.hot.Test;
 import kana.compass.gui.SimplePopup;
-import kana.compass.gui.drawScene.actToolBar.ActToolBarCtrl;
+import kana.compass.gui.drawScene.opToolBar.OpToolBarCtrl;
 import kana.compass.gui.menuBar.MenuBarCtrl;
-import kana.compass.logic.ActionCenter;
+import kana.compass.logic.OperationCenter;
 import kana.compass.logic.ScopeTransform;
 import kana.compass.stage.transition.SceneCtrl;
 import kana.compass.util.ExpStringConverter;
@@ -50,7 +49,7 @@ public class DrawSceneCtrl extends SceneCtrl {
 
 	private ScopeTransform scope;
 	private CanvasManager manager;
-	private ActionCenter center;
+	private OperationCenter center;
 
 
 	@Override
@@ -79,7 +78,7 @@ public class DrawSceneCtrl extends SceneCtrl {
 
 		// init logic
 		manager = new CanvasManager(canvasScrollPane, canvas, hotCanvas);
-		center = new ActionCenter(this, manager);
+		center = new OperationCenter(this, manager);
 
 		scope = manager.getScope();
 
@@ -98,7 +97,7 @@ public class DrawSceneCtrl extends SceneCtrl {
 		// TODO for test
 		button1.setTooltip(new Tooltip("for test"));
 //		button1.setOnAction(event -> MainApp.MovePage(CanvasPageController.class));
-		button2.setOnAction(event -> { center.setHotDrawn(Test.class); });
+//		button2.setOnAction(event -> { center.setHotDrawn(Test.class); });
 		button3.setOnAction(event -> drawCercle.setSelected(true));
 	}
 
@@ -135,7 +134,7 @@ public class DrawSceneCtrl extends SceneCtrl {
 	// ---- access to components ----
 
 	public MenuBarCtrl getMenuBarCtrl() { return menuBarCtrl; }
-	public ActionCenter getActionManager() { return center; }
+	public OperationCenter getActionManager() { return center; }
 
 	// ----
 
@@ -147,8 +146,8 @@ public class DrawSceneCtrl extends SceneCtrl {
 		new SimplePopup(text).show(canvas);
 	}
 
-	public void setActToolBar(ActToolBarCtrl actToolBarCtrl) {
-		mainPane.setTop( actToolBarCtrl.getRoot() );
+	public void setOpToolBar(OpToolBarCtrl opToolBarCtrl) {
+		mainPane.setTop( opToolBarCtrl.getRoot() );
 	}
 
 }
