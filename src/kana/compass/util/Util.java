@@ -1,5 +1,6 @@
 package kana.compass.util;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -14,8 +15,9 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.ObjectBinding;
+import javafx.beans.binding.StringBinding;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.Property;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -63,14 +65,17 @@ public class Util {
 		return new Timeline(new KeyFrame(Duration.ONE, handler));
 	}
 
-	public static <T> void bind(Property<String> property, ObservableValue<T> observable,
-			StringConverter<T> converter) {
-		property.bind(
-				Bindings.createStringBinding(() -> converter.toString(observable.getValue()),
-						observable));
+	// ---- property bind ----
+
+	public static <T> StringBinding toStringBinding(StringConverter<T> converter, ObservableValue<T> observable) {
+		return Bindings.createStringBinding(() -> converter.toString(observable.getValue()), observable);
 	}
 
-	public static ObjectProperty<String> textProperty(TextInputControl tiCtrl) {
+	public static <T> ObjectBinding<T> fromStringBinding(StringConverter<T> converter, ObservableValue<String> observable) {
+		return Bindings.createObjectBinding(() -> converter.fromString(observable.getValue()), observable);
+	}
+
+	public static ObjectProperty<String> writtenProperty(TextInputControl tiCtrl) {
 		// TODO これ、どうすりゃええねん
 		TextFormatter<String> formatter = new TextFormatter<>(TextFormatter.IDENTITY_STRING_CONVERTER);
 		tiCtrl.setTextFormatter(formatter);
@@ -78,6 +83,24 @@ public class Util {
 	}
 
 	// ---- reflection ----
+
+	public static <T> T instantiate(Class<? extends T> clazz, Object... args) {
+		Constructor<? extends T> constructor;
+		Class<?>[] argClassArray = Stream.of(args)
+				.map(arg -> arg.getClass())
+				.collect(Collectors.toList())
+				.toArray(new Class<?>[0]);
+		try {
+			constructor = clazz.getConstructor(argClassArray);
+		} catch (SecurityException | NoSuchMethodException e) {
+			throw new MyRuntimeException(e);
+		}
+		try {
+			return constructor.newInstance(args);
+		} catch (IllegalArgumentException | ReflectiveOperationException e) {
+			throw new MyRuntimeException(e);
+		}
+	}
 
 	public static void callMethod(Object receiver, String name, Object param) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		String methodName = "push" + name.substring(0, 1).toUpperCase() + name.substring(1);

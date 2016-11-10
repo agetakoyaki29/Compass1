@@ -1,6 +1,5 @@
 package kana.compass.logic;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -10,6 +9,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import kana.compass.drawn.Drawn;
 import kana.compass.drawn.hot.HotCercle;
 import kana.compass.drawn.hot.HotLine;
@@ -17,11 +17,14 @@ import kana.compass.geometry.Geo;
 import kana.compass.gui.drawScene.CanvasManager;
 import kana.compass.gui.drawScene.CanvasMouseHandler;
 import kana.compass.gui.drawScene.DrawSceneCtrl;
-import kana.compass.gui.drawScene.opToolBar.OpToolBarCtrl;
-import kana.compass.util.MyRuntimeException;
+import kana.compass.gui.drawScene.opTB.OpTBCtrl;
+import kana.compass.gui.drawScene.opTB.OpTBFactory;
+import kana.compass.util.Util;
 
 
-public class OperationCenter {
+public class OpCentral {
+
+	private final OpTBFactory factory = new OpTBFactory(this);
 
 	private final DrawSceneCtrl ctrl;
 	private final CanvasManager manager;
@@ -32,9 +35,8 @@ public class OperationCenter {
 	private final DrawnPool pool;
 
 	private Operation op = null;
-	private OpToolBarCtrl opToolBarCtrl = null;
 
-	public OperationCenter(DrawSceneCtrl ctrl, CanvasManager manager) {
+	public OpCentral(DrawSceneCtrl ctrl, CanvasManager manager) {
 		this.ctrl = ctrl;
 		this.manager = manager;
 		this.handler = manager.getHandler();
@@ -51,22 +53,9 @@ public class OperationCenter {
 		clearOns();
 		clearDrawing();
 
-		op = instantiate(clazz);
+		op = Util.instantiate(clazz, this);
+		factory.repush();
 		op.begin();
-	}
-
-	private HotDrawn instantiate(Class<? extends HotDrawn> clazz) {
-		Constructor<? extends HotDrawn> constructor;
-		try {
-			constructor = clazz.getConstructor(OperationCenter.class);
-		} catch (SecurityException | NoSuchMethodException e) {
-			throw new MyRuntimeException(e);
-		}
-		try {
-			return constructor.newInstance(this);
-		} catch (IllegalArgumentException | ReflectiveOperationException e) {
-			throw new MyRuntimeException(e);
-		}
 	}
 
 	public void push(String name, Object obj) {
@@ -79,13 +68,9 @@ public class OperationCenter {
 //		handler.clearOnClickedRight();
 	}
 
-	public void setOpToolBarCtrl(OpToolBarCtrl opToolBarCtrl) {
-		this.opToolBarCtrl = opToolBarCtrl;
-		ctrl.setOpToolBar(opToolBarCtrl);
-	}
-
-	public OpToolBarCtrl getOpToolBarCtrl() {
-		return opToolBarCtrl;
+	public void setOpTB(Class<? extends OpTBCtrl> clazz) {
+		Node opTB = factory.makeOpTB(clazz);
+		ctrl.setOpTB(opTB);
 	}
 
 	// ---- hot drawings ----
@@ -137,11 +122,12 @@ public class OperationCenter {
 
 	public abstract class Operation {
 
-		protected Operation() {
-			setOpToolBarCtrl(getOpToolBarCtrl());
+		protected Operation(OpCentral outer) {
+			Class<? extends OpTBCtrl> clazz = getDefaultOpTBCtrl();
+			if(!clazz.equals(OpTBFactory.NON)) setOpTB(clazz);
 		}
 
-		public abstract OpToolBarCtrl getOpToolBarCtrl();
+		public abstract Class<? extends OpTBCtrl> getDefaultOpTBCtrl();
 
 		public final void push(String name, Object param) {
 			String methodName = "push" + name.substring(0, 1).toUpperCase() + name.substring(1);
@@ -162,8 +148,8 @@ public class OperationCenter {
 			}
 		}
 
-		protected OperationCenter outer() {
-			return OperationCenter.this;
+		protected OpCentral outer() {
+			return OpCentral.this;
 		}
 
 		protected final void begin() {
@@ -192,6 +178,10 @@ public class OperationCenter {
 
 
 	public abstract class HotDrawn extends Operation {
+
+		protected HotDrawn(OpCentral outer) {
+			super(outer);
+		}
 
 		private boolean preDraw = false;
 

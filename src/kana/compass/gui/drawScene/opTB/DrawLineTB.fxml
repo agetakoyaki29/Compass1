@@ -10,7 +10,7 @@
 
 <ToolBar styleClass="hot-tool-bar" stylesheets="@../DrawScene.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <items>
-      <CheckBox fx:id="axisAlinCheckBox" mnemonicParsing="false" text="垂直" />
+      <CheckBox fx:id="axisAlignCheckBox" mnemonicParsing="false" text="垂直" />
       <Label text="角度:" />
       <TextField fx:id="angleTField" prefColumnCount="4" />
   </items>

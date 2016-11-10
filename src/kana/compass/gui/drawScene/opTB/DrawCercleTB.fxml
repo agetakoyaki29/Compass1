@@ -10,8 +10,8 @@
 
 <ToolBar styleClass="hot-tool-bar" stylesheets="@../DrawScene.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <items>
-      <CheckBox mnemonicParsing="false" text="三点指定" />
-      <Label text="角度:" />
-      <TextField prefColumnCount="4" />
+      <ComboBox fx:id="ptngCBox" prefWidth="111.0" promptText="やめてー" />
+      <Label text="半径:" />
+      <TextField fx:id="rangeTField" prefColumnCount="4" />
   </items>
 </ToolBar>

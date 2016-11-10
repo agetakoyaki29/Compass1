@@ -7,10 +7,10 @@ import javafx.geometry.Point2D;
 import kana.compass.drawn.Drawn;
 import kana.compass.drawn.Line;
 import kana.compass.geometry.Geo;
-import kana.compass.gui.drawScene.opToolBar.DrawLineToolBarCtrl;
-import kana.compass.gui.drawScene.opToolBar.OpToolBarCtrl;
-import kana.compass.logic.OperationCenter;
-import kana.compass.logic.OperationCenter.HotDrawn;
+import kana.compass.gui.drawScene.opTB.DrawLineTBCtrl;
+import kana.compass.gui.drawScene.opTB.OpTBCtrl;
+import kana.compass.logic.OpCentral;
+import kana.compass.logic.OpCentral.HotDrawn;
 import kana.compass.logic.Pen;
 
 
@@ -22,8 +22,8 @@ public class HotLine extends HotDrawn {
 	private boolean axisAlign = false;
 
 
-	public HotLine(OperationCenter outer) {
-		outer.super();
+	public HotLine(OpCentral outer) {
+		outer.super(outer);
 	}
 
 	@Override
@@ -85,15 +85,16 @@ public class HotLine extends HotDrawn {
 	}
 
 	@Override
-	public OpToolBarCtrl getOpToolBarCtrl() {
-		return new DrawLineToolBarCtrl(this);
+	public Class<? extends OpTBCtrl> getDefaultOpTBCtrl() {
+		return DrawLineTBCtrl.class;
 	}
 
 	public void pushAngle(Double angle) {
+		System.out.println(angle);
 		align = angle==null ? null : Geo.onUnitCercle(angle);
 	}
 
-	public void pushAxisAline(boolean axisAlign) {
+	public void pushAxisAlign(boolean axisAlign) {
 		this.axisAlign = axisAlign;
 	}
 

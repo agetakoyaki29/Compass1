@@ -7,10 +7,10 @@ import javafx.geometry.Point2D;
 import kana.compass.drawn.Cercle;
 import kana.compass.drawn.Drawn;
 import kana.compass.geometry.Geo;
-import kana.compass.gui.drawScene.opToolBar.DrawCercleToolBarCtrl;
-import kana.compass.gui.drawScene.opToolBar.OpToolBarCtrl;
-import kana.compass.logic.OperationCenter;
-import kana.compass.logic.OperationCenter.HotDrawn;
+import kana.compass.gui.drawScene.opTB.DrawCercleTBCtrl;
+import kana.compass.gui.drawScene.opTB.OpTBCtrl;
+import kana.compass.logic.OpCentral;
+import kana.compass.logic.OpCentral.HotDrawn;
 import kana.compass.logic.Pen;
 
 
@@ -20,8 +20,8 @@ public class HotCercle extends HotDrawn {
 	private Cercle pre = null;
 
 
-	public HotCercle(OperationCenter outer) {
-		outer.super();
+	public HotCercle(OpCentral outer) {
+		outer.super(outer);
 	}
 
 	@Override
@@ -64,8 +64,30 @@ public class HotCercle extends HotDrawn {
 	}
 
 	@Override
-	public OpToolBarCtrl getOpToolBarCtrl() {
-		return new DrawCercleToolBarCtrl(this);
+	public Class<? extends OpTBCtrl> getDefaultOpTBCtrl() {
+		return DrawCercleTBCtrl.class;
+	}
+
+	public void pushPointing(PointingState pointing) {
+		System.out.println(pointing);
+	}
+
+	public void pushRange(Double d) {
+		System.out.println(d);
+	}
+
+	// ---- class PointingState ----
+
+	public static enum PointingState {
+		P2 { @Override public String toString() {
+			return "２点指定";
+		}},
+		P3 { @Override public String toString() {
+			return "３点指定";
+		}},
+		CR { @Override public String toString() {
+			return "中心=>半径";
+		}},
 	}
 
 }

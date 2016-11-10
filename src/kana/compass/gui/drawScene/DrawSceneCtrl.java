@@ -3,6 +3,7 @@ package kana.compass.gui.drawScene;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,9 +17,8 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import kana.compass.MainApp;
 import kana.compass.gui.SimplePopup;
-import kana.compass.gui.drawScene.opToolBar.OpToolBarCtrl;
 import kana.compass.gui.menuBar.MenuBarCtrl;
-import kana.compass.logic.OperationCenter;
+import kana.compass.logic.OpCentral;
 import kana.compass.logic.ScopeTransform;
 import kana.compass.stage.transition.SceneCtrl;
 import kana.compass.util.ExpStringConverter;
@@ -49,7 +49,7 @@ public class DrawSceneCtrl extends SceneCtrl {
 
 	private ScopeTransform scope;
 	private CanvasManager manager;
-	private OperationCenter center;
+	private OpCentral central;
 
 
 	@Override
@@ -78,21 +78,22 @@ public class DrawSceneCtrl extends SceneCtrl {
 
 		// init logic
 		manager = new CanvasManager(canvasScrollPane, canvas, hotCanvas);
-		center = new OperationCenter(this, manager);
+		central = new OpCentral(this, manager);
 
 		scope = manager.getScope();
 
 		// set event handler
-		drawLine.setOnAction(event ->  center.drawLine());
-		drawCercle.setOnAction(event -> center.drawCercle());
+		drawLine.setOnAction(event ->  central.drawLine());
+		drawCercle.setOnAction(event -> central.drawCercle());
 
 		// property bind
-		Util.bind(scopeLabel.textProperty(), scope.powerProperty().asObject(), new ExpStringConverter());
+		scopeLabel.textProperty().bind(
+				Util.toStringBinding(new ExpStringConverter(), scope.powerProperty().asObject()) );
 
 		// handle event
 
 		// first action
-		center.drawLine();
+		central.drawLine();
 
 		// TODO for test
 		button1.setTooltip(new Tooltip("for test"));
@@ -134,7 +135,7 @@ public class DrawSceneCtrl extends SceneCtrl {
 	// ---- access to components ----
 
 	public MenuBarCtrl getMenuBarCtrl() { return menuBarCtrl; }
-	public OperationCenter getActionManager() { return center; }
+	public OpCentral getActionManager() { return central; }
 
 	// ----
 
@@ -146,8 +147,8 @@ public class DrawSceneCtrl extends SceneCtrl {
 		new SimplePopup(text).show(canvas);
 	}
 
-	public void setOpToolBar(OpToolBarCtrl opToolBarCtrl) {
-		mainPane.setTop( opToolBarCtrl.getRoot() );
+	public void setOpTB(Node opTB) {
+		mainPane.setTop( opTB );
 	}
 
 }
