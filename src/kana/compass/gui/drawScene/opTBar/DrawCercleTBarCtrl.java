@@ -1,4 +1,4 @@
-package kana.compass.gui.drawScene.opTB;
+package kana.compass.gui.drawScene.opTBar;
 
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.ObjectProperty;
@@ -15,7 +15,7 @@ import kana.compass.util.strConv.JunkObjStrConv;
 import kana.compass.util.strConv.SafeDoubleStrConv;
 
 
-public class DrawCercleTBCtrl extends OpTBCtrl {
+public class DrawCercleTBarCtrl extends OpTBarCtrl {
 
 	private final MyChangeListener<HotCercle.PointingState> pointing;
 	private final MyChangeListener<Double> rangeCListener;
@@ -24,7 +24,7 @@ public class DrawCercleTBCtrl extends OpTBCtrl {
 	@FXML private TextField rangeTField;
 
 
-	public DrawCercleTBCtrl(OpCentral central) {
+	public DrawCercleTBarCtrl(OpCentral central) {
 		super(central);
 
 		// init comb box

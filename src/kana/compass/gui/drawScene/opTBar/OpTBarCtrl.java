@@ -1,4 +1,4 @@
-package kana.compass.gui.drawScene.opTB;
+package kana.compass.gui.drawScene.opTBar;
 
 import javafx.beans.value.ObservableValue;
 import kana.compass.logic.MyChangeListener;
@@ -6,11 +6,11 @@ import kana.compass.logic.OpCentral;
 import kana.compass.stage.transition.Ctrl;
 
 
-public abstract class OpTBCtrl extends Ctrl {
+public abstract class OpTBarCtrl extends Ctrl {
 
 	private final OpCentral central;
 
-	public OpTBCtrl(OpCentral central) {
+	public OpTBarCtrl(OpCentral central) {
 		this.central = central;
 	}
 

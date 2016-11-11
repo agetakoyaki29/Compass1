@@ -1,4 +1,4 @@
-package kana.compass.gui.drawScene.opTB;
+package kana.compass.gui.drawScene.opTBar;
 
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.BooleanProperty;
@@ -12,7 +12,7 @@ import kana.compass.util.Util;
 import kana.compass.util.strConv.SafeDoubleStrConv;
 
 
-public class DrawLineTBCtrl extends OpTBCtrl {
+public class DrawLineTBarCtrl extends OpTBarCtrl {
 
 	private final MyChangeListener<Boolean> aaSelectedCListener;
 	private final MyChangeListener<Double> angleCListener;
@@ -21,7 +21,7 @@ public class DrawLineTBCtrl extends OpTBCtrl {
 	@FXML private TextField angleTField;
 
 
-	public DrawLineTBCtrl(OpCentral central) {
+	public DrawLineTBarCtrl(OpCentral central) {
 		super(central);
 
 		// local var

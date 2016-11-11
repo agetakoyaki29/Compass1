@@ -17,14 +17,14 @@ import kana.compass.geometry.Geo;
 import kana.compass.gui.drawScene.CanvasManager;
 import kana.compass.gui.drawScene.CanvasMouseHandler;
 import kana.compass.gui.drawScene.DrawSceneCtrl;
-import kana.compass.gui.drawScene.opTB.OpTBCtrl;
-import kana.compass.gui.drawScene.opTB.OpTBFactory;
+import kana.compass.gui.drawScene.opTBar.OpTBarCtrl;
+import kana.compass.gui.drawScene.opTBar.OpTBarFactory;
 import kana.compass.util.Util;
 
 
 public class OpCentral {
 
-	private final OpTBFactory factory = new OpTBFactory(this);
+	private final OpTBarFactory factory = new OpTBarFactory(this);
 
 	private final DrawSceneCtrl ctrl;
 	private final CanvasManager manager;
@@ -68,9 +68,9 @@ public class OpCentral {
 //		handler.clearOnClickedRight();
 	}
 
-	public void setOpTB(Class<? extends OpTBCtrl> clazz) {
-		Node opTB = factory.makeOpTB(clazz);
-		ctrl.setOpTB(opTB);
+	public void setOpTBar(Class<? extends OpTBarCtrl> clazz) {
+		Node opTBar = factory.makeOpTBar(clazz);
+		ctrl.setOpTB(opTBar);
 	}
 
 	// ---- hot drawings ----
@@ -123,11 +123,11 @@ public class OpCentral {
 	public abstract class Operation {
 
 		protected Operation(OpCentral outer) {
-			Class<? extends OpTBCtrl> clazz = getDefaultOpTBCtrl();
-			if(!clazz.equals(OpTBFactory.NON)) setOpTB(clazz);
+			Class<? extends OpTBarCtrl> clazz = getDefaultOpTBarCtrl();
+			if(!clazz.equals(OpTBarFactory.NON)) setOpTBar(clazz);
 		}
 
-		public abstract Class<? extends OpTBCtrl> getDefaultOpTBCtrl();
+		public abstract Class<? extends OpTBarCtrl> getDefaultOpTBarCtrl();
 
 		public final void push(String name, Object param) {
 			String methodName = "push" + name.substring(0, 1).toUpperCase() + name.substring(1);
