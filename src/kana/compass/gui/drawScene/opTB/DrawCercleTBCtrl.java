@@ -12,7 +12,7 @@ import kana.compass.logic.MyChangeListener;
 import kana.compass.logic.OpCentral;
 import kana.compass.util.Util;
 import kana.compass.util.strConv.JunkObjStrConv;
-import kana.compass.util.strConv.MyDoubleStrConv;
+import kana.compass.util.strConv.SafeDoubleStrConv;
 
 
 public class DrawCercleTBCtrl extends OpTBCtrl {
@@ -35,7 +35,7 @@ public class DrawCercleTBCtrl extends OpTBCtrl {
 		// local var
 		ObjectProperty<PointingState> ptngValue = ptngCBox.valueProperty();
 		ObjectProperty<String> rangeWrtnProp = Util.writtenProperty(rangeTField);
-		ObjectBinding<Double> rangeWrtnDoubleBinding = Util.fromStringBinding(new MyDoubleStrConv(), rangeWrtnProp);
+		ObjectBinding<Double> rangeWrtnDoubleBinding = Util.fromStringBinding(new SafeDoubleStrConv(), rangeWrtnProp);
 
 		// manage
 

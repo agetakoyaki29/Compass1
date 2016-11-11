@@ -2,7 +2,7 @@ package kana.compass.util.strConv;
 
 import javafx.util.StringConverter;
 
-public class MyDoubleStrConv extends StringConverter<Double> {
+public class SafeDoubleStrConv extends StringConverter<Double> {
     @Override public Double fromString(String value) {
         // If the specified value is null or zero-length, return null
         if (value == null) {
