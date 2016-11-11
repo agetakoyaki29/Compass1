@@ -1,16 +1,16 @@
-package kana.compass.util;
+package kana.compass.util.strConv;
 
 import javafx.util.StringConverter;
 
-public class ExpStringConverter extends StringConverter<Double> {
+public class ExpStrConv extends StringConverter<Double> {
 
 	private final String format;
 
-	public ExpStringConverter() {
+	public ExpStrConv() {
 		this(3, 1);
 		// format = "%.2fe%+02d";
 	}
-	public ExpStringConverter(int mantissaDigit, int exponentDigit) {
+	public ExpStrConv(int mantissaDigit, int exponentDigit) {
 		mantissaDigit -= 1;
 		exponentDigit += 1;
 		format = "%."+mantissaDigit+"fe%+0"+exponentDigit+"d";

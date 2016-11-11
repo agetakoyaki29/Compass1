@@ -21,8 +21,8 @@ import kana.compass.gui.menuBar.MenuBarCtrl;
 import kana.compass.logic.OpCentral;
 import kana.compass.logic.ScopeTransform;
 import kana.compass.stage.transition.SceneCtrl;
-import kana.compass.util.ExpStringConverter;
 import kana.compass.util.Util;
+import kana.compass.util.strConv.ExpStrConv;
 import kana.scene.control.RadioToggleButton;
 
 
@@ -88,7 +88,7 @@ public class DrawSceneCtrl extends SceneCtrl {
 
 		// property bind
 		scopeLabel.textProperty().bind(
-				Util.toStringBinding(new ExpStringConverter(), scope.powerProperty().asObject()) );
+				Util.toStringBinding(new ExpStrConv(), scope.powerProperty().asObject()) );
 
 		// handle event
 

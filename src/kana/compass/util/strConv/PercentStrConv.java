@@ -1,8 +1,8 @@
-package kana.compass.util;
+package kana.compass.util.strConv;
 
 import javafx.util.StringConverter;
 
-public class PercentStringConverter extends StringConverter<String> {
+public class PercentStrConv extends StringConverter<String> {
 
 	@Override
 	public String toString(String object) {

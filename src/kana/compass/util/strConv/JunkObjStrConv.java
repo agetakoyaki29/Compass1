@@ -1,8 +1,8 @@
-package kana.compass.util;
+package kana.compass.util.strConv;
 
 import javafx.util.StringConverter;
 
-public class JunkObjectStringConverter<T> extends StringConverter<T> {
+public class JunkObjStrConv<T> extends StringConverter<T> {
 
 	@Override
 	public String toString(T value) {

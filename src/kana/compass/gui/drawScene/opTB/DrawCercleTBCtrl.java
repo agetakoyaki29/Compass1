@@ -10,9 +10,9 @@ import kana.compass.drawn.hot.HotCercle;
 import kana.compass.drawn.hot.HotCercle.PointingState;
 import kana.compass.logic.MyChangeListener;
 import kana.compass.logic.OpCentral;
-import kana.compass.util.JunkObjectStringConverter;
-import kana.compass.util.MyDoubleStringConverter;
 import kana.compass.util.Util;
+import kana.compass.util.strConv.JunkObjStrConv;
+import kana.compass.util.strConv.MyDoubleStrConv;
 
 
 public class DrawCercleTBCtrl extends OpTBCtrl {
@@ -28,14 +28,14 @@ public class DrawCercleTBCtrl extends OpTBCtrl {
 		super(central);
 
 		// init comb box
-		ptngCBox.setConverter(new JunkObjectStringConverter<HotCercle.PointingState>());
+		ptngCBox.setConverter(new JunkObjStrConv<HotCercle.PointingState>());
 		ptngCBox.setItems(FXCollections.observableArrayList(HotCercle.PointingState.values()));
 		ptngCBox.setValue(HotCercle.PointingState.P2);	// init value
 
 		// local var
 		ObjectProperty<PointingState> ptngValue = ptngCBox.valueProperty();
 		ObjectProperty<String> rangeWrtnProp = Util.writtenProperty(rangeTField);
-		ObjectBinding<Double> rangeWrtnDoubleBinding = Util.fromStringBinding(new MyDoubleStringConverter(), rangeWrtnProp);
+		ObjectBinding<Double> rangeWrtnDoubleBinding = Util.fromStringBinding(new MyDoubleStrConv(), rangeWrtnProp);
 
 		// manage
 

@@ -8,8 +8,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import kana.compass.logic.MyChangeListener;
 import kana.compass.logic.OpCentral;
-import kana.compass.util.MyDoubleStringConverter;
 import kana.compass.util.Util;
+import kana.compass.util.strConv.MyDoubleStrConv;
 
 
 public class DrawLineTBCtrl extends OpTBCtrl {
@@ -27,7 +27,7 @@ public class DrawLineTBCtrl extends OpTBCtrl {
 		// local var
 		ObjectProperty<String> angleWrtnProp = Util.writtenProperty(angleTField);
 		BooleanProperty axisAlignSlctProp = axisAlignCheckBox.selectedProperty();
-		ObjectBinding<Double> angleWrtnDoubleBinding = Util.fromStringBinding(new MyDoubleStringConverter(), angleWrtnProp);
+		ObjectBinding<Double> angleWrtnDoubleBinding = Util.fromStringBinding(new MyDoubleStrConv(), angleWrtnProp);
 
 		// manage prop
 		angleWrtnProp.addListener((v, o, n) -> {
