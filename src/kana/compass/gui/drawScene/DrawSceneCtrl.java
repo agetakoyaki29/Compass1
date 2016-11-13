@@ -17,7 +17,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import kana.compass.MainApp;
 import kana.compass.gui.SimplePopup;
-import kana.compass.gui.menuBar.MenuBarCtrl;
+import kana.compass.gui.drawScene.menuBar.MenuBarCtrl;
 import kana.compass.logic.OpCentral;
 import kana.compass.logic.ScopeTransform;
 import kana.compass.stage.transition.SceneCtrl;

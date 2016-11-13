@@ -1,4 +1,4 @@
-package kana.compass.gui.menuBar;
+package kana.compass.gui.drawScene.menuBar;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

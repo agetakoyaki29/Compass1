@@ -18,6 +18,8 @@
     <Menu mnemonicParsing="false" text="Edit">
       <items>
         <MenuItem mnemonicParsing="false" onAction="#delete" text="Delete" />
+            <MenuItem disable="true" mnemonicParsing="false" text="Undo" />
+            <MenuItem disable="true" mnemonicParsing="false" text="Redo" />
       </items>
     </Menu>
     <Menu mnemonicParsing="false" text="Help">
