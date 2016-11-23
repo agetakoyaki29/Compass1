@@ -99,7 +99,7 @@ public class DrawSceneCtrl extends SceneCtrl {
 		button1.setTooltip(new Tooltip("for test"));
 //		button1.setOnAction(event -> MainApp.MovePage(CanvasPageController.class));
 //		button2.setOnAction(event -> { center.setHotDrawn(Test.class); });
-		button3.setOnAction(event -> drawCercle.setSelected(true));
+		button3.setOnAction(event -> {System.out.println(button1.getStyle());});
 	}
 
 	// ----

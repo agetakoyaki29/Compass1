@@ -14,24 +14,6 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <BorderPane fx:id="mainPane" stylesheets="@DrawScene.css" BorderPane.alignment="CENTER">
-         <left>
-            <Pane fx:id="tool" minWidth="100.0" styleClass="border-pane-left" BorderPane.alignment="CENTER">
-               <children>
-                  <Button fx:id="button1" layoutX="4.0" layoutY="14.0" mnemonicParsing="false" text="Button1" />
-                  <Button fx:id="button2" layoutX="4.0" layoutY="52.0" mnemonicParsing="false" text="Button2">
-                     <tooltip>
-                        <Tooltip text="Empty Tooltip" />
-                     </tooltip></Button>
-                  <Button fx:id="button3" layoutX="4.0" layoutY="83.0" mnemonicParsing="false" text="Button3" />
-                  <RadioToggleButton fx:id="drawLine" layoutX="4.0" layoutY="134.0" selected="true" text="／">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="toggleGroup" />
-                     </toggleGroup>
-                  </RadioToggleButton>
-                  <RadioToggleButton fx:id="drawCercle" layoutX="4.0" layoutY="172.0" text="〇" toggleGroup="$toggleGroup" />
-               </children>
-            </Pane>
-         </left>
          <right>
             <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefWidth="200.0" styleClass="bordered-pane-right" BorderPane.alignment="CENTER">
                <items>
@@ -56,7 +38,8 @@
          <top>
             <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" styleClass="bordered-pane-top" BorderPane.alignment="CENTER">
               <items>
-                <Button mnemonicParsing="false" text="Button" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="見えちょ" />
+                <Button mnemonicParsing="false" text="だめ！" />
               </items>
             </ToolBar>
          </top>
@@ -139,6 +122,53 @@
                </children>
             </AnchorPane>
          </bottom>
+         <left>
+            <AnchorPane prefWidth="120.0" styleClass="border-pane-left" BorderPane.alignment="CENTER">
+               <children>
+                  <FlowPane prefWrapLength="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <CheckBox mnemonicParsing="false" text="CheckBox" />
+                        <ToolBar orientation="VERTICAL">
+                           <items>
+                              <Button fx:id="button1" mnemonicParsing="false" text="Button1" />
+                              <Button fx:id="button2" mnemonicParsing="false" text="Button2">
+                                 <tooltip>
+                                    <Tooltip text="Empty Tooltip" />
+                                 </tooltip>
+                              </Button>
+                              <Button fx:id="button3" mnemonicParsing="false" text="Button3" />
+                           </items>
+                        </ToolBar>
+                        <ToolBar orientation="VERTICAL">
+                           <items>
+                              <RadioToggleButton fx:id="drawLine" selected="true" text="／">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="toggleGroup" />
+                                 </toggleGroup>
+                                 <tooltip>
+                                    <Tooltip text="draw line" />
+                                 </tooltip>
+                              </RadioToggleButton>
+                              <RadioToggleButton fx:id="drawCercle" text="〇" toggleGroup="$toggleGroup">
+                                 <tooltip>
+                                    <Tooltip text="draw circle" />
+                                 </tooltip>
+                              </RadioToggleButton>
+                           </items>
+                        </ToolBar>
+                        <ToolBar orientation="VERTICAL">
+                          <items>
+                            <Button mnemonicParsing="false" text="Button" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                              <Text layoutX="10.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                              <Text layoutX="10.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                          </items>
+                        </ToolBar>
+                     </children>
+                  </FlowPane>
+               </children>
+            </AnchorPane>
+         </left>
       </BorderPane>
    </center>
    <top>
