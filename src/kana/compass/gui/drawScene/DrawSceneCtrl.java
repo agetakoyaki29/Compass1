@@ -15,7 +15,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import kana.compass.MainApp;
 import kana.compass.gui.SimplePopup;
 import kana.compass.gui.drawScene.menuBar.MenuBarCtrl;
 import kana.compass.logic.OpCentral;
@@ -55,7 +54,7 @@ public class DrawSceneCtrl extends SceneCtrl {
 	@Override
 	public void init() {
 		// init gui
-		Stage stage = MainApp.getInstance().getStage();
+		Stage stage = getStage();
 		stage.setWidth(800);
 		stage.setHeight(600);
 		stage.centerOnScreen();

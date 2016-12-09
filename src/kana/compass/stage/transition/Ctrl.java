@@ -5,6 +5,7 @@ import java.net.URL;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.stage.Window;
 import kana.compass.util.MyRuntimeException;
 
 
@@ -13,28 +14,42 @@ public abstract class Ctrl {
 	private final Parent root;
 
 	public Ctrl() {
-		FXMLLoader loader = new FXMLLoader( getFXMLURL() );
+		FXMLLoader loader = new FXMLLoader(getFXMLLocation());
 		loader.setController(this);
 
 		try {
 			loader.load();
 		} catch (IOException e) {
-			throw new MyRuntimeException(e);
+			throw new MyRuntimeException("loader can't load with file("+getFXMLLocation()+")", e);
 		}
 
 		root = loader.getRoot();
 	}
 
 	/**
-	 * 同階層かつ、正しい命名則のときだけ
+	 * クラスの命名則に依存する
 	 */
-	protected URL getFXMLURL() {
+	protected String getFXMLName() {
+		String prefix = "C";
 		String className = getClass().getSimpleName();
-		int last = className.lastIndexOf("C");
-		String fileName = className.substring(0, last).concat(".fxml");
-		return getClass().getResource(fileName);
+		int lastIndex = className.lastIndexOf(prefix);
+		if(lastIndex < 0) throw new MyRuntimeException("class name("+className+") doesn't include prefix("+prefix+").");
+		String fileName = className.substring(0, lastIndex).concat(".fxml");
+		return fileName;
+	}
+
+	/**
+	 * このクラスのクラスローダを使う
+	 */
+	protected URL getFXMLLocation() {
+		String fileName = getFXMLName();
+		URL location = getClass().getResource(fileName);
+		if(location == null) throw new MyRuntimeException("class("+getClass()+") can't find a file with name("+fileName+").");
+		return location;
 	}
 
 	public Parent getRoot() { return root; }
+
+	public Window getWindow() { return root.getScene().getWindow(); }
 
 }

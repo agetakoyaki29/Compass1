@@ -8,5 +8,8 @@ public class MyRuntimeException extends RuntimeException {
 	public MyRuntimeException(Throwable cause) {
 		super(cause);
 	}
+	public MyRuntimeException(String message, Throwable cause) {
+		super(message, cause);
+	}
 
 }
