@@ -1,20 +1,18 @@
 package kana.compass;
 
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import kana.compass.gui.drawScene.DrawSceneCtrl;
+import kana.compass.gui.startScene.StartSceneCtrl;
 import kana.compass.stage.transition.Launcher;
 
 
 public final class MainApp extends Launcher{
 
-	private final Stage toy;
+	private final Stage toy = new Stage();
 
 	public MainApp() {
-		toy = new Stage();
 		toy();
 	}
 
@@ -22,10 +20,10 @@ public final class MainApp extends Launcher{
 	public void start(Stage stage) {
 		super.start(stage);
 
-//		stage.setTitle("たいとる");
-//		stage.setWidth(100);
-//		stage.setHeight(100);
-//		stage.centerOnScreen();
+		stage.setTitle("たいとる");
+		stage.setWidth(100);
+		stage.setHeight(100);
+		stage.centerOnScreen();
 
 		moveScene(new DrawSceneCtrl());
 		stage.show();
@@ -37,12 +35,12 @@ public final class MainApp extends Launcher{
 	}
 
 	private void toy() {
-		toy.initStyle(StageStyle.TRANSPARENT);
-		toy.setWidth(300);
-		toy.setHeight(200);
+		StartSceneCtrl startSceneCtrl = new StartSceneCtrl();
+		toy.setScene(new Scene(startSceneCtrl.getRoot()));
+
+		toy.initStyle(StageStyle.UNDECORATED);
 		toy.centerOnScreen();
 
-		toy.setScene(new Scene(new AnchorPane(new Canvas())));
 		toy.show();
 	}
 
