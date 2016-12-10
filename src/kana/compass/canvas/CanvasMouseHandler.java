@@ -1,4 +1,4 @@
-package kana.compass.gui.drawScene;
+package kana.compass.canvas;
 
 import java.util.function.Consumer;
 

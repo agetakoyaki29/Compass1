@@ -1,4 +1,4 @@
-package kana.compass.gui.drawScene;
+package kana.compass.canvas;
 
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.ReadOnlyDoubleProperty;
@@ -6,8 +6,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ScrollPane;
 import kana.compass.geometry.Geo;
-import kana.compass.logic.HotPaper;
-import kana.compass.logic.Paper;
 import kana.compass.logic.ScopeTransform;
 
 

@@ -10,12 +10,14 @@ import java.util.stream.Stream;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import kana.compass.canvas.CanvasManager;
+import kana.compass.canvas.CanvasMouseHandler;
+import kana.compass.canvas.HotPaper;
+import kana.compass.canvas.Paper;
 import kana.compass.drawn.Drawn;
 import kana.compass.drawn.hot.HotCercle;
 import kana.compass.drawn.hot.HotLine;
 import kana.compass.geometry.Geo;
-import kana.compass.gui.drawScene.CanvasManager;
-import kana.compass.gui.drawScene.CanvasMouseHandler;
 import kana.compass.gui.drawScene.DrawSceneCtrl;
 import kana.compass.gui.drawScene.opTBar.OpTBarCtrl;
 import kana.compass.gui.drawScene.opTBar.OpTBarFactory;
