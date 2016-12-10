@@ -2,8 +2,6 @@ package kana.compass.canvas;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import kana.compass.logic.Pen;
-import kana.compass.logic.ScopeTransform;
 
 
 public abstract class AbstractPaper {

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.StackPane?>
+
+
+<ScrollPane hbarPolicy="NEVER" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <StackPane>
+         <children>
+            <Canvas fx:id="canvas" cache="true" cacheHint="SPEED" />
+            <Canvas fx:id="hotCanvas" />
+         </children>
+      </StackPane>
+   </content>
+</ScrollPane>

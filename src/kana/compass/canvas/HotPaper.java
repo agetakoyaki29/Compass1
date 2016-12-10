@@ -2,8 +2,6 @@ package kana.compass.canvas;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import kana.compass.logic.OpCentral;
-import kana.compass.logic.ScopeTransform;
 import kana.compass.logic.OpCentral.HotDrawn;
 
 public class HotPaper extends AbstractPaper {

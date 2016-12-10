@@ -6,8 +6,8 @@ import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
-import kana.compass.logic.MyChangeListener;
 import kana.compass.logic.OpCentral;
+import kana.compass.util.MyChangeListener;
 import kana.compass.util.Util;
 import kana.compass.util.strConv.SafeDoubleStrConv;
 

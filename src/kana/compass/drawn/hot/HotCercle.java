@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javafx.geometry.Point2D;
+import kana.compass.canvas.Pen;
 import kana.compass.drawn.Cercle;
 import kana.compass.drawn.Drawn;
 import kana.compass.geometry.Geo;
@@ -11,7 +12,6 @@ import kana.compass.gui.drawScene.opTBar.DrawCercleTBarCtrl;
 import kana.compass.gui.drawScene.opTBar.OpTBarCtrl;
 import kana.compass.logic.OpCentral;
 import kana.compass.logic.OpCentral.HotDrawn;
-import kana.compass.logic.Pen;
 
 
 public class HotCercle extends HotDrawn {

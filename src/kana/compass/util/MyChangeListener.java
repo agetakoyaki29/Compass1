@@ -1,4 +1,4 @@
-package kana.compass.logic;
+package kana.compass.util;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

@@ -10,10 +10,13 @@ import java.util.stream.Stream;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
-import kana.compass.canvas.CanvasManager;
 import kana.compass.canvas.CanvasMouseHandler;
+import kana.compass.canvas.DrawnPool;
 import kana.compass.canvas.HotPaper;
 import kana.compass.canvas.Paper;
+import kana.compass.canvas.Pen;
+import kana.compass.canvas.ScopeTransform;
+import kana.compass.canvas.TwinCanvasCtrl;
 import kana.compass.drawn.Drawn;
 import kana.compass.drawn.hot.HotCercle;
 import kana.compass.drawn.hot.HotLine;
@@ -29,7 +32,7 @@ public class OpCentral {
 	private final OpTBarFactory factory = new OpTBarFactory(this);
 
 	private final DrawSceneCtrl ctrl;
-	private final CanvasManager manager;
+	private final TwinCanvasCtrl twinCanvasCtrl;
 	private final CanvasMouseHandler handler;
 	private final ScopeTransform scope;
 	private final Paper paper;
@@ -38,13 +41,13 @@ public class OpCentral {
 
 	private Operation op = null;
 
-	public OpCentral(DrawSceneCtrl ctrl, CanvasManager manager) {
+	public OpCentral(DrawSceneCtrl ctrl, TwinCanvasCtrl twinCanvasCtrl) {
 		this.ctrl = ctrl;
-		this.manager = manager;
-		this.handler = manager.getHandler();
-		this.scope = manager.getScope();
-		this.paper = manager.getPaper();
-		this.hotPaper = manager.getHotPaper();
+		this.twinCanvasCtrl = twinCanvasCtrl;
+		this.handler = twinCanvasCtrl.getHandler();
+		this.scope = twinCanvasCtrl.getScope();
+		this.paper = twinCanvasCtrl.getPaper();
+		this.hotPaper = twinCanvasCtrl.getHotPaper();
 		this.pool = paper.getPool();
 
 		setOnLeftClicked4FreePoint(pt -> push("freePoint", pt));

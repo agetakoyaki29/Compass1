@@ -1,4 +1,4 @@
-package kana.compass.logic;
+package kana.compass.canvas;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;

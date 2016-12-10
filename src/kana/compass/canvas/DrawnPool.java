@@ -1,4 +1,4 @@
-package kana.compass.logic;
+package kana.compass.canvas;
 
 import java.util.ArrayList;
 import java.util.HashSet;

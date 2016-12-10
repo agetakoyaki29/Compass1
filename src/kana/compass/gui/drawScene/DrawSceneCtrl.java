@@ -2,37 +2,30 @@ package kana.compass.gui.drawScene;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import kana.compass.canvas.CanvasManager;
+import kana.compass.canvas.ScopeTransform;
+import kana.compass.canvas.TwinCanvasCtrl;
 import kana.compass.gui.SimplePopup;
 import kana.compass.gui.drawScene.menuBar.MenuBarCtrl;
 import kana.compass.logic.OpCentral;
-import kana.compass.logic.ScopeTransform;
 import kana.compass.stage.transition.SceneCtrl;
 import kana.compass.util.Util;
 import kana.compass.util.strConv.ExpStrConv;
 import kana.scene.control.RadioToggleButton;
+import lombok.Getter;
 
 
 public class DrawSceneCtrl extends SceneCtrl {
 
 	@FXML private BorderPane mainPane;
-
-	@FXML private ScrollPane canvasScrollPane;
-	@FXML private Canvas canvas;
-	@FXML private Canvas hotCanvas;
 
 	@FXML private Button button1;
 	@FXML private Button button2;
@@ -45,15 +38,19 @@ public class DrawSceneCtrl extends SceneCtrl {
 	@FXML private Text statusText;
 	@FXML private Label scopeLabel;
 
-	private MenuBarCtrl menuBarCtrl;
-
+	private TwinCanvasCtrl twinCanvasCtrl;
 	private ScopeTransform scope;
-	private CanvasManager manager;
-	private OpCentral central;
-
+	
+	@Override
+	public BorderPane getRoot() {
+		return (BorderPane) super.getRoot();
+	}
 
 	@Override
 	public void init() {
+		MenuBarCtrl menuBarCtrl;
+		OpCentral central;
+		
 		// init gui
 		Stage stage = getStage();
 		stage.setWidth(800);
@@ -61,26 +58,23 @@ public class DrawSceneCtrl extends SceneCtrl {
 		stage.centerOnScreen();
 		stage.setMaximized(true);
 
-		BorderPane root = (BorderPane) getRoot();
-		menuBarCtrl = new MenuBarCtrl(this);
-//		root.getChildren().add(0, menuBarCtrl.getRoot());
+		BorderPane root = getRoot();
+		
+		// set menu
+		menuBarCtrl = new MenuBarCtrl();
 		root.setTop(menuBarCtrl.getRoot());
-
-		// canvas full screen
-		Rectangle2D screen = Screen.getPrimary().getVisualBounds();
-		canvas.setWidth(screen.getWidth());
-		canvas.setHeight(screen.getHeight());
-		hotCanvas.setWidth(canvas.getWidth());
-		hotCanvas.setHeight(canvas.getHeight());
+		
+		// set twin canvas
+		twinCanvasCtrl = new TwinCanvasCtrl();
+		mainPane.setCenter(twinCanvasCtrl.getRoot());
 
 		// status pane
 		scopeLabel.getStyleClass().setAll("label");
 
 		// init logic
-		manager = new CanvasManager(canvasScrollPane, canvas, hotCanvas);
-		central = new OpCentral(this, manager);
+		central = new OpCentral(this, twinCanvasCtrl);
 
-		scope = manager.getScope();
+		scope = twinCanvasCtrl.getScope();
 
 		// set event handler
 		drawLine.setOnAction(event ->  central.drawLine());
@@ -107,22 +101,22 @@ public class DrawSceneCtrl extends SceneCtrl {
 	@FXML
 	public void onCtxItmInitScope(ActionEvent event) {
 		scope.initTrans();
-		manager.repaint();
+		twinCanvasCtrl.repaint();
 	}
 	@FXML
 	public void onCtxItmResetScope(ActionEvent event) {
 		scope.setScale(1);
-		manager.repaint();
+		twinCanvasCtrl.repaint();
 	}
 	@FXML
 	public void onCtxBtnPlusScope(ActionEvent event) {
 		scope.appendScale(1.5);
-		manager.repaint();
+		twinCanvasCtrl.repaint();
 	}
 	@FXML
 	public void onCtxBtnMinusScope(ActionEvent event) {
 		scope.appendScale(1/1.5);
-		manager.repaint();
+		twinCanvasCtrl.repaint();
 	}
 	@FXML
 	public void onTBScopeClicked(MouseEvent event) {
@@ -132,11 +126,6 @@ public class DrawSceneCtrl extends SceneCtrl {
 //		event.consume();
 	}
 
-	// ---- access to components ----
-
-	public MenuBarCtrl getMenuBarCtrl() { return menuBarCtrl; }
-	public OpCentral getActionManager() { return central; }
-
 	// ----
 
 	public void setStatusText(String text) {
@@ -144,7 +133,7 @@ public class DrawSceneCtrl extends SceneCtrl {
 	}
 
 	public void showSimplePopup(String text) {
-		new SimplePopup(text).show(canvas);
+		new SimplePopup(text).show(twinCanvasCtrl.getRoot());
 	}
 
 	public void setOpTB(Node opTB) {

@@ -3,19 +3,14 @@ package kana.compass.gui.drawScene.menuBar;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
-import kana.compass.gui.drawScene.DrawSceneCtrl;
 import kana.compass.stage.transition.Ctrl;
 
 public class MenuBarCtrl extends Ctrl {
 
 	@FXML private MenuItem close;
 
-	private DrawSceneCtrl canvasPageController;
-
-	public MenuBarCtrl(DrawSceneCtrl canvasPageController) {
+	public MenuBarCtrl() {
 		super();
-
-		this.canvasPageController = canvasPageController;
 
 		close.setOnAction(e -> System.out.println(1));
 	}

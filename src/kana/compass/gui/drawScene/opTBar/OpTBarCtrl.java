@@ -1,9 +1,9 @@
 package kana.compass.gui.drawScene.opTBar;
 
 import javafx.beans.value.ObservableValue;
-import kana.compass.logic.MyChangeListener;
 import kana.compass.logic.OpCentral;
 import kana.compass.stage.transition.Ctrl;
+import kana.compass.util.MyChangeListener;
 
 
 public abstract class OpTBarCtrl extends Ctrl {

@@ -1,4 +1,4 @@
-package kana.compass.logic;
+package kana.compass.canvas;
 
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;

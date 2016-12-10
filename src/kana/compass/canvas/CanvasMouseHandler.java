@@ -9,7 +9,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import kana.compass.geometry.Geo;
-import kana.compass.logic.ScopeTransform;
 
 
 public class CanvasMouseHandler {

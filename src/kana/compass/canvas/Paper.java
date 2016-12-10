@@ -6,8 +6,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import kana.compass.drawn.Drawn;
 import kana.compass.drawn.Layer;
-import kana.compass.logic.DrawnPool;
-import kana.compass.logic.ScopeTransform;
 
 
 public class Paper extends AbstractPaper{

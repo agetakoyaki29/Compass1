@@ -2,28 +2,39 @@ package kana.compass.canvas;
 
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ScrollPane;
+import javafx.stage.Screen;
 import kana.compass.geometry.Geo;
-import kana.compass.logic.ScopeTransform;
+import kana.compass.stage.transition.Ctrl;
+import lombok.Getter;
 
 
-public class CanvasManager {
-
-	private final ScrollPane sp;
-	private final Canvas canvas;
-	private final Canvas hotCanvas;
+public class TwinCanvasCtrl extends Ctrl {
+	
+	@FXML private Canvas canvas;
+	@FXML private Canvas hotCanvas;
+	
+	@Getter
 	private final ScopeTransform scope;
-
+	@Getter
 	private final CanvasMouseHandler handler;
+	@Getter
 	private final Paper paper;
+	@Getter
 	private final HotPaper hotPaper;
-
-	public CanvasManager(ScrollPane sp, Canvas canvas, Canvas hotCanvas) {
-		this.sp = sp;
-		this.canvas = canvas;
-		this.hotCanvas = hotCanvas;
+	
+	public TwinCanvasCtrl() {
+		// canvas full screen
+		Rectangle2D screen = Screen.getPrimary().getVisualBounds();
+		canvas.setWidth(screen.getWidth());
+		canvas.setHeight(screen.getHeight());
+		hotCanvas.setWidth(canvas.getWidth());
+		hotCanvas.setHeight(canvas.getHeight());
+		
 		ObjectBinding<Point2D> centerProperty = makeCenterProperty();
 		this.scope = new ScopeTransform(centerProperty);
 		handler = new CanvasMouseHandler(hotCanvas, scope);
@@ -50,10 +61,10 @@ public class CanvasManager {
 		hotPaper.repaint();
 	}
 
-	public Paper getPaper() { return paper; }
-	public HotPaper getHotPaper() { return hotPaper; }
-	public CanvasMouseHandler getHandler() { return handler; }
-	public ScopeTransform getScope() { return scope; }
+	@Override
+	public ScrollPane getRoot() {
+		return (ScrollPane) super.getRoot();
+	}
 
 	public void repaint() {
 		paper.repaint();
@@ -61,8 +72,8 @@ public class CanvasManager {
 	}
 
 	private ObjectBinding<Point2D> makeCenterProperty() {
-		ReadOnlyDoubleProperty width = sp.widthProperty();
-		ReadOnlyDoubleProperty height = sp.heightProperty();
+		ReadOnlyDoubleProperty width = getRoot().widthProperty();
+		ReadOnlyDoubleProperty height = getRoot().heightProperty();
 
 		ObjectBinding<Point2D> centerProperty = new ObjectBinding<Point2D>() {
 			{

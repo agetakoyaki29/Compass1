@@ -44,14 +44,8 @@
             </ToolBar>
          </top>
          <center>
-            <ScrollPane fx:id="canvasScrollPane" hbarPolicy="NEVER" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
+            <ScrollPane hbarPolicy="NEVER" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
                <content>
-                  <StackPane alignment="TOP_LEFT">
-                     <children>
-                        <Canvas fx:id="canvas" cache="true" cacheHint="SPEED" />
-                        <Canvas fx:id="hotCanvas" />
-                     </children>
-                  </StackPane>
                </content>
                <opaqueInsets>
                   <Insets />
